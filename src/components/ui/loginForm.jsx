@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import TextField from "./textField";
-import { validator } from "../utils/validator";
-const Login = () => {
+import React, { useState, useEffect } from "react";
+import TextField from "../common/form/textField";
+import { validator } from "../../utils/validator";
+
+const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
 
@@ -83,4 +84,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;
