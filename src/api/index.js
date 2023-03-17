@@ -1,7 +1,7 @@
 // import object from "./fake.api/object.api";
-import departmemt from "./fake.api/departments.api";
+import department from "./fake.api/departments.api";
 
 const API = {
-  departmemt,
+  department,
 };
 export default API;

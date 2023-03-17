@@ -1,7 +1,7 @@
-export const departmemt = [
+export const department = [
   { id: "1", id_sl: "16-а00120", name: "Руководство" },
   { id: "2", id_sl: "16-а00121", name: "Исполнители при руководстве" },
-  { id: "3", id_sl: "16-а00135", name: "Автотранспортный участок"},
+  { id: "3", id_sl: "16-а00135", name: "Автотранспортный участок" },
   { id: "4", id_sl: "16-а00129", name: "Хозяйственный участок" },
   { id: "5", id_sl: "16-а00134", name: "Служба АиМО" },
   { id: "6", id_sl: "16-а00132", name: "Служба по ЭГРС" },
@@ -13,7 +13,7 @@ export const departmemt = [
 const fetchAll = () =>
   new Promise((resolve) => {
     window.setTimeout(function () {
-      resolve(departmemt);
+      resolve(department);
     }, 2000);
   });
 

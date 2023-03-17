@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textField";
-import API from "../../api";
+import api from "../../api";
 import { validator } from "../../utils/validator";
+import SelectField from "../common/form/selectField";
 
 const RegisterForm = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
     fio: "",
-    departmemt: "",
+    department: "",
   });
-  const [departmemts, setDepartments] = useState();
+  const [departments, setDepartments] = useState();
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    API.departmemt.fetchAll().then((data) => setDepartments(data));
+    api.department.fetchAll().then((data) => setDepartments(data));
   }, []);
+
+  // useEffect(() => {
+  //   console.log("departments", departments);
+  // }, [departments]);
 
   const handleChange = ({ target }) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -41,6 +46,9 @@ const RegisterForm = () => {
     },
     fio: {
       isRequired: { message: "Поле 'ФИО' обязательно для заполнения" },
+    },
+    department: {
+      isRequired: { message: "Подразделение обязательно для заполнения" },
     },
   };
 
@@ -87,26 +95,14 @@ const RegisterForm = () => {
         onChange={handleChange}
         error={errors.fio}
       />
-      <div className="mb-4">
-        <label htmlFor="validationCustom04" className="form-label">
-          State
-        </label>
-        <select className="form-select" id="validationCustom04" required>
-          <option selected disabled value="">
-            Выберите подразделение...
-          </option>
-          {departmemts.map((departmemt) => (
-            <option
-              selected={departmemt.id === data.departmemt}
-              value={departmemt.id}
-            >
-              {departmemt.name}
-            </option>
-          ))}
-          <option>...</option>
-        </select>
-        <div className="invalid-feedback">Please select a valid state.</div>
-      </div>
+      <SelectField
+        onChange={handleChange}
+        options={departments}
+        defaultOption="Выберите подразделение..."
+        error={errors.department}
+        value={data.department}
+        label="Выберите ваше подразделение..."
+      />
       <button
         type="submit"
         disabled={!isValid}
