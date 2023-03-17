@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textField";
+import API from "../../api";
 import { validator } from "../../utils/validator";
 
 const RegisterForm = () => {
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+    fio: "",
+    departmemt: "",
+  });
+  const [departmemts, setDepartments] = useState();
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    API.departmemt.fetchAll().then((data) => setDepartments(data));
+  }, []);
 
   const handleChange = ({ target }) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -27,6 +38,9 @@ const RegisterForm = () => {
         message: "Пароль должен состоять минимум из 8 символов",
         value: 8,
       },
+    },
+    fio: {
+      isRequired: { message: "Поле 'ФИО' обязательно для заполнения" },
     },
   };
 
@@ -66,12 +80,39 @@ const RegisterForm = () => {
         onChange={handleChange}
         error={errors.password}
       />
+      <TextField
+        label="ФИО:"
+        name="fio"
+        value={data.fio}
+        onChange={handleChange}
+        error={errors.fio}
+      />
+      <div className="mb-4">
+        <label htmlFor="validationCustom04" className="form-label">
+          State
+        </label>
+        <select className="form-select" id="validationCustom04" required>
+          <option selected disabled value="">
+            Выберите подразделение...
+          </option>
+          {departmemts.map((departmemt) => (
+            <option
+              selected={departmemt.id === data.departmemt}
+              value={departmemt.id}
+            >
+              {departmemt.name}
+            </option>
+          ))}
+          <option>...</option>
+        </select>
+        <div className="invalid-feedback">Please select a valid state.</div>
+      </div>
       <button
         type="submit"
         disabled={!isValid}
         className="btn btn-primary w-100 mx-auto"
       >
-        submit
+        Зарегистрироваться
       </button>
     </form>
   );

@@ -71,7 +71,7 @@ const LoginForm = () => {
         disabled={!isValid}
         className="btn btn-primary w-100 mx-auto"
       >
-        submit
+        Войти
       </button>
     </form>
   );
