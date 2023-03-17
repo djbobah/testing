@@ -19,17 +19,18 @@ const SelectField = ({
         }))
       : options;
 
+  const handleChange = ({ target }) => {
+    onChange({ name: target.name, value: target.value });
+  };
   return (
     <div className="mb-4">
-      <label htmlFor="validationCustom04" className="form-label">
-        {label}
-      </label>
+      <label className="form-label">{label}</label>
       <select
         value={value}
         className={getInputClasses()}
         id="validationCustom04"
         name="department"
-        onChange={onChange}
+        onChange={handleChange}
         // required
       >
         <option disabled value="">

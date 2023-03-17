@@ -3,6 +3,9 @@ import TextField from "../common/form/textField";
 import api from "../../api";
 import { validator } from "../../utils/validator";
 import SelectField from "../common/form/selectField";
+import RadioField from "../common/form/radioField";
+import MultiSelectField from "../common/form/multiSelectField";
+import CheckBoxField from "../common/form/checkBoxField";
 
 const RegisterForm = () => {
   const [data, setData] = useState({
@@ -10,19 +13,24 @@ const RegisterForm = () => {
     password: "",
     fio: "",
     department: "",
+    sex: "male",
+    qualities: [],
+    license: false,
   });
+  const [qualities, setQualities] = useState({});
   const [departments, setDepartments] = useState();
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     api.department.fetchAll().then((data) => setDepartments(data));
+    api.qualities.fetchAll().then((data) => setQualities(data));
   }, []);
 
   // useEffect(() => {
   //   console.log("departments", departments);
   // }, [departments]);
 
-  const handleChange = ({ target }) => {
+  const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
 
@@ -49,6 +57,12 @@ const RegisterForm = () => {
     },
     department: {
       isRequired: { message: "Подразделение обязательно для заполнения" },
+    },
+    license: {
+      isRequired: {
+        message:
+          "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения",
+      },
     },
   };
 
@@ -103,6 +117,30 @@ const RegisterForm = () => {
         value={data.department}
         label="Выберите ваше подразделение..."
       />
+      <RadioField
+        options={[
+          { name: "Мужской", value: "male" },
+          { name: "Женский", value: "female" },
+        ]}
+        value={data.sex}
+        name="sex"
+        onChange={handleChange}
+        label="Выберите ваш пол:"
+      />
+      <MultiSelectField
+        options={qualities}
+        onChange={handleChange}
+        name="qualities"
+        label="Выберите ваши качаства"
+      />
+      <CheckBoxField
+        value={data.license}
+        onChange={handleChange}
+        name="license"
+        error={errors.license}
+      >
+        Подтвердить <a>лицензионное соглашение</a>
+      </CheckBoxField>
       <button
         type="submit"
         disabled={!isValid}
