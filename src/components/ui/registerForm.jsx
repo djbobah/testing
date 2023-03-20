@@ -93,6 +93,7 @@ const RegisterForm = () => {
         value={data.email}
         onChange={handleChange}
         error={errors.email}
+        autoFocus
       />{" "}
       <TextField
         label="Пароль:"
@@ -112,6 +113,7 @@ const RegisterForm = () => {
       <SelectField
         onChange={handleChange}
         options={departments}
+        name="department"
         defaultOption="Выберите подразделение..."
         error={errors.department}
         value={data.department}
@@ -130,6 +132,7 @@ const RegisterForm = () => {
       <MultiSelectField
         options={qualities}
         onChange={handleChange}
+        defaultValue={data.qualities}
         name="qualities"
         label="Выберите ваши качаства"
       />

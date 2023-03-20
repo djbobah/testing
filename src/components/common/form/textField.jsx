@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 
-const TextField = ({ label, type, name, value, onChange, error }) => {
+const TextField = ({
+  label,
+  type,
+  name,
+  value,
+  onChange,
+  error,
+  autoFocus,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const getInputClasses = () => {
     return "form-control " + (error ? "is-invalid" : "");
@@ -23,6 +31,7 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
           value={value}
           onChange={handleChange}
           className={getInputClasses()}
+          autoFocus={autoFocus}
         />
         {type === "password" && (
           <button

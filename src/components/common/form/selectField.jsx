@@ -3,6 +3,7 @@ import React from "react";
 const SelectField = ({
   label,
   value,
+  name,
   onChange,
   defaultOption,
   options,
@@ -24,12 +25,14 @@ const SelectField = ({
   };
   return (
     <div className="mb-4">
-      <label className="form-label">{label}</label>
+      <label htmlFor={name} className="form-label">
+        {label}
+      </label>
       <select
         value={value}
         className={getInputClasses()}
-        id="validationCustom04"
-        name="department"
+        id={name}
+        name={name}
         onChange={handleChange}
         // required
       >
