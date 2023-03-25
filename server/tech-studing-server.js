@@ -3,6 +3,8 @@ const config = require("config");
 const chalk = require("chalk");
 const { body, validationResult } = require("express-validator");
 const bodyParser = require("body-parser");
+const { userValidator } = require("./services/validators");
+const UserController = require("./controllers/users-controller");
 
 const app = express();
 app.use(express.json());
@@ -17,27 +19,7 @@ const PORT = config.get("port") ?? 8080;
 //   console.log("Development");
 // }
 
-app.post(
-  "/api/signUp",
-  [
-    body("email").trim().isEmail().normalizeEmail(),
-    body("password")
-      .not()
-      .isEmpty()
-      .trim()
-      .isLength({ min: 5 })
-      .withMessage("Длина пароля не может быть меньше 5 символов")
-      .matches(/\d/)
-      .withMessage("Пароль должен содержать хотябы 1 цифру"),
-  ],
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    res.send(req.body);
-  }
-);
+app.post("/api/signUp", userValidator, UserController.create);
 
 async function start() {
   try {
