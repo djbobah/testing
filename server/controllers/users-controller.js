@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 
 const { Users } = require("../models");
+const bcryptjs = require("bcryptjs");
 
 function create(req, res, next) {
   const errors = validationResult(req);
@@ -17,11 +18,13 @@ function create(req, res, next) {
         });
       } else {
         const { login, email, password } = req.body;
-        Users.create({ login, email, password });
+        const salt = bcryptjs.genSaltSync(10);
+        const passwordHash = bcryptjs.hashSync(password, salt);
+        Users.create({ login, email, password: passwordHash });
       }
     })
-    .then((user) => {
-      res.json(user);
+    .then((Users) => {
+      res.json(Users);
     })
     .catch((error) => {
       res.status(error.statusCode || 400).json({ error: error.message });
