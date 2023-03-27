@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 
 const { Users } = require("../models");
 const bcryptjs = require("bcryptjs");
+const validateDecorator = require("../services/validateDecorator");
 
 function create(req, res, next) {
   const errors = validationResult(req);
@@ -31,4 +32,8 @@ function create(req, res, next) {
     });
 }
 
-module.exports = { create };
+function login(req, res, next) {
+  console.log("Login");
+}
+
+module.exports = validateDecorator({ create, login });
