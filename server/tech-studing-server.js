@@ -3,7 +3,7 @@ const config = require("config");
 const chalk = require("chalk");
 const { body, validationResult } = require("express-validator");
 const bodyParser = require("body-parser");
-const { userValidator } = require("./services/validators");
+const { userValidator, loginValidator } = require("./services/validators");
 const UserController = require("./controllers/users-controller");
 
 const app = express();
@@ -20,6 +20,7 @@ const PORT = config.get("port") ?? 8080;
 // }
 
 app.post("/api/signUp", userValidator, UserController.create);
+app.post("/api/login", loginValidator, UserController.login);
 
 async function start() {
   try {

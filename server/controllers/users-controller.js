@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 const { Users } = require("../models");
 const bcryptjs = require("bcryptjs");
 const validateDecorator = require("../services/validateDecorator");
+const { createToken } = require("../services/authService");
 
 function create(req, res, next) {
   const errors = validationResult(req);
@@ -33,7 +34,16 @@ function create(req, res, next) {
 }
 
 function login(req, res, next) {
-  console.log("Login");
+  const loginUser = req.body;
+  Users.login(loginUser)
+    .then(createToken)
+    .then((token) => {
+      res.json({ token });
+      next();
+    })
+    .catch((error) => {
+      res.status(401).json({ error });
+    });
 }
 
 module.exports = validateDecorator({ create, login });
