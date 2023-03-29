@@ -5,6 +5,7 @@ const { body, validationResult } = require("express-validator");
 const bodyParser = require("body-parser");
 const { userValidator, loginValidator } = require("./services/validators");
 const UserController = require("./controllers/users-controller");
+const { verifyToken } = require("./services/auth/authService");
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,8 @@ const PORT = config.get("port") ?? 8080;
 // } else {
 //   console.log("Development");
 // }
+
+app.use("/api/*", verifyToken);
 
 app.post("/api/signUp", userValidator, UserController.create);
 app.post("/api/login", loginValidator, UserController.login);

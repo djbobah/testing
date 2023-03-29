@@ -3,7 +3,7 @@ const { validationResult } = require("express-validator");
 const { Users } = require("../models");
 const bcryptjs = require("bcryptjs");
 const validateDecorator = require("../services/validateDecorator");
-const { createToken } = require("../services/authService");
+const { createToken } = require("../services/auth/authService");
 
 function create(req, res, next) {
   const errors = validationResult(req);
