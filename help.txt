@@ -1,0 +1,6 @@
+создание моделей таблиц в БД
+
+npx sequelize-cli model:generate --name User --attributes "firstName:string,lastName:string,email:string"
+
+//запись модели в БД (создание таблицы)
+npx sequelize-cli db:migrate

@@ -19,7 +19,8 @@ function create(req, res, next) {
           message: "Пользователь с таким email уже зарегистрирован",
         });
       } else {
-        const { login, email, password } = req.body;
+        const { login, email, password, profile } = req.body;
+        console.log("profile", profile);
         const salt = bcryptjs.genSaltSync(10);
         const passwordHash = bcryptjs.hashSync(password, salt);
         Users.create({ login, email, password: passwordHash });

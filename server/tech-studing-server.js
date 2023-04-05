@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const { userValidator, loginValidator } = require("./services/validators");
 const UserController = require("./controllers/users-controller");
 const { verifyToken } = require("./services/auth/authService");
+const initDatabase = require("./services/startUp/initDatabase");
 
 const app = express();
 app.use(express.json());
@@ -27,6 +28,7 @@ app.post("/api/login", loginValidator, UserController.login);
 
 async function start() {
   try {
+    initDatabase();
     app.listen(PORT, () =>
       console.log(chalk.green(`Server has been started on port ${PORT}...`))
     );
