@@ -4,7 +4,7 @@
     "password": "Kamensk",
     "database": "technical_studing",
     "host": "127.0.0.1",
-    "dialect": "mariadb"
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",

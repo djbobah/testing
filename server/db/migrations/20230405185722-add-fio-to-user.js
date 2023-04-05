@@ -9,10 +9,10 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    return queryInterface.addColumn("Users", "role", {
-      type: Sequelize.STRING,
+    return queryInterface.addColumn("Users", "fio", {
+      type: Sequelize.DataTypes.STRING,
       allowNull: false,
-      defaultValue: "user",
+      // defaultValue: "user",
     });
   },
 
@@ -23,6 +23,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    return queryInterface.removeColumn("Users", "role");
+    return queryInterface.removeColumn("Users", "fio");
   },
 };

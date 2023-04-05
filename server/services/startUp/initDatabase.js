@@ -30,7 +30,8 @@ async function createInitialEntity(Model, data) {
       try {
         // delete item.id;
         const newItem = new Model(item);
-        console.log(newItem);
+        // console.log(newItem);
+
         await newItem.save();
         return newItem;
       } catch (error) {

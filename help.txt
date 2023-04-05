@@ -1,6 +1,11 @@
 создание моделей таблиц в БД
-
+//для примера!!!!
 npx sequelize-cli model:generate --name User --attributes "firstName:string,lastName:string,email:string"
 
 //запись модели в БД (создание таблицы)
 npx sequelize-cli db:migrate
+
+
+// создание скелета для миграции
+//пример
+npx sequelize-cli migration:generate --name migration-skeleton
