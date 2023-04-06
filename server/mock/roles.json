@@ -1,0 +1,6 @@
+[
+  { "name": "user", "comment": "Простой пользователь по умолчанию" },
+  { "name": "creator_tests", "comment": "Создатель тестов" },
+  { "name": "creator_teach", "comment": "Создатель обучающих материалов" },
+  { "name": "admin", "comment": "Администратор системы" }
+]

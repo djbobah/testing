@@ -9,3 +9,11 @@ npx sequelize-cli db:migrate
 // создание скелета для миграции
 //пример
 npx sequelize-cli migration:generate --name migration-skeleton
+
+//создание seeders (для заполнения данными по умолчанию, если не прокатит автоматом)
+npx sequelize-cli seed:generate --name demo-user
+
+// запуск всех сидеров
+npx sequelize-cli db:seed:all
+// удаление всех сидеров
+npx sequelize-cli db:seed:undo:all
