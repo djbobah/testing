@@ -7,11 +7,14 @@ const { userValidator, loginValidator } = require("./services/validators");
 const UserController = require("./controllers/users-controller");
 const { verifyToken } = require("./services/auth/authService");
 const initDatabase = require("./services/startUp/initDatabase");
+const routes = require("./routes");
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //  app.use(bodyParser.json())
+
+app.use("./api", routes);
 
 const PORT = config.get("port") ?? 8080;
 
