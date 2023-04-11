@@ -14,8 +14,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //  app.use(bodyParser.json())
 
-app.use("./api", routes);
-
 const PORT = config.get("port") ?? 8080;
 
 // if (process.env.NODE_ENV === "production") {
@@ -24,10 +22,11 @@ const PORT = config.get("port") ?? 8080;
 //   console.log("Development");
 // }
 
-app.use("/api/*", verifyToken);
+app.use("/api", routes);
+// app.use("/api/*", verifyToken);
 
-app.post("/api/signUp", userValidator, UserController.create);
-app.post("/api/login", loginValidator, UserController.login);
+// app.post("/api/signUp", userValidator, UserController.create);
+// app.post("/api/login", loginValidator, UserController.login);
 
 async function start() {
   try {
