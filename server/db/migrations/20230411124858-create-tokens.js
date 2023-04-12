@@ -11,16 +11,19 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "Users",
+            // schema: "schema",
+          },
+          key: "id",
+        },
       },
-      accessToken: {
-        type: Sequelize.STRING,
-      },
+
       refreshToken: {
         type: Sequelize.STRING,
       },
-      expiresIn: {
-        type: Sequelize.STRING,
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

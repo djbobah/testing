@@ -13,6 +13,17 @@ class TokenService {
     const refreshToken = jwt.sign(payload, config.get("refreshSecret"));
     return { accessToken, refreshToken, expiresIn: 3600 };
   }
-  async save(userId,refreshToken)
+  async save(userId, refreshToken) {
+    const data = await Token.findOne({ where: { userId: userId } });
+    if (data) {
+      data.refreshToken = refreshToken;
+      return data.save();
+    }
+    const token = await Token.create({
+      userId: userId,
+      refreshToken: refreshToken,
+    });
+    return token;
+  }
 }
 module.exports = new TokenService();

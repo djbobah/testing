@@ -7,9 +7,9 @@ const tokenService = require("../services/token.service");
 //userValidator, UserController.create
 const Users = model.Users;
 router.post("/signUp", async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const { email, password } = req.body;
-    const existingUser = await Users.findOne({ email: email });
+    const existingUser = await Users.findOne({ where: { email: email } });
     // пользователь найден
     if (existingUser) {
       // так же как в модуле про firebase
@@ -30,6 +30,7 @@ router.post("/signUp", async (req, res) => {
   });
 
   const tokens = tokenService.generate({ id: newUser.id, userId: newUser.id });
+  await tokenService.save(newUser.id, tokens.refreshToken);
   res.status(201).send({ ...tokens });
 });
 // app.post("/api/signUp", userValidator, UserController.creat
