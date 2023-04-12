@@ -8,6 +8,7 @@ const tokenService = require("../services/token.service");
 const Users = model.Users;
 router.post("/signUp", async (req, res) => {
   const { email, password } = req.body;
+  console.log("req.body", req.body);
   try {
     const existingUser = await Users.findOne({ where: { email: email } });
     // пользователь найден

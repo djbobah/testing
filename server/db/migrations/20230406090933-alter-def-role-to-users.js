@@ -14,8 +14,8 @@ module.exports = {
       .then(() => {
         queryInterface.changeColumn("Users", "roles", {
           type: Sequelize.JSON,
-          allowNull: false,
-          defaultValue: "[1]",
+          // allowNull: false,
+          // defaultValue: "[1]",
         });
       })
       .then(() => {
