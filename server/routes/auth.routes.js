@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const tokenService = require("../services/token.service");
 //userValidator, UserController.create
 const Users = model.Users;
+// const Tokens = model.Tokens;
 
 const signUpValidations = [
   check("email", "Некорректный email").isEmail(),
@@ -19,12 +20,17 @@ router.post("/signUp", [
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res
-          .status(400)
-          .json({ error: { message: "INVALID_DATA", code: 400 } });
+        return res.status(400).json({
+          error: {
+            message: "INVALID_DATA",
+            code: 400,
+            // выводит подробную информацию в каком араметре какая ошибка
+            // errors: errors.array(),
+          },
+        });
       }
       const { email, password } = req.body;
-      console.log("req.body", req.body);
+      // console.log("req.body", req.body);
       const existingUser = await Users.findOne({ where: { email: email } });
       // пользователь найден
       if (existingUser) {
@@ -54,7 +60,78 @@ router.post("/signUp", [
     }
   },
 ]);
+
+router.post("/signInWithPassword", [
+  check("email", "Email некорректен").normalizeEmail().isEmail(),
+  check("password", "Пароль не может быть пустым").exists(),
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          error: {
+            message: "INVALID_DATA",
+            code: 400,
+            // выводит подробную информацию в каком араметре какая ошибка
+            // errors: errors.array(),
+          },
+        });
+      }
+      const { email, password } = req.body;
+      const existingUser = await Users.findOne({ where: { email: email } });
+      // пользователь не найден
+      if (!existingUser) {
+        // так же как в модуле про firebase
+        return res
+          .status(400)
+          .json({ error: { message: "EMAIL_NOT_FOUND", code: 400 } });
+      }
+      // пользователь  найден
+      const isPasswordEqual = await bcrypt.compare(
+        password,
+        existingUser.password
+      );
+      if (!isPasswordEqual) {
+        return res
+          .status(400)
+          .json({ error: { message: "INVALID_PASSWORD", code: 400 } });
+      }
+      const tokens = tokenService.generate({ id: existingUser.id });
+      await tokenService.save(existingUser.id, tokens.refreshToken);
+      res.status(201).send({ ...tokens, userId: existingUser.id });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+    }
+  },
+]);
 // app.post("/api/signUp", userValidator, UserController.creat
-router.post("/token", async (req, res) => {});
+
+function isTokenInvalid(data, dbToken) {
+  return !data || !dbToken || data.id !== dbToken?.userId;
+}
+router.post("/token", async (req, res) => {
+  const { refreshToken } = req.body;
+  const data = tokenService.validateRefresh(refreshToken);
+  // console.log("refreshToken", refreshToken);
+
+  const dbToken = await tokenService.findToken(refreshToken);
+  // console.log("data", data);
+  // console.log("dbToken", dbToken);
+  if (isTokenInvalid(data, dbToken)) {
+    res.status(401).json({ message: "Unauthtorized" });
+  }
+  // console.log(data);
+  const tokens = await tokenService.generate({ id: dbToken.userId });
+  await tokenService.save(dbToken.id, tokens.refreshToken);
+  res.status(200).send({ ...tokens, userId: dbToken.id });
+  try {
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+  }
+});
 
 module.exports = router;
