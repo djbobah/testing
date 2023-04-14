@@ -118,7 +118,7 @@ router.post("/token", async (req, res) => {
 
   const dbToken = await tokenService.findToken(refreshToken);
   // console.log("data", data);
-  console.log("dbToken", dbToken);
+  // console.log("dbToken", dbToken);
   if (isTokenInvalid(data, dbToken)) {
     res.status(401).json({ message: "Unauthtorized" });
   }
