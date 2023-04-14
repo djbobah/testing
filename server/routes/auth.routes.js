@@ -124,8 +124,8 @@ router.post("/token", async (req, res) => {
   }
   // console.log(data);
   const tokens = await tokenService.generate({ id: dbToken.userId });
-  await tokenService.save(dbToken.id, tokens.refreshToken);
-  res.status(200).send({ ...tokens, userId: dbToken.id });
+  await tokenService.save(data.id, tokens.refreshToken);
+  res.status(200).send({ ...tokens, userId: data.id });
   try {
   } catch (error) {
     res
