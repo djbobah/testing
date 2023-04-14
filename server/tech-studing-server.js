@@ -1,11 +1,11 @@
 const express = require("express");
 const config = require("config");
 const chalk = require("chalk");
-const { body, validationResult } = require("express-validator");
-const bodyParser = require("body-parser");
-const { userValidator, loginValidator } = require("./services/validators");
-const UserController = require("./controllers/users-controller");
-const { verifyToken } = require("./services/auth/authService");
+// const { body, validationResult } = require("express-validator");
+// const bodyParser = require("body-parser");
+// const { userValidator, loginValidator } = require("./services/validators");
+// const UserController = require("./controllers/users-controller");
+// const { verifyToken } = require("./services/auth/authService");
 const initDatabase = require("./services/startUp/initDatabase");
 const routes = require("./routes");
 

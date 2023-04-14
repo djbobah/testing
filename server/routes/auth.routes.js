@@ -25,7 +25,7 @@ router.post("/signUp", [
             message: "INVALID_DATA",
             code: 400,
             // выводит подробную информацию в каком араметре какая ошибка
-            // errors: errors.array(),
+            errors: errors.array(),
           },
         });
       }
@@ -39,14 +39,14 @@ router.post("/signUp", [
           .status(400)
           .json({ error: { message: "EMAIL_EXISTS", code: 400 } });
       }
-
+      // console.log("existingUser ", existingUser);
       // пользователь не найден
       const hashedPassword = await bcrypt.hash(password, 12);
       const newUser = await Users.create({
         ...req.body,
         password: hashedPassword,
       });
-
+      // console.log("newUser ", newUser);
       const tokens = tokenService.generate({
         id: newUser.id,
         userId: newUser.id,
@@ -118,7 +118,7 @@ router.post("/token", async (req, res) => {
 
   const dbToken = await tokenService.findToken(refreshToken);
   // console.log("data", data);
-  // console.log("dbToken", dbToken);
+  console.log("dbToken", dbToken);
   if (isTokenInvalid(data, dbToken)) {
     res.status(401).json({ message: "Unauthtorized" });
   }
