@@ -1,10 +1,45 @@
 const express = require("express");
+
+const model = require("../models");
+const auth = require("../middleware/auth.middleware");
 const router = express.Router({ mergeParams: true });
+
+const Users = model.Users;
 // const { userValidator, loginValidator } = require("../services/validators");
 //userValidator, UserController.create
-router.post("/signUp", async (req, res) => {});
-// app.post("/api/signUp", userValidator, UserController.create);
-router.post("/signInWithPassword", async (req, res) => {});
-router.post("/token", async (req, res) => {});
+router.patch("/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    //todo: userId =id текущего пользователя
+    if (userId) {
+      // обновляемые поля берем из req.body
+      const updatedUser = await Users.update(
+        { password: req.body.password, email: req.body.email },
+        { where: { id: userId } }
+      );
+      // res.status(200).send()=res.send()
+      res.send(updatedUser);
+    } else {
+      res.status(401).json({ message: "Unauthorized" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+  }
+});
+
+//получаем список всех пользователей
+router.get("/", auth, async (req, res) => {
+  try {
+    const list = await Users.findAll();
+    res.status(200).send(list);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+  }
+});
 
 module.exports = router;
