@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
+import config from "../config.json";
+import axios from "axios";
 const Login = () => {
   const { type } = useParams();
   const [formType, setFormType] = useState(
     type === "register" ? type : "login"
   );
 
+  const [departments, setDepartments] = useState("");
+
+  useEffect(() => {
+    try {
+      axios.get(config.apiEndpoint + "/departments").then((dep) => {
+        setDepartments(dep);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+  console.log("departments", departments);
   const toggleFormType = () => {
     setFormType((prevState) =>
       prevState === "register" ? "login" : "register"

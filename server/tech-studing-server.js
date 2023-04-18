@@ -1,6 +1,7 @@
 const express = require("express");
 const config = require("config");
 const chalk = require("chalk");
+const cors = require("cors");
 // const { body, validationResult } = require("express-validator");
 // const bodyParser = require("body-parser");
 // const { userValidator, loginValidator } = require("./services/validators");
@@ -10,8 +11,10 @@ const initDatabase = require("./services/startUp/initDatabase");
 const routes = require("./routes");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 //  app.use(bodyParser.json())
 
 const PORT = config.get("port") ?? 8080;
@@ -23,6 +26,7 @@ const PORT = config.get("port") ?? 8080;
 // }
 
 app.use("/api", routes);
+
 // app.use("/api/*", verifyToken);
 
 // app.post("/api/signUp", userValidator, UserController.create);
