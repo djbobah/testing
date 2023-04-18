@@ -7,15 +7,19 @@ const router = express.Router({ mergeParams: true });
 const Users = model.Users;
 // const { userValidator, loginValidator } = require("../services/validators");
 //userValidator, UserController.create
-router.patch("/:userId", async (req, res) => {
+router.patch("/:userId", auth, async (req, res) => {
   try {
     const { userId } = req.params;
-
-    //todo: userId =id текущего пользователя
-    if (userId) {
+    // console.log("userId", userId);
+    // проверка что userId =id текущего пользователя
+    if (userId === req.user.id) {
       // обновляемые поля берем из req.body
       const updatedUser = await Users.update(
-        { password: req.body.password, email: req.body.email },
+        {
+          password: req.body.password,
+          email: req.body.email,
+          fio: req.body.fio,
+        },
         { where: { id: userId } }
       );
       // res.status(200).send()=res.send()

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
-import CheckBoxField from "../common/form/checkBoxField";
+// import CheckBoxField from "../common/form/checkBoxField";
 
 const LoginForm = () => {
-  const [data, setData] = useState({ email: "", password: "", stayOn: false });
+  // , stayOn: false
+  const [data, setData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
 
   const handleChange = (target) => {
@@ -18,15 +19,15 @@ const LoginForm = () => {
     },
     password: {
       isRequired: { message: "Пароль обязателен для заполнения" },
-      isCapitalSymbol: {
-        message: "Пароль должен содержать хотя бы одну заглавную букву",
-      },
+      // isCapitalSymbol: {
+      //   message: "Пароль должен содержать хотя бы одну заглавную букву",
+      // },
       isContainDigit: {
         message: "Пароль должен содержать хотя бы одну цифру",
       },
       min: {
-        message: "Пароль должен состоять минимум из 8 символов",
-        value: 8,
+        message: "Пароль должен состоять минимум из 6 символов",
+        value: 6,
       },
     },
   };
@@ -68,9 +69,9 @@ const LoginForm = () => {
         onChange={handleChange}
         error={errors.password}
       />
-      <CheckBoxField value={data.stayOn} onChange={handleChange} name="stayOn">
+      {/* <CheckBoxField value={data.stayOn} onChange={handleChange} name="stayOn">
         Оставаться в системе
-      </CheckBoxField>
+      </CheckBoxField> */}
       <button
         type="submit"
         disabled={!isValid}

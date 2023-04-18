@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
     return next();
   }
   try {
-    //Bearer jdfhkjsfhskdjfhsdkjfhsfkj
+    //"Bearer jdfhkjsfhskdjfhsdkjfhsfkj" берем только token
     const token = req.headers.authorization.split(" ")[1];
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     const data = tokenService.validateAccess(token);
     //модифицируем req добавляем параметр user
     req.user = data;
-
+    console.log("Decoded", data);
     next();
   } catch (error) {
     res.status(401).json({ message: "Unauthorized" });

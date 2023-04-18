@@ -41,15 +41,15 @@ const RegisterForm = () => {
     },
     password: {
       isRequired: { message: "Пароль обязателен для заполнения" },
-      isCapitalSymbol: {
-        message: "Пароль должен содержать хотя бы одну заглавную букву",
-      },
+      // isCapitalSymbol: {
+      //   message: "Пароль должен содержать хотя бы одну заглавную букву",
+      // },
       isContainDigit: {
         message: "Пароль должен содержать хотя бы одну цифру",
       },
       min: {
-        message: "Пароль должен состоять минимум из 8 символов",
-        value: 8,
+        message: "Пароль должен состоять минимум из 6 символов",
+        value: 6,
       },
     },
     fio: {
@@ -58,12 +58,12 @@ const RegisterForm = () => {
     department: {
       isRequired: { message: "Подразделение обязательно для заполнения" },
     },
-    license: {
-      isRequired: {
-        message:
-          "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения",
-      },
-    },
+    // license: {
+    //   isRequired: {
+    //     message:
+    //       "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения",
+    //   },
+    // },
   };
 
   useEffect(() => {
@@ -119,7 +119,7 @@ const RegisterForm = () => {
         value={data.department}
         label="Выберите ваше подразделение..."
       />
-      <RadioField
+      {/* <RadioField
         options={[
           { name: "Мужской", value: "male" },
           { name: "Женский", value: "female" },
@@ -128,8 +128,8 @@ const RegisterForm = () => {
         name="sex"
         onChange={handleChange}
         label="Выберите ваш пол:"
-      />
-      <MultiSelectField
+      /> */}
+      {/* <MultiSelectField
         options={qualities}
         onChange={handleChange}
         defaultValue={data.qualities}
@@ -143,7 +143,7 @@ const RegisterForm = () => {
         error={errors.license}
       >
         Подтвердить <a>лицензионное соглашение</a>
-      </CheckBoxField>
+      </CheckBoxField> */}
       <button
         type="submit"
         disabled={!isValid}
