@@ -1,5 +1,6 @@
 import NavBar from "./components/navBar";
 import Login from "./layouts/login";
+import UserPage from "./components/page/userPage";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
         <Route path="/">
           <Route path=":type?" element={<Login />} />
         </Route>
+        <Route path="/user" element={<UserPage />} />
       </Routes>
     </div>
   );
