@@ -11,17 +11,18 @@ const Login = () => {
   );
 
   const [departments, setDepartments] = useState("");
-
+  // console.log("config.apiEndpoint ", config.apiEndpoint);
   useEffect(() => {
     try {
       axios.get(config.apiEndpoint + "/departments").then((dep) => {
-        setDepartments(dep);
+        setDepartments(dep.data);
       });
+      // console.log("departments", departments);
     } catch (error) {
       console.log(error);
     }
   }, []);
-  console.log("departments", departments);
+
   const toggleFormType = () => {
     setFormType((prevState) =>
       prevState === "register" ? "login" : "register"
@@ -35,7 +36,7 @@ const Login = () => {
             <>
               {" "}
               <h3 className="mb-4">Форма регистрации</h3>
-              <RegisterForm />
+              <RegisterForm departments={departments} />
               <p>
                 Уже есть аккаунт?{" "}
                 <a role="button" onClick={toggleFormType}>

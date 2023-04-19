@@ -35,6 +35,7 @@ const TextField = ({
         />
         {type === "password" && (
           <button
+            type="button"
             className="btn btn-outline-secondary"
             onClick={toggleShowPassword}
           >

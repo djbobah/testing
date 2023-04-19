@@ -3,28 +3,33 @@ import TextField from "../common/form/textField";
 import api from "../../api";
 import { validator } from "../../utils/validator";
 import SelectField from "../common/form/selectField";
-import RadioField from "../common/form/radioField";
-import MultiSelectField from "../common/form/multiSelectField";
-import CheckBoxField from "../common/form/checkBoxField";
+// import RadioField from "../common/form/radioField";
+// import MultiSelectField from "../common/form/multiSelectField";
+// import CheckBoxField from "../common/form/checkBoxField";
 
-const RegisterForm = () => {
+const RegisterForm = ({ departments }) => {
   const [data, setData] = useState({
     email: "",
     password: "",
     fio: "",
     department: "",
-    sex: "male",
-    qualities: [],
-    license: false,
+    // sex: "male",
+    // qualities: [],
+    // license: false,
   });
-  const [qualities, setQualities] = useState({});
-  const [departments, setDepartments] = useState();
+  // const [qualities, setQualities] = useState({});
+  // const [departments, setDepartments] = useState();
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    api.department.fetchAll().then((data) => setDepartments(data));
-    api.qualities.fetchAll().then((data) => setQualities(data));
-  }, []);
+  // console.log("departments", departments);
+  const departmentOptions = departments.map((dep) => ({
+    name: dep.name,
+    value: dep.id,
+  }));
+  // console.log("departmentOptions", departmentOptions);
+  // useEffect(() => {
+  //   api.department.fetchAll().then((data) => setDepartments(data));
+  //   api.qualities.fetchAll().then((data) => setQualities(data));
+  // }, []);
 
   // useEffect(() => {
   //   console.log("departments", departments);
@@ -112,7 +117,7 @@ const RegisterForm = () => {
       />
       <SelectField
         onChange={handleChange}
-        options={departments}
+        options={departmentOptions}
         name="department"
         defaultOption="Выберите подразделение..."
         error={errors.department}

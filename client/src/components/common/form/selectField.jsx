@@ -1,4 +1,5 @@
 import React from "react";
+import { getRandomInt } from "../../../utils/math";
 
 const SelectField = ({
   label,
@@ -19,7 +20,7 @@ const SelectField = ({
           value: options[optionName].id,
         }))
       : options;
-
+  // console.log("getRandomInt", getRandomInt());
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value });
   };
@@ -42,7 +43,7 @@ const SelectField = ({
         {optionsArray &&
           optionsArray.map((option) => (
             <option
-              key={option.id}
+              key={getRandomInt() + option.id}
               // selected={departmemt.id === data.departmemt}
               value={option.id}
             >
