@@ -43,7 +43,7 @@ const SelectField = ({
         {optionsArray &&
           optionsArray.map((option) => (
             <option
-              key={getRandomInt() + option.id}
+              key={getRandomInt() + option.name}
               // selected={departmemt.id === data.departmemt}
               value={option.id}
             >

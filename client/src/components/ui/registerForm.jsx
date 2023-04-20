@@ -3,6 +3,8 @@ import TextField from "../common/form/textField";
 import api from "../../api";
 import { validator } from "../../utils/validator";
 import SelectField from "../common/form/selectField";
+import axios from "axios";
+import config from "../../config.json";
 // import RadioField from "../common/form/radioField";
 // import MultiSelectField from "../common/form/multiSelectField";
 // import CheckBoxField from "../common/form/checkBoxField";
@@ -89,6 +91,20 @@ const RegisterForm = ({ departments }) => {
     const isValid = validate();
     if (!isValid) return;
     console.log(data);
+    const newData = {
+      ...data,
+      id_department: departmentOptions.filter(
+        (dep) => dep.name === data.department
+      )[0].value,
+      roles: [1],
+    };
+    try {
+      axios.post(config.apiEndpoint + "/auth/signUp", newData);
+      // console.log("departments", departments);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(newData);
   };
   return (
     <form onSubmit={handleSubmit}>
