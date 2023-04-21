@@ -2,6 +2,7 @@
   background-color: gray;
   /* color: white; */
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .sidebar ul li:hover a {
