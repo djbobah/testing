@@ -8,71 +8,37 @@ import Home from "./components/home";
 import UsersList from "./components/usersList";
 import TestsList from "./components/testsList";
 import Reports from "./components/reports";
+import Main from "./components/main";
 
 function App() {
   return (
     // <BrowserRouter>
-    <div className="d-flex">
+    // <BrowserRouter>
+    <Routes>
+      <Route path="/">
+        <Route path=":type?" element={<Login />} />
+      </Route>
+      <Route exact path="/main/*" element={<Main />} />
       {/* <div className="w-auto">
         <SideBar />
       </div> */}
-      <div className="col">
-        <Routes>
-          <Route
-            path="/user"
-            element={
-              <>
-                <SideBar />
-                <UserPage />
-              </>
-            }
-          />
-          <Route
+      {/* <div className="col"> */}
+      {/* <Route path="/user" element={<UserPage />} /> */}
+      {/* <Route
             path="/home"
             element={
               <>
-                <SideBar />
                 <NavBar />
                 <Home />
               </>
             }
-          />
-          <Route
-            exact
-            path="/users"
-            element={
-              <>
-                <SideBar />
-                <UsersList />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/tests"
-            element={
-              <>
-                <SideBar />
-                <TestsList />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/reports"
-            element={
-              <>
-                <SideBar />
-                <Reports />
-              </>
-            }
-          />
-          <Route path="/">
-            <Route path=":type?" element={<Login />} />
-          </Route>
-        </Routes>
-      </div>
-    </div>
+          /> */}
+      {/* <Route exact path="/users" element={<UsersList />} />
+          <Route exact path="/tests" element={<TestsList />} />
+          <Route exact path="/reports" element={<Reports />} /> */}
+      {/* </div>
+      </div> */}
+    </Routes>
     // </BrowserRouter>
   );
 }

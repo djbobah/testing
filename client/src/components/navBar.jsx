@@ -1,6 +1,7 @@
 import React from "react";
+import "bootstrap/dist/js/bootstrap.bundle";
 
-const NavBar = () => {
+const NavBar = ({ onToggle }) => {
   return (
     // <div className="container">
     // <nav
@@ -16,6 +17,12 @@ const NavBar = () => {
     // </div>
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
+        <a href="#" className="navbar-brand d-none d-md-block">
+          Kamensk
+        </a>
+        <a className="navbar-brand d-block d-md-none" onClick={onToggle}>
+          <i className="bi bi-justify"></i>
+        </a>
         <button
           className="navbar-toggler"
           type="button"
@@ -28,9 +35,9 @@ const NavBar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <a className="navbar-brand" href="#">
+          {/* <a className="navbar-brand" href="#">
             Dashboard
-          </a>
+          </a> */}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item border rounded">
               <a className="nav-link text-white" aria-current="page" href="#">
