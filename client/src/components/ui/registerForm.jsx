@@ -5,6 +5,7 @@ import { validator } from "../../utils/validator";
 import SelectField from "../common/form/selectField";
 import axios from "axios";
 import config from "../../config.json";
+import { setTokens } from "../../services/localStorage.service";
 // import RadioField from "../common/form/radioField";
 // import MultiSelectField from "../common/form/multiSelectField";
 // import CheckBoxField from "../common/form/checkBoxField";
@@ -86,7 +87,7 @@ const RegisterForm = ({ departments }) => {
 
   const isValid = Object.keys(errors).length === 0;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
@@ -99,10 +100,14 @@ const RegisterForm = ({ departments }) => {
       roles: [1],
     };
     try {
-      axios.post(config.apiEndpoint + "/auth/signUp", newData);
-      // console.log("departments", departments);
+      await axios
+        .post(config.apiEndpoint + "/auth/signUp", newData)
+        .then((req, res) => {
+          console.log("sign", req.data);
+          setTokens(req.data);
+        });
     } catch (error) {
-      console.log(error);
+      console.log("error", error);
     }
     console.log(newData);
   };
