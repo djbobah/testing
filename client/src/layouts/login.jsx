@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
-import config from "../config.json";
-import axios from "axios";
+import httpService from "../services/http.service";
 const Login = () => {
   const { type } = useParams();
   const [formType, setFormType] = useState(
@@ -14,7 +13,7 @@ const Login = () => {
   // console.log("config.apiEndpoint ", config.apiEndpoint);
   useEffect(() => {
     try {
-      axios.get(config.apiEndpoint + "/departments").then((dep) => {
+      httpService.get("/departments").then((dep) => {
         setDepartments(dep.data);
       });
       // console.log("departments", departments);

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textField";
-import api from "../../api";
 import { validator } from "../../utils/validator";
 import SelectField from "../common/form/selectField";
-import axios from "axios";
-import config from "../../config.json";
+import httpService from "../../services/http.service";
 import { setTokens } from "../../services/localStorage.service";
 // import RadioField from "../common/form/radioField";
 // import MultiSelectField from "../common/form/multiSelectField";
@@ -100,12 +98,10 @@ const RegisterForm = ({ departments }) => {
       roles: [1],
     };
     try {
-      await axios
-        .post(config.apiEndpoint + "/auth/signUp", newData)
-        .then((req, res) => {
-          console.log("sign", req.data);
-          setTokens(req.data);
-        });
+      await httpService.post("/auth/signUp", newData).then((req, res) => {
+        console.log("sign", req.data);
+        setTokens(req.data);
+      });
     } catch (error) {
       console.log("error", error);
     }

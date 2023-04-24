@@ -9,22 +9,25 @@ import UsersList from "./components/usersList";
 import TestsList from "./components/testsList";
 import Reports from "./components/reports";
 import Main from "./components/main";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     // <BrowserRouter>
     // <BrowserRouter>
-    <Routes>
-      <Route path="/">
-        <Route path=":type?" element={<Login />} />
-      </Route>
-      <Route exact path="/main/*" element={<Main />} />
-      {/* <div className="w-auto">
+    <>
+      <Routes>
+        <Route path="/">
+          <Route path=":type?" element={<Login />} />
+        </Route>
+        <Route exact path="/main/*" element={<Main />} />
+        {/* <div className="w-auto">
         <SideBar />
       </div> */}
-      {/* <div className="col"> */}
-      {/* <Route path="/user" element={<UserPage />} /> */}
-      {/* <Route
+        {/* <div className="col"> */}
+        {/* <Route path="/user" element={<UserPage />} /> */}
+        {/* <Route
             path="/home"
             element={
               <>
@@ -33,12 +36,14 @@ function App() {
               </>
             }
           /> */}
-      {/* <Route exact path="/users" element={<UsersList />} />
+        {/* <Route exact path="/users" element={<UsersList />} />
           <Route exact path="/tests" element={<TestsList />} />
           <Route exact path="/reports" element={<Reports />} /> */}
-      {/* </div>
+        {/* </div>
       </div> */}
-    </Routes>
+      </Routes>
+      <ToastContainer />
+    </>
     // </BrowserRouter>
   );
 }

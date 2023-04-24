@@ -6,12 +6,15 @@ import { Link } from "react-router-dom";
 const SideBar = () => {
   const [active, setActive] = useState(1);
   return (
-    <div className="sidebar d-flex justify-content-between flex-column bg-dark text-white p-3 ps-3 pe-5 vh-100">
+    <div
+      className="sidebar d-flex justify-content-between flex-column bg-primary  text-white p-3 ps-3 pe-5 vh-100"
+      // style={{ backgroundColor: "#121194" }}
+    >
       <div>
         {/* text-white */}
         <a href="#" className="p-3 text-decoration-none text-white">
           {/* <i className="bi bi-code-slash fs-4 me-4"></i> */}
-          <span className="fs-4">Каменск-Шахтинское ЛПУМГ</span>
+          <span className="fs-4">Каменск</span>
         </a>
         <hr className="text-white mt-2" />
         <ul className="nav nav-pills flex-column mt-2">

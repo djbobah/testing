@@ -15,7 +15,10 @@ const NavBar = ({ onToggle }) => {
     //   </div>
     // </nav>
     // </div>
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      className="navbar navbar-expand-lg navbar-dark bg-primary "
+      // style={{ backgroundColor: "#121194" }}
+    >
       <div className="container-fluid">
         <a href="#" className="navbar-brand d-none d-md-block">
           Kamensk
