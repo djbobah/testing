@@ -4,6 +4,7 @@ import { validator } from "../../utils/validator";
 import SelectField from "../common/form/selectField";
 import httpService from "../../services/http.service";
 import { setTokens } from "../../services/localStorage.service";
+import { useNavigate } from "react-router-dom";
 // import RadioField from "../common/form/radioField";
 // import MultiSelectField from "../common/form/multiSelectField";
 // import CheckBoxField from "../common/form/checkBoxField";
@@ -26,6 +27,8 @@ const RegisterForm = ({ departments }) => {
     name: dep.name,
     value: dep.id,
   }));
+
+  const navigate = useNavigate();
   // console.log("departmentOptions", departmentOptions);
   // useEffect(() => {
   //   api.department.fetchAll().then((data) => setDepartments(data));
@@ -102,8 +105,16 @@ const RegisterForm = ({ departments }) => {
         console.log("sign", req.data);
         setTokens(req.data);
       });
+      navigate("/main");
     } catch (error) {
-      console.log("error", error);
+      const { code, message } = error.response.data.error;
+      // console.log(code, message);
+      if (code === 400) {
+        if (message === "EMAIL_EXISTS") {
+          setErrors({ email: "Пользователь с таким email уже существует" });
+        }
+      }
+      // console.log("error", error);
     }
     console.log(newData);
   };
