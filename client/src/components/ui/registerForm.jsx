@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 // import RadioField from "../common/form/radioField";
 // import MultiSelectField from "../common/form/multiSelectField";
 // import CheckBoxField from "../common/form/checkBoxField";
+import { useAuth } from "./../hooks/useAuth";
 
 const RegisterForm = ({ departments }) => {
   const [data, setData] = useState({
@@ -23,6 +24,8 @@ const RegisterForm = ({ departments }) => {
   // const [departments, setDepartments] = useState();
   const [errors, setErrors] = useState({});
   // console.log("departments", departments);
+  const { signUp } = useAuth();
+
   const departmentOptions = departments.map((dep) => ({
     name: dep.name,
     value: dep.id,
@@ -101,11 +104,12 @@ const RegisterForm = ({ departments }) => {
       roles: [1],
     };
     try {
-      await httpService.post("/auth/signUp", newData).then((req, res) => {
-        console.log("sign", req.data);
-        setTokens(req.data);
-      });
-      navigate("/main");
+      // await httpService.post("/auth/signUp", newData).then((req, res) => {
+      //   console.log("sign", req.data);
+      //   setTokens(req.data);
+      // });
+      // navigate("/main");
+      signUp(newData);
     } catch (error) {
       const { code, message } = error.response.data.error;
       // console.log(code, message);
