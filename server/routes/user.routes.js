@@ -35,7 +35,8 @@ router.patch("/:userId", auth, async (req, res) => {
 });
 
 //получаем список всех пользователей
-router.get("/", auth, async (req, res) => {
+// router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const list = await Users.findAll();
     res.status(200).send(list);

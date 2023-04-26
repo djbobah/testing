@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 // import config from "../../config.json";
 import httpService from "../../services/http.service";
 import { setTokens } from "../../services/localStorage.service";
+import userService from "../../services/user.service";
 
 // axios.defaults.baseURL = config.apiEndpoint;
 const AuthContext = React.createContext();
@@ -22,8 +23,16 @@ const AuthProvider = ({ children }) => {
       console.log(data);
       setTokens(data);
       setCurrentUser(data);
+      console.log(userService.get());
     } catch (error) {
       errorCatcher(error);
+      const { code, message } = error.response.data.error;
+      console.log(code, message);
+      if (code === 400) {
+        if (message === "EMAIL_EXISTS") {
+          setErrors({ email: "Пользователь с таким email уже существует" });
+        }
+      }
     }
   }
 

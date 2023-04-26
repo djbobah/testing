@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 // import MultiSelectField from "../common/form/multiSelectField";
 // import CheckBoxField from "../common/form/checkBoxField";
 import { useAuth } from "./../hooks/useAuth";
+import userService from "../../services/user.service";
 
 const RegisterForm = ({ departments }) => {
   const [data, setData] = useState({
@@ -109,7 +110,8 @@ const RegisterForm = ({ departments }) => {
       //   setTokens(req.data);
       // });
       // navigate("/main");
-      signUp(newData);
+      await signUp(newData);
+      console.log(userService.get());
     } catch (error) {
       const { code, message } = error.response.data.error;
       // console.log(code, message);
