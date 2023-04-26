@@ -16,6 +16,28 @@ export const useAuth = () => {
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
   const [error, setError] = useState(null);
+  async function logIn({ email, password }) {
+    try {
+      const { data } = await httpService.post("/auth/signInWithPassword", {
+        email,
+        password,
+      });
+      setTokens(data);
+    } catch (error) {
+      const { code, message } = error.response.data.error;
+
+      errorCatcher(error);
+      if (code === 400) {
+        if (message === "EMAIL_NOT_FOUND") {
+          setError({ email: "Пользователь с таким email не найден" });
+        }
+        if (message === "INVALID_PASSWORD") {
+          throw new Error("Email или пароль введен некорректно");
+        }
+      }
+    }
+  }
+
   async function signUp(newData) {
     // const url = config.apiEndpoint;
     try {
@@ -23,14 +45,18 @@ const AuthProvider = ({ children }) => {
       console.log(data);
       setTokens(data);
       setCurrentUser(data);
-      console.log(userService.get());
+      // console.log(userService.get());
     } catch (error) {
       errorCatcher(error);
       const { code, message } = error.response.data.error;
       console.log(code, message);
       if (code === 400) {
         if (message === "EMAIL_EXISTS") {
-          setErrors({ email: "Пользователь с таким email уже существует" });
+          const errorObject = {
+            email: "Пользователь с таким email уже существует",
+          };
+          throw errorObject;
+          // setError({ email: "Пользователь с таким email уже существует" });
         }
       }
     }
@@ -47,7 +73,7 @@ const AuthProvider = ({ children }) => {
     }
   }, [error]);
   return (
-    <AuthContext.Provider value={{ signUp, currentUser }}>
+    <AuthContext.Provider value={{ signUp, logIn, currentUser }}>
       {children}
     </AuthContext.Provider>
   );

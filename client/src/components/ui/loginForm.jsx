@@ -4,6 +4,7 @@ import { validator } from "../../utils/validator";
 import httpService from "../../services/http.service";
 import { setTokens } from "../../services/localStorage.service";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 // import { useQContext } from "../../App";
 // import { QContext } from "../../App";
 // import CheckBoxField from "../common/form/checkBoxField";
@@ -13,7 +14,7 @@ const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [enterError, setEnterError] = useState(null);
-
+  const { logIn } = useAuth();
   // const qqq = useQContext();
   // console.log("data from app", qqq);
 
@@ -62,26 +63,11 @@ const LoginForm = () => {
     if (!isValid) return;
     console.log(data);
     try {
-      await httpService
-        .post("/auth/signInWithPassword", data)
-        .then((req, res) => {
-          console.log("signInWithPassword", req.data);
-          setTokens(req.data);
-        });
+      await logIn(data);
+
       navigate("/main");
     } catch (error) {
-      const { code, message } = error.response.data.error;
-      // console.log(code, message);
-      if (code === 400) {
-        // if (message === "EMAIL_NOT_FOUND") {
-        //   setErrors({ email: "Пользователь с таким email не найден" });
-        // }
-        // if (message === "INVALID_PASSWORD") {
-        //   setErrors({ email: "Пароль введен некорректно" });
-        // }
-
-        setEnterError("Email или пароль введены некорректно");
-      }
+      setEnterError(error.message);
     }
   };
   return (

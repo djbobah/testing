@@ -105,24 +105,12 @@ const RegisterForm = ({ departments }) => {
       roles: [1],
     };
     try {
-      // await httpService.post("/auth/signUp", newData).then((req, res) => {
-      //   console.log("sign", req.data);
-      //   setTokens(req.data);
-      // });
-      // navigate("/main");
       await signUp(newData);
-      console.log(userService.get());
+      navigate("/main");
+      // console.log(userService.get());
     } catch (error) {
-      const { code, message } = error.response.data.error;
-      // console.log(code, message);
-      if (code === 400) {
-        if (message === "EMAIL_EXISTS") {
-          setErrors({ email: "Пользователь с таким email уже существует" });
-        }
-      }
-      // console.log("error", error);
+      setErrors(error);
     }
-    console.log(newData);
   };
   return (
     <form onSubmit={handleSubmit}>
