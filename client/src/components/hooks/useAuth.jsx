@@ -3,7 +3,9 @@ import { toast } from "react-toastify";
 // import axios from "axios";
 // import config from "../../config.json";
 import httpService from "../../services/http.service";
-import { setTokens } from "../../services/localStorage.service";
+import localStorageService, {
+  setTokens,
+} from "../../services/localStorage.service";
 import userService from "../../services/user.service";
 
 // axios.defaults.baseURL = config.apiEndpoint;
@@ -16,6 +18,7 @@ export const useAuth = () => {
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
   const [error, setError] = useState(null);
+
   async function logIn({ email, password }) {
     try {
       const { data } = await httpService.post("/auth/signInWithPassword", {
@@ -23,6 +26,7 @@ const AuthProvider = ({ children }) => {
         password,
       });
       setTokens(data);
+      getUserData();
     } catch (error) {
       const { code, message } = error.response.data.error;
 
@@ -45,7 +49,7 @@ const AuthProvider = ({ children }) => {
       console.log(data);
       setTokens(data);
       setCurrentUser(data);
-      // console.log(userService.get());
+      console.log("data", data);
     } catch (error) {
       errorCatcher(error);
       const { code, message } = error.response.data.error;
@@ -63,9 +67,25 @@ const AuthProvider = ({ children }) => {
   }
 
   function errorCatcher(error) {
+    // console.log(error);
     const { message } = error.response.data;
     setError(message);
   }
+
+  async function getUserData() {
+    try {
+      const { data } = await userService.getCurrentUser();
+      console.log("content", data);
+      setCurrentUser(data);
+    } catch (error) {
+      errorCatcher(error);
+    }
+  }
+  useEffect(() => {
+    if (localStorageService.getAccessToken()) {
+      getUserData();
+    }
+  }, []);
   useEffect(() => {
     if (error !== null) {
       toast(error);

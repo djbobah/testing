@@ -47,4 +47,20 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+//получаем список всех пользователей
+router.get("/:userId", async (req, res) => {
+  // router.get("/", async (req, res) => {
+
+  try {
+    const { userId } = req.params;
+    // console.log("userId", userId);
+    const list = await Users.findOne({ where: { id: userId } });
+    res.status(200).send(list);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+  }
+});
+
 module.exports = router;
