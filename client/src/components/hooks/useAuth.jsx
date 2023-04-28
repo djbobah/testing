@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
       errorCatcher(error);
       if (code === 400) {
         if (message === "EMAIL_NOT_FOUND") {
-          setError({ email: "Пользователь с таким email не найден" });
+          throw new Error("Email или пароль введен некорректно");
         }
         if (message === "INVALID_PASSWORD") {
           throw new Error("Email или пароль введен некорректно");
