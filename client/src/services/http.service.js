@@ -1,33 +1,36 @@
 import axios from "axios";
 // import { toast } from "react-toastify";
-import config from "../config.json";
+import configFile from "../config.json";
 import localStorageService from "./localStorage.service";
 
-const http = axios.create({ baseURL: config.apiEndpoint });
+const http = axios.create({ baseURL: configFile.apiEndpoint });
 // axios.defaults.baseURL = config.apiEndpoint;
 
 http.interceptors.request.use(
-  async () => {
+  async function (config) {
     const expiresDate = localStorageService.getTokenExpiresDate();
     const refreshToken = localStorageService.getRefreshToken();
-    console.log("data");
-    console.log(refreshToken);
+    console.log("data", config.url);
+    // console.log(refreshToken);
 
     // if (refreshToken && expiresDate > Date.now()) {
     //   const { data } = await http.post("/auth/token", {
     //     refreshToken: refreshToken,
     //   });
-    //   console.log("data auth token", data);
+    // console.log("data auth token", data);
     // }
     return config;
   },
-  (error) => {
+  function (error) {
     return Promise.reject(error);
   }
 );
 
 http.interceptors.response.use(
-  (res) => res,
+  (res) => {
+    console.log("res.data", res.data);
+    return res;
+  },
   (error) => {
     const expectedErrors =
       error.response && error.response.status >= 400 && error.status < 500;
