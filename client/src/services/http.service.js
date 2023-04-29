@@ -28,7 +28,7 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
   (res) => {
-    console.log("res.data", res.data);
+    // console.log("res.data", res.data);
     return res;
   },
   (error) => {
