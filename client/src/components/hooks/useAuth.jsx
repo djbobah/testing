@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
-// import axios from "axios";
-// import config from "../../config.json";
+import axios from "axios";
+import config from "../../config.json";
 import httpService from "../../services/http.service";
 import localStorageService, {
   setTokens,
@@ -9,6 +9,8 @@ import localStorageService, {
 import userService from "../../services/user.service";
 
 // axios.defaults.baseURL = config.apiEndpoint;
+
+export const httpAuth = axios.create({ baseURL: config.apiEndpoint });
 const AuthContext = React.createContext();
 
 export const useAuth = () => {
@@ -21,7 +23,7 @@ const AuthProvider = ({ children }) => {
 
   async function logIn({ email, password }) {
     try {
-      const { data } = await httpService.post("/auth/signInWithPassword", {
+      const { data } = await httpAuth.post("/auth/signInWithPassword", {
         email,
         password,
       });
@@ -45,7 +47,7 @@ const AuthProvider = ({ children }) => {
   async function signUp(newData) {
     // const url = config.apiEndpoint;
     try {
-      const { data } = await httpService.post("/auth/signUp", newData);
+      const { data } = await httpAuth.post("/auth/signUp", newData);
       console.log(data);
       setTokens(data);
       setCurrentUser(data);

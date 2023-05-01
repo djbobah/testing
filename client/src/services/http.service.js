@@ -2,6 +2,7 @@ import axios from "axios";
 // import { toast } from "react-toastify";
 import configFile from "../config.json";
 import localStorageService from "./localStorage.service";
+import { httpAuth } from "../components/hooks/useAuth";
 
 const http = axios.create({ baseURL: configFile.apiEndpoint });
 // axios.defaults.baseURL = config.apiEndpoint;
@@ -11,14 +12,15 @@ http.interceptors.request.use(
     const expiresDate = localStorageService.getTokenExpiresDate();
     const refreshToken = localStorageService.getRefreshToken();
     console.log("data", config.url);
-    // console.log(refreshToken);
+    console.log(expiresDate);
+    console.log(Date.now());
 
-    // if (refreshToken && expiresDate > Date.now()) {
-    //   const { data } = await http.post("/auth/token", {
-    //     refreshToken: refreshToken,
-    //   });
-    // console.log("data auth token", data);
-    // }
+    if (refreshToken && expiresDate > Date.now()) {
+      const { data } = await httpAuth.post("/auth/token", {
+        refreshToken,
+      });
+      console.log("data auth token", data);
+    }
     return config;
   },
   function (error) {
