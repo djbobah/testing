@@ -11,15 +11,21 @@ http.interceptors.request.use(
   async function (config) {
     const expiresDate = localStorageService.getTokenExpiresDate();
     const refreshToken = localStorageService.getRefreshToken();
-    console.log("data", config.url);
-    console.log(expiresDate);
-    console.log(Date.now());
+    // console.log("data", config.url);
+    // console.log(expiresDate);
+    // console.log(Date.now());
 
-    if (refreshToken && expiresDate > Date.now()) {
+    if (refreshToken && expiresDate < Date.now()) {
       const { data } = await httpAuth.post("/auth/token", {
         refreshToken,
       });
-      console.log("data auth token", data);
+      // console.log("data auth token", data);
+      localStorageService.setTokens({
+        refreshToken: data.refreshToken,
+        accessToken: data.accessToken,
+        userId: data.userId,
+        expiresIn: data.expiresIn,
+      });
     }
     return config;
   },

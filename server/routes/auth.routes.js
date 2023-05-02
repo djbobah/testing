@@ -122,6 +122,7 @@ router.post("/token", async (req, res) => {
   if (isTokenInvalid(data, dbToken)) {
     res.status(401).json({ message: "Unauthtorized" });
   }
+
   // console.log(data);
   const tokens = await tokenService.generate({ id: dbToken.userId });
   await tokenService.save(data.id, tokens.refreshToken);
