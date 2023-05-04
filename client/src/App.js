@@ -8,6 +8,7 @@ import AuthProvider from "./components/hooks/useAuth";
 import Main from "./components/main";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./components/common/protectedRoute";
 
 // const QContext = React.createContext();
 // const qqq = { name: "name", value: "12345" };
@@ -29,7 +30,7 @@ function App() {
           <Route path="/">
             <Route path=":type?" element={<Login />} />
           </Route>
-          <Route exact path="/main/*" element={<Main />} />
+          <ProtectedRoute exact path="/main/*" element={<Main />} />
         </Routes>
       </AuthProvider>
       <ToastContainer />
