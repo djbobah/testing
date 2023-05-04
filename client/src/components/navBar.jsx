@@ -16,7 +16,7 @@ const NavBar = ({ onToggle }) => {
     // </nav>
     // </div>
     <nav
-      className="navbar navbar-expand-lg navbar-dark bg-primary "
+      className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
       // style={{ backgroundColor: "#121194" }}
     >
       <div className="container-fluid">

@@ -24,25 +24,51 @@ const Main = () => {
       window.removeEventListener("resize", handleSize);
     };
   }, []);
+  // return (
+  //   <div className="d-flex">
+  //     <div className={toggle ? "d-none" : "w-auto position-fixed"}>
+  //       <SideBar />
+  //     </div>
+  //     <div className={toggle ? "d-none" : "invisible"}>
+  //       <SideBar />
+  //     </div>
+  //     <div className="col">
+  //       <NavBar onToggle={toggleHandler} />
+  //       <Routes>
+  //         <Route path="/" element={<Home />} />
+  //         {/* <Route path="/home" element={<Home />} /> */}
+  //         <Route exact path="/users" element={<UsersList />} />
+  //         <Route exact path="/tests" element={<TestsList />} />
+  //         <Route exact path="/reports" element={<Reports />} />
+  //       </Routes>
+  //     </div>
+  //   </div>
+  // );
   return (
-    <div className="d-flex">
-      <div className={toggle ? "d-none" : "w-auto position-fixed"}>
-        <SideBar />
+    // <div className="d-flex w-auto">
+    <>
+      <NavBar onToggle={toggleHandler} />
+      <div className="d-flex">
+        {/* <div className="col"> */}
+        {/* <div> */}
+        <div className={toggle ? "d-none" : "w-auto position-fixed"}>
+          <SideBar />
+        </div>
+        <div className={toggle ? "d-none" : ""}>
+          <SideBar />
+        </div>
+        {/* </div> */}
+        <div className="col mt-5">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route exact path="/users" element={<UsersList />} />
+            <Route exact path="/tests" element={<TestsList />} />
+            <Route exact path="/reports" element={<Reports />} />
+          </Routes>
+        </div>
       </div>
-      <div className={toggle ? "d-none" : "invisible"}>
-        <SideBar />
-      </div>
-      <div className="col">
-        <NavBar onToggle={toggleHandler} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* <Route path="/home" element={<Home />} /> */}
-          <Route exact path="/users" element={<UsersList />} />
-          <Route exact path="/tests" element={<TestsList />} />
-          <Route exact path="/reports" element={<Reports />} />
-        </Routes>
-      </div>
-    </div>
+      {/* </div> */}
+    </>
   );
 };
 
