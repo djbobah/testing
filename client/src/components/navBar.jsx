@@ -1,7 +1,9 @@
 import React from "react";
 import "bootstrap/dist/js/bootstrap.bundle";
+import { useAuth } from "./hooks/useAuth";
 
 const NavBar = ({ onToggle }) => {
+  const { currentUser } = useAuth();
   return (
     // <div className="container">
     // <nav
@@ -42,16 +44,23 @@ const NavBar = ({ onToggle }) => {
             Dashboard
           </a> */}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item border rounded">
-              <a className="nav-link text-white" aria-current="page" href="#">
-                Account
-              </a>
-            </li>
-            <li className="nav-item border mx-2 rounded">
-              <a className="nav-link text-white" aria-current="page" href="#">
-                Logout
-              </a>
-            </li>
+            {currentUser ? (
+              <p className="text-white m-auto pe-2">{currentUser.fio}</p>
+            ) : (
+              <li className="nav-item border rounded">
+                <a className="nav-link text-white" aria-current="page" href="#">
+                  Log in
+                </a>
+              </li>
+            )}
+
+            {currentUser && (
+              <li className="nav-item border mx-2 rounded">
+                <a className="nav-link text-white" aria-current="page" href="#">
+                  Logout
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>
