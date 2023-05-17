@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
         password,
       });
       setTokens(data);
-      getUserData();
+      await getUserData();
     } catch (error) {
       const { code, message } = error.response.data.error;
 
@@ -90,7 +90,7 @@ const AuthProvider = ({ children }) => {
     if (localStorageService.getAccessToken()) {
       getUserData();
     } else {
-      isLoading(false);
+      setLoading(false);
     }
   }, []);
   useEffect(() => {
