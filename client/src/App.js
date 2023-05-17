@@ -30,7 +30,9 @@ function App() {
           <Route path="/">
             <Route path=":type?" element={<Login />} />
           </Route>
-          <ProtectedRoute exact path="/main/*" element={<Main />} />
+          <Route element={<ProtectedRoute />}>
+            <Route exact path="/main/*" element={<Main />} />
+          </Route>
         </Routes>
       </AuthProvider>
       <ToastContainer />

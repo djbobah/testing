@@ -20,6 +20,7 @@ export const useAuth = () => {
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [error, setError] = useState(null);
+  const [isLoading, setLoading] = useState(true);
 
   async function logIn({ email, password }) {
     try {
@@ -81,11 +82,15 @@ const AuthProvider = ({ children }) => {
       setCurrentUser(data);
     } catch (error) {
       errorCatcher(error);
+    } finally {
+      setLoading(false);
     }
   }
   useEffect(() => {
     if (localStorageService.getAccessToken()) {
       getUserData();
+    } else {
+      isLoading(false);
     }
   }, []);
   useEffect(() => {
@@ -96,7 +101,7 @@ const AuthProvider = ({ children }) => {
   }, [error]);
   return (
     <AuthContext.Provider value={{ signUp, logIn, currentUser }}>
-      {children}
+      {!isLoading ? children : "Loading..."}
     </AuthContext.Provider>
   );
 };
