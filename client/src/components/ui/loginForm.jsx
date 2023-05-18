@@ -3,7 +3,7 @@ import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 import httpService from "../../services/http.service";
 import { setTokens } from "../../services/localStorage.service";
-import { useNavigate } from "react-router-dom";
+import { unstable_HistoryRouter, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 // import { useQContext } from "../../App";
 // import { QContext } from "../../App";
@@ -19,6 +19,8 @@ const LoginForm = () => {
   // console.log("data from app", qqq);
 
   const navigate = useNavigate();
+
+  console.log("navigate", navigate);
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
     setEnterError(null);
