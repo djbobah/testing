@@ -7,6 +7,7 @@ import localStorageService, {
   setTokens,
 } from "../../services/localStorage.service";
 import userService from "../../services/user.service";
+import { useNavigate } from "react-router-dom";
 
 // axios.defaults.baseURL = config.apiEndpoint;
 
@@ -21,6 +22,7 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   async function logIn({ email, password }) {
     try {
@@ -44,7 +46,11 @@ const AuthProvider = ({ children }) => {
       }
     }
   }
-
+  function logOut() {
+    localStorageService.removeAuthData();
+    setCurrentUser(null);
+    navigate("/");
+  }
   async function signUp(newData) {
     // const url = config.apiEndpoint;
     try {
@@ -100,7 +106,7 @@ const AuthProvider = ({ children }) => {
     }
   }, [error]);
   return (
-    <AuthContext.Provider value={{ signUp, logIn, currentUser }}>
+    <AuthContext.Provider value={{ signUp, logIn, currentUser, logOut }}>
       {!isLoading ? children : "Loading..."}
     </AuthContext.Provider>
   );

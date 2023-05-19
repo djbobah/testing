@@ -20,7 +20,7 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  console.log("navigate", navigate);
+  // console.log("navigate", navigate);
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
     setEnterError(null);
@@ -67,7 +67,7 @@ const LoginForm = () => {
     try {
       await logIn(data);
 
-      navigate("/main");
+      navigate("/main/home");
     } catch (error) {
       setEnterError(error.message);
     }

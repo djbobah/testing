@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/js/bootstrap.bundle";
 import { useAuth } from "./hooks/useAuth";
 import NavProfile from "./ui/navProfile";
+import { Link } from "react-router-dom";
 
 const NavBar = ({ onToggle }) => {
   const { currentUser } = useAuth();
@@ -23,9 +24,9 @@ const NavBar = ({ onToggle }) => {
       // style={{ backgroundColor: "#121194" }}
     >
       <div className="container-fluid">
-        <a href="#" className="navbar-brand d-none d-md-block">
+        <Link to="/" className="navbar-brand d-none d-md-block">
           Kamensk
-        </a>
+        </Link>
         <a className="navbar-brand d-block d-md-none" onClick={onToggle}>
           <i className="bi bi-justify"></i>
         </a>
@@ -49,9 +50,13 @@ const NavBar = ({ onToggle }) => {
               <NavProfile />
             ) : (
               <li className="nav-item border rounded">
-                <a className="nav-link text-white" aria-current="page" href="#">
+                <Link
+                  className="nav-link text-white"
+                  aria-current="page"
+                  to="/login"
+                >
                   Log in
-                </a>
+                </Link>
               </li>
             )}
 

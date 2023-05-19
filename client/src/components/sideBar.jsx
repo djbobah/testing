@@ -18,7 +18,7 @@ const SideBar = () => {
         </a>
         <hr className="text-white mt-2" />
         <ul className="nav nav-pills flex-column mt-2">
-          <Link to="/main" className="p-1 text-decoration-none text-white">
+          <Link to="/main/home" className="p-1 text-decoration-none text-white">
             <li
               className={
                 active === 1 ? `active nav-item p-2 m-1` : "nav-item p-2"

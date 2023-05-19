@@ -60,7 +60,7 @@ const Main = () => {
         {/* </div> */}
         <div className="col mt-5">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route exact path="/home" element={<Home />} />
             <Route exact path="/users" element={<UsersList />} />
             <Route exact path="/tests" element={<TestsList />} />
             <Route exact path="/reports" element={<Reports />} />
