@@ -91,7 +91,6 @@ const RegisterForm = ({ departments }) => {
   };
 
   const isValid = Object.keys(errors).length === 0;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isValid = validate();
@@ -102,11 +101,11 @@ const RegisterForm = ({ departments }) => {
       id_department: departmentOptions.filter(
         (dep) => dep.name === data.department
       )[0].value,
-      roles: [1],
+      roles: "user",
     };
     try {
       await signUp(newData);
-      navigate("/main");
+      navigate("/main/home");
       // console.log(userService.get());
     } catch (error) {
       setErrors(error);

@@ -5,9 +5,11 @@ import Home from "./home";
 import UsersList from "./usersList";
 import TestsList from "./testsList";
 import Reports from "./reports";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { useAuth } from "./hooks/useAuth";
 
 const Main = () => {
+  const { currentUser } = useAuth();
   const [toggle, setToggle] = useState(false);
   const toggleHandler = () => {
     setToggle(!toggle);
@@ -44,32 +46,36 @@ const Main = () => {
   //     </div>
   //   </div>
   // );
-  return (
-    // <div className="d-flex w-auto">
-    <>
-      <NavBar onToggle={toggleHandler} />
-      <div className="d-flex">
-        {/* <div className="col"> */}
-        {/* <div> */}
-        <div className={toggle ? "d-none" : "w-auto position-fixed"}>
-          <SideBar />
-        </div>
-        <div className={toggle ? "d-none" : ""}>
-          <SideBar />
+  // console.log("currentUser main", currentUser);
+  if (currentUser) {
+    return (
+      // <div className="d-flex w-auto">
+
+      <>
+        {/* <NavBar onToggle={toggleHandler} /> */}
+        <div className="d-flex">
+          {/* <div className="col"> */}
+          {/* <div> */}
+          <div className={toggle ? "d-none" : "w-auto position-fixed"}>
+            <SideBar />
+          </div>
+          <div className={toggle ? "d-none" : ""}>
+            <SideBar />
+          </div>
+          {/* </div> */}
+          <div className="col mt-5">
+            <Routes>
+              <Route exact path="/home" element={<Home />} />
+              <Route exact path="/users" element={<UsersList />} />
+              <Route exact path="/tests" element={<TestsList />} />
+              <Route exact path="/reports" element={<Reports />} />
+            </Routes>
+          </div>
         </div>
         {/* </div> */}
-        <div className="col mt-5">
-          <Routes>
-            <Route exact path="/home" element={<Home />} />
-            <Route exact path="/users" element={<UsersList />} />
-            <Route exact path="/tests" element={<TestsList />} />
-            <Route exact path="/reports" element={<Reports />} />
-          </Routes>
-        </div>
-      </div>
-      {/* </div> */}
-    </>
-  );
+      </>
+    );
+  } else return "Loading...";
 };
 
 export default Main;

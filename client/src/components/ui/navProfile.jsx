@@ -9,6 +9,7 @@ const NavProfile = () => {
   const toggleMenu = () => {
     setOpen((prevState) => !prevState);
   };
+  // console.log("currentUser nv profile", currentUser);
   return (
     <div className="dropdown" onClick={toggleMenu}>
       <div className="btn dropdown-toggle d-flex align-items-center text-white">
@@ -20,7 +21,7 @@ const NavProfile = () => {
         <Link to={`/users/${currentUser.id}`} className="dropdown-item">
           Profile
         </Link>
-        <Link to="logout" className="dropdown-item">
+        <Link to="/main/logout" className="dropdown-item">
           Logout
         </Link>
       </div>

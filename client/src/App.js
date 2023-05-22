@@ -11,7 +11,7 @@ import Login from "./layouts/login";
 import Main from "./components/main";
 import NavBar from "./components/navBar";
 import MainPage from "./components/mainPage";
-
+import UserPage from "./components/userPage";
 // const QContext = React.createContext();
 // const qqq = { name: "name", value: "12345" };
 
@@ -37,6 +37,9 @@ function App() {
           </Route>
           <Route element={<ProtectedRoute />}>
             <Route exact path="/main/*" element={<Main />} />
+            <Route exact path="/users/">
+              <Route path=":idUser?" element={<UserPage />} />
+            </Route>
           </Route>
           <Route path="/main/logout" element={<LogOut />} />
         </Routes>

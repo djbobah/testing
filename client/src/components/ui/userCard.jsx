@@ -1,6 +1,9 @@
 import React from "react";
+import { useAuth } from "../hooks/useAuth";
 
 const UserCard = () => {
+  const { currentUser } = useAuth();
+  console.log("user", currentUser.roles);
   return (
     <div className="card mb-3">
       <div className="card-body">
@@ -8,7 +11,7 @@ const UserCard = () => {
           <i className="bi bi-gear"></i>
         </button>
         <div className="d-flex flex-column align-items-center text-center position-relative">
-          <img
+          {/* <img
             src={`https://avatars.dicebear.com/api/avataaars/${(
               Math.random() + 1
             )
@@ -16,10 +19,12 @@ const UserCard = () => {
               .substring(7)}.svg`}
             className="rounded-circle"
             width="150"
-          />
+          /> */}
           <div className="mt-3">
-            <h4>//UserName</h4>
-            <p className="text-secondary mb-1">//Profession</p>
+            <h4>{currentUser.fio}</h4>
+            <p className="text-secondary mb-1">
+              {currentUser.roles === "user" ? "пользователь" : "админ"}
+            </p>
             <div className="text-muted">
               <i
                 className="bi bi-caret-down-fill text-primary"

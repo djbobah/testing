@@ -54,11 +54,11 @@ const AuthProvider = ({ children }) => {
   async function signUp(newData) {
     // const url = config.apiEndpoint;
     try {
-      const { data } = await httpAuth.post("/auth/signUp", newData);
-      console.log(data);
+      let { data } = await httpAuth.post("/auth/signUp", newData);
+      // console.log(data);
       setTokens(data);
+      data = { ...data, ...newData };
       setCurrentUser(data);
-      console.log("data", data);
     } catch (error) {
       errorCatcher(error);
       const { code, message } = error.response.data.error;
@@ -84,7 +84,7 @@ const AuthProvider = ({ children }) => {
   async function getUserData() {
     try {
       const { data } = await userService.getCurrentUser();
-      console.log("content", data);
+      // console.log("content", data);
       setCurrentUser(data);
     } catch (error) {
       errorCatcher(error);
