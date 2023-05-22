@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TextField = ({
+const TextAreaField = ({
   label,
   type,
   name,
@@ -26,8 +26,8 @@ const TextField = ({
         {label}
       </label>
       <div className="input-group has-validation">
-        <input
-          type={showPassword ? "text" : type}
+        <textarea
+          // type="textarea"
           id={name}
           name={name}
           value={value}
@@ -35,7 +35,7 @@ const TextField = ({
           className={getInputClasses()}
           autoFocus={autoFocus}
         />
-        {type === "password" && (
+        {/* {type === "password" && (
           <button
             type="button"
             className="btn btn-outline-secondary"
@@ -43,12 +43,12 @@ const TextField = ({
           >
             <i className={"bi bi-eye" + (showPassword ? "-slash" : "")}></i>
           </button>
-        )}
+        )} */}
         {error && <div className="invalid-feedback">{error}</div>}
       </div>
     </div>
   );
 };
-TextField.defaultProps = { type: "text" };
+// TextAreaField.defaultProps = { type: "text" };
 
-export default TextField;
+export default TextAreaField;

@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
-import SelectField from "../common/form/selectField";
+// import SelectField from "../common/form/selectField";
 import { useAuth } from "./../hooks/useAuth";
+import TextAreaField from "../common/form/textAreaField";
+import CheckBoxField from "../common/form/checkBoxField";
 
 const CreateTest = () => {
   const [data, setData] = useState({
     testName: "",
-    password: "",
-    fio: "",
-    department: "",
+    description: "",
+    timeOfTest: "",
+    numderOfQuestionsForTest: "",
     // sex: "male",
     // qualities: [],
-    // license: false,
+    isRandomQuestions: false,
   });
   // const [qualities, setQualities] = useState({});
   // const [departments, setDepartments] = useState();
@@ -23,20 +25,34 @@ const CreateTest = () => {
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
+  const validatorConfig = {
+    testName: {
+      isRequired: { message: "Наименование теста обязательно для заполнения" },
+      // isEmail: { message: "Электронная почта введена некорректно" },
+    },
+  };
 
+  useEffect(() => {
+    validate();
+  }, [data]);
+
+  const validate = () => {
+    const errors = validator(data, validatorConfig);
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
   const isValid = Object.keys(errors).length === 0;
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     // const isValid = validate();
     // if (!isValid) return;
-    // console.log(data);
-    // const newData = {
-    //   ...data,
-    //   id_department: departmentOptions.filter(
-    //     (dep) => dep.name === data.department
-    //   )[0].value,
-    //   roles: "user",
-    // };
+
+    const newData = {
+      ...data,
+      idAuthor: currentUser.id,
+    };
+    console.log(newData);
     // try {
     //   await signUp(newData);
     //   navigate("/main/home");
@@ -45,6 +61,8 @@ const CreateTest = () => {
     //   setErrors(error);
     // }
   };
+
+  console.log("currentUser", currentUser);
   return (
     <div className="container " style={{ marginTop: "50px" }}>
       <div className="row gutters-sm">
@@ -68,21 +86,35 @@ const CreateTest = () => {
                   error={errors.testName}
                   autoFocus
                 />{" "}
-                {/* <TextField
-                  label="Пароль:"
-                  type="password"
-                  name="password"
-                  value={data.password}
+                <TextAreaField
+                  label="Описание:"
+                  name="description"
+                  value={data.description}
                   onChange={handleChange}
-                  error={errors.password}
-                /> */}
-                <TextField
-                  label="ФИО:"
-                  name="fio"
-                  value={data.fio}
-                  onChange={handleChange}
-                  error={errors.fio}
+                  error={errors.description}
                 />
+                <div className="d-flex ">
+                  <div className="w-50 mx-auto me-4">
+                    <TextField
+                      label="Время на прохождение теста (мин):"
+                      name="timeOfTest"
+                      type="number"
+                      value={data.timeOfTest}
+                      onChange={handleChange}
+                      error={errors.timeOfTest}
+                    />
+                  </div>
+                  <div className="w-50 mx-auto">
+                    <TextField
+                      label="Укажите число вопросов для тестирования:"
+                      name="numderOfQuestionsForTest"
+                      type="number"
+                      value={data.numderOfQuestionsForTest}
+                      onChange={handleChange}
+                      error={errors.numderOfQuestionsForTest}
+                    />
+                  </div>
+                </div>
                 {/* <SelectField
                   onChange={handleChange}
                   options={departmentOptions}
@@ -108,22 +140,31 @@ const CreateTest = () => {
         defaultValue={data.qualities}
         name="qualities"
         label="Выберите ваши качаства"
-      />
-      <CheckBoxField
-        value={data.license}
-        onChange={handleChange}
-        name="license"
-        error={errors.license}
-      >
-        Подтвердить <a>лицензионное соглашение</a>
-      </CheckBoxField> */}
-                <button
-                  type="submit"
-                  disabled={!isValid}
-                  className="btn btn-primary w-100 mx-auto"
+      /> */}
+                <CheckBoxField
+                  value={data.isRandomQuestions}
+                  onChange={handleChange}
+                  name="isRandomQuestions"
+                  error={errors.isRandomQuestions}
                 >
-                  Зарегистрироваться
-                </button>
+                  Вопросы для теста брать из базы случайным образом
+                </CheckBoxField>
+                <div className="d-flex">
+                  <button
+                    type="submit"
+                    disabled={!isValid}
+                    className="btn btn-primary w-50 mx-auto me-4"
+                  >
+                    Создать
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={!isValid}
+                    className="btn btn-secondary w-50 mx-auto"
+                  >
+                    Отмена
+                  </button>
+                </div>
               </form>
             </div>
             {/* <div className="position-relative m-2 ">

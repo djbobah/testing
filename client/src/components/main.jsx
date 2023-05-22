@@ -11,6 +11,7 @@ import CreateTest from "./tests/createTest";
 
 const Main = () => {
   const { currentUser } = useAuth();
+  const [active, setActive] = useState(1);
   const [toggle, setToggle] = useState(false);
   const toggleHandler = () => {
     setToggle(!toggle);
@@ -58,7 +59,7 @@ const Main = () => {
           {/* <div className="col"> */}
           {/* <div> */}
           <div className={toggle ? "d-none" : "w-auto position-fixed"}>
-            <SideBar />
+            <SideBar active={active} setActive={setActive} />
           </div>
           <div className={toggle ? "d-none" : ""}>
             <SideBar />

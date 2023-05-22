@@ -23,7 +23,7 @@ const SideBar = () => {
           <Link to="/main/home" className="p-1 text-decoration-none text-white">
             <li
               className={
-                active === 1 ? `active nav-item p-2 m-1` : "nav-item p-2"
+                active === 1 ? `active nav-item p-1 m-1` : "nav-item p-1"
               }
               onClick={() => setActive(1)}
             >
@@ -40,7 +40,7 @@ const SideBar = () => {
               >
                 <li
                   className={
-                    active === 2 ? `active nav-item p-2 m-1` : "nav-item p-2"
+                    active === 2 ? `active nav-item p-1 m-1` : "nav-item p-1"
                   }
                   onClick={() => setActive(2)}
                 >
@@ -54,7 +54,7 @@ const SideBar = () => {
               >
                 <li
                   className={
-                    active === 3 ? `active nav-item p-2 m-1` : "nav-item p-2"
+                    active === 3 ? `active nav-item p-1 m-1` : "nav-item p-1"
                   }
                   onClick={() => setActive(3)}
                 >
@@ -71,7 +71,7 @@ const SideBar = () => {
           >
             <li
               className={
-                active === 4 ? `active nav-item p-2 m-1` : "nav-item p-2"
+                active === 4 ? `active nav-item p-1 m-1` : "nav-item p-1"
               }
               onClick={() => setActive(4)}
             >
@@ -85,7 +85,7 @@ const SideBar = () => {
           >
             <li
               className={
-                active === 5 ? `active nav-item p-2 m-1` : "nav-item p-2"
+                active === 5 ? `active nav-item p-1 m-1` : "nav-item p-1"
               }
               onClick={() => setActive(5)}
             >
