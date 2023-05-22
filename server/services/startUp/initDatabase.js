@@ -9,11 +9,11 @@ module.exports = async () => {
     // console.log("not identy");
     await createInitialEntity(Departments, departmentsMock);
   }
-  const roles = await Roles.findAll();
-  if (roles.length !== rolesMock.length) {
-    // console.log("not identy");
-    await createInitialEntity(Roles, rolesMock);
-  }
+  // const roles = await Roles.findAll();
+  // if (roles.length !== rolesMock.length) {
+  //   // console.log("not identy");
+  //   await createInitialEntity(Roles, rolesMock);
+  // }
   // UserController.create({
   //   login: "aaa",
   //   email: "aaa4@mail.ru",

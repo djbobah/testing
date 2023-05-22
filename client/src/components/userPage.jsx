@@ -1,6 +1,7 @@
 import React from "react";
 import UserCard from "./ui/userCard";
-import MeetingsCard from "./ui/meetingsCard";
+import NumberTestsCard from "./ui/numberTestsCard";
+// import QualitiesCard from "./ui/qualitiesCard";
 import Comments from "./ui/comments";
 const UserPage = () => {
   return (
@@ -9,7 +10,8 @@ const UserPage = () => {
       <div className="row gutters-sm">
         <div className="col-md-4 mb-3">
           <UserCard />
-          <MeetingsCard />
+          <NumberTestsCard />
+          {/* <QualitiesCard /> */}
         </div>
         <div className="col-md-8">
           <Comments />

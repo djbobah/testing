@@ -25,14 +25,14 @@ const UserCard = () => {
             <p className="text-secondary mb-1">
               {currentUser.roles === "user" ? "пользователь" : "админ"}
             </p>
-            <div className="text-muted">
+            {/* <div className="text-muted">
               <i
                 className="bi bi-caret-down-fill text-primary"
                 role="button"
               ></i>
               <i className="bi bi-caret-up text-secondary" role="button"></i>
               <span className="ms-2">//Rate</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
