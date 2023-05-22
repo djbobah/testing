@@ -35,7 +35,7 @@ const SideBar = () => {
             <>
               {" "}
               <Link
-                to="/main/home"
+                to="/main/createTest"
                 className="p-1 text-decoration-none text-white"
               >
                 <li
