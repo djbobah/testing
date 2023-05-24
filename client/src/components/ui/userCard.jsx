@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 
 const UserCard = () => {
   const { currentUser } = useAuth();
-  console.log("user", currentUser.roles);
+  // console.log("user", currentUser.roles);
   return (
     <div className="card mb-3">
       <div className="card-body">

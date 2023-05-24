@@ -2,25 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
-import httpService from "../services/http.service";
+import DeparmmentService from "../services/department.service";
+import { useDepartments } from "../components/hooks/useDepartments";
 const Login = () => {
   const { type } = useParams();
   const [formType, setFormType] = useState(
     type === "register" ? type : "login"
   );
 
-  const [departments, setDepartments] = useState("");
+  // const [departments, setDepartments] = useState("");
   // console.log("config.apiEndpoint ", config.apiEndpoint);
-  useEffect(() => {
-    try {
-      httpService.get("/departments").then((dep) => {
-        setDepartments(dep.data);
-      });
-      // console.log("departments", departments);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  const { departments } = useDepartments();
+  // useEffect(() => {
+  //   try {
+  //     // const dep = DeparmmentService.getDepartmments();
+  //     setDepartments(dep.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
   const toggleFormType = () => {
     setFormType((prevState) =>

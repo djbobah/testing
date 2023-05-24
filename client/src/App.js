@@ -12,6 +12,7 @@ import Main from "./components/main";
 import NavBar from "./components/navBar";
 import MainPage from "./components/mainPage";
 import UserPage from "./components/userPage";
+import DepartmentsProvider from "./components/hooks/useDepartments";
 // const QContext = React.createContext();
 // const qqq = { name: "name", value: "12345" };
 
@@ -28,21 +29,23 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <NavBar />
-        <Routes>
-          <Route path="/">
-            <Route path="/" element={<MainPage />} />
+        <DepartmentsProvider>
+          <NavBar />
+          <Routes>
+            <Route path="/">
+              <Route path="/" element={<MainPage />} />
 
-            <Route path=":type?" element={<Login />} />
-          </Route>
-          <Route element={<ProtectedRoute />}>
-            <Route exact path="/main/*" element={<Main />} />
-            <Route exact path="/users/">
-              <Route path=":idUser?" element={<UserPage />} />
+              <Route path=":type?" element={<Login />} />
             </Route>
-          </Route>
-          <Route path="/main/logout" element={<LogOut />} />
-        </Routes>
+            <Route element={<ProtectedRoute />}>
+              <Route exact path="/main/*" element={<Main />} />
+              <Route exact path="/users/">
+                <Route path=":idUser?" element={<UserPage />} />
+              </Route>
+            </Route>
+            <Route path="/main/logout" element={<LogOut />} />
+          </Routes>
+        </DepartmentsProvider>
       </AuthProvider>
       <ToastContainer />
     </>

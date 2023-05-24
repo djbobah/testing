@@ -17,12 +17,12 @@ const UserPage = () => {
           <Comments />
         </div>
       </div>
-      <div className="position-relative">
+      {/* <div className="position-relative">
         <div className="position-absolute  bottom-0 end-0">
           <button className="btn btn-primary me-2">Сохранить</button>
           <button className="btn btn-secondary">Отмена</button>
         </div>
-      </div>
+      </div> */}
     </div>
     // </div>
   );
