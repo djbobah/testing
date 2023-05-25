@@ -85,7 +85,7 @@ const AuthProvider = ({ children }) => {
       console.log("newData", newData);
       // console.log("currentUser before", currentUser);
       await getUserData();
-      console.log("currentUser", currentUser);
+      // console.log("currentUser", currentUser);
       // console.log("currentUser", currentUser);
       //setCurrentUser(data);
     } catch (error) {
@@ -114,6 +114,7 @@ const AuthProvider = ({ children }) => {
     try {
       const { data } = await userService.getCurrentUser();
       console.log("content", data);
+      console.log("currentUser", currentUser);
       setCurrentUser(data);
     } catch (error) {
       errorCatcher(error);
