@@ -21,10 +21,7 @@ const RegisterForm = ({ departments }) => {
     // qualities: [],
     // license: false,
   });
-  // const [qualities, setQualities] = useState({});
-  // const [departments, setDepartments] = useState();
   const [errors, setErrors] = useState({});
-  // console.log("departments", departments);
   const { signUp } = useAuth();
 
   const departmentOptions = departments.map((dep) => ({

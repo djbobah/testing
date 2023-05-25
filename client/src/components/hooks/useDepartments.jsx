@@ -92,17 +92,6 @@ const DepartmentsProvider = ({ children }) => {
       const data = await DeparmmentService.getDepartmments();
       // console.log("content", data);
       setDepartments(data);
-    } catch (error) {
-      errorCatcher(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-  async function getDepartmentsData() {
-    try {
-      const data = await DeparmmentService.getDepartmments();
-      // console.log("content", data);
-      setDepartments(data);
       const curDep = await DeparmmentService.getCurrentDepartment(
         currentUser.id_department
       );

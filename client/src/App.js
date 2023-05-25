@@ -11,7 +11,7 @@ import Login from "./layouts/login";
 import Main from "./components/main";
 import NavBar from "./components/navBar";
 import MainPage from "./components/mainPage";
-import UserPage from "./components/userPage";
+import UserPage from "./components/page/userPage";
 import DepartmentsProvider from "./components/hooks/useDepartments";
 // const QContext = React.createContext();
 // const qqq = { name: "name", value: "12345" };

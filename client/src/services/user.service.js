@@ -1,16 +1,25 @@
 import httpService from "./http.service";
 import localStorageService from "./localStorage.service";
 
+const userEndpoint = "users/";
+
 const userService = {
   get: async () => {
-    const { data } = await httpService.get("/users");
+    const { data } = await httpService.get(userEndpoint);
     return data;
   },
   getCurrentUser: async () => {
     const data = await httpService.get(
-      "/users/" + localStorageService.getUserId()
+      userEndpoint + localStorageService.getUserId()
     );
     // console.log("user service data", data);
+    return data;
+  },
+  update: async (payload) => {
+    const { data } = await httpService.patch(
+      userEndpoint + localStorageService.getUserId(),
+      payload
+    );
     return data;
   },
 };

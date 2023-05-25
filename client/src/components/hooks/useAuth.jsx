@@ -75,6 +75,35 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  async function updateUser(newData) {
+    // const url = config.apiEndpoint;
+    try {
+      let { data } = await httpAuth.patch("/users/" + currentUser.id, newData);
+      // console.log("auth update user", data);
+      //setTokens(data);
+      // data = { ...data, ...newData };
+      console.log("newData", newData);
+      // console.log("currentUser before", currentUser);
+      await getUserData();
+      console.log("currentUser", currentUser);
+      // console.log("currentUser", currentUser);
+      //setCurrentUser(data);
+    } catch (error) {
+      errorCatcher(error);
+      const { code, message } = error.response.data.error;
+      console.log(code, message);
+      if (code === 400) {
+        if (message === "EMAIL_EXISTS") {
+          const errorObject = {
+            email: "Пользователь с таким email уже существует",
+          };
+          throw errorObject;
+          // setError({ email: "Пользователь с таким email уже существует" });
+        }
+      }
+    }
+  }
+
   function errorCatcher(error) {
     // console.log(error);
     const { message } = error.response.data;
@@ -84,7 +113,7 @@ const AuthProvider = ({ children }) => {
   async function getUserData() {
     try {
       const { data } = await userService.getCurrentUser();
-      // console.log("content", data);
+      console.log("content", data);
       setCurrentUser(data);
     } catch (error) {
       errorCatcher(error);
@@ -106,7 +135,9 @@ const AuthProvider = ({ children }) => {
     }
   }, [error]);
   return (
-    <AuthContext.Provider value={{ signUp, logIn, currentUser, logOut }}>
+    <AuthContext.Provider
+      value={{ signUp, logIn, currentUser, logOut, updateUser }}
+    >
       {!isLoading ? children : "Loading..."}
     </AuthContext.Provider>
   );

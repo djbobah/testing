@@ -2,33 +2,25 @@ import React, { useState, useEffect } from "react";
 
 import TextField from "../common/form/textField";
 import SelectField from "../common/form/selectField";
-import { useAuth } from "./../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import { validator } from "../../utils/validator";
 import { useNavigate } from "react-router-dom";
 import { useDepartments } from "../hooks/useDepartments";
+import { toast } from "react-toastify";
 
-const Comments = () => {
-  const { currentUser } = useAuth();
+const UserProfileDetails = () => {
+  const { currentUser, updateUser } = useAuth();
   const { departments, currentDepartment } = useDepartments();
+  const [disabledTextField, setDisabledTextField] = useState(true);
   // console.log("currentDepartment", currentDepartment);
   const [data, setData] = useState({
     email: currentUser.email,
     password: "",
     fio: currentUser.fio,
-    department: currentDepartment.name,
-    // department: {
-    //   name: currentDepartment.name,
-    //   value: currentDepartment.id,
-    // },
-    // sex: "male",
-    // qualities: [],
-    // license: false,
+    // department: currentDepartment.name,
+    department: currentDepartment.id,
   });
-  // const [qualities, setQualities] = useState({});
-  // const [departments, setDepartments] = useState();
   const [errors, setErrors] = useState({});
-
-  const { signUp } = useAuth();
 
   const departmentOptions = departments.map((dep) => ({
     name: dep.name,
@@ -53,45 +45,54 @@ const Comments = () => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
 
-  const validatorConfig = {
-    email: {
-      isRequired: { message: "Электронная почта обязательна для заполнения" },
-      isEmail: { message: "Электронная почта введена некорректно" },
-    },
-    password: {
-      isRequired: { message: "Пароль обязателен для заполнения" },
-      // isCapitalSymbol: {
-      //   message: "Пароль должен содержать хотя бы одну заглавную букву",
-      // },
-      isContainDigit: {
-        message: "Пароль должен содержать хотя бы одну цифру",
-      },
-      min: {
-        message: "Пароль должен состоять минимум из 6 символов",
-        value: 6,
-      },
-    },
-    fio: {
-      isRequired: { message: "Поле 'ФИО' обязательно для заполнения" },
-    },
-    // department: {
-    //   isRequired: { message: "Подразделение обязательно для заполнения" },
-    // },
-    // license: {
-    //   isRequired: {
-    //     message:
-    //       "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения",
-    //   },
-    // },
-  };
+  const validatorConfig = !disabledTextField
+    ? {
+        email: {
+          isRequired: {
+            message: "Электронная почта обязательна для заполнения",
+          },
+          isEmail: { message: "Электронная почта введена некорректно" },
+        },
+        password: {
+          isRequired: { message: "Пароль обязателен для заполнения" },
+          // isCapitalSymbol: {
+          //   message: "Пароль должен содержать хотя бы одну заглавную букву",
+          // },
+          isContainDigit: {
+            message: "Пароль должен содержать хотя бы одну цифру",
+          },
+          min: {
+            message: "Пароль должен состоять минимум из 6 символов",
+            value: 6,
+          },
+        },
+        fio: {
+          isRequired: { message: "Поле 'ФИО' обязательно для заполнения" },
+        },
+      }
+    : {
+        email: {
+          isRequired: {
+            message: "Электронная почта обязательна для заполнения",
+          },
+          isEmail: { message: "Электронная почта введена некорректно" },
+        },
+
+        fio: {
+          isRequired: { message: "Поле 'ФИО' обязательно для заполнения" },
+        },
+      };
 
   const handleClickCancel = () => {
     navigate("/main/home");
   };
-
+  const handleChangePasswordClick = () => {
+    setDisabledTextField(!disabledTextField);
+    setData((prevState) => ({ ...prevState, password: "" }));
+  };
   useEffect(() => {
     validate();
-  }, [data]);
+  }, [data, disabledTextField]);
 
   const validate = () => {
     const errors = validator(data, validatorConfig);
@@ -105,20 +106,24 @@ const Comments = () => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    console.log(data);
+    console.log("user profile", data);
     const newData = {
       ...data,
       // id_department: departmentOptions.filter(
       //   (dep) => dep.name === data.department
       // )[0].value,
-      roles: "user",
+      // roles: "user",
     };
+
     try {
-      await signUp(newData);
-      navigate("/main/home");
-      // console.log(userService.get());
+      await updateUser(newData);
+      //   navigate("/main/home");
+      //   // console.log(userService.get());
     } catch (error) {
       setErrors(error);
+    } finally {
+      toast("Профиль обновлен");
+      navigate("/main/home");
     }
   };
   return (
@@ -133,21 +138,33 @@ const Comments = () => {
               onChange={handleChange}
               error={errors.email}
               autoFocus
+              disabled={false}
             />{" "}
-            <TextField
-              label="Пароль:"
-              type="password"
-              name="password"
-              value={data.password}
-              onChange={handleChange}
-              error={errors.password}
-            />
+            <div className="d-flex justify-content-between gap-3">
+              <TextField
+                label="Пароль:"
+                type="password"
+                name="password"
+                value={data.password}
+                onChange={handleChange}
+                error={errors.password}
+                disabled={disabledTextField}
+              />
+              <button
+                type="button"
+                className="btn btn-light border mt-4 h-50"
+                onClick={handleChangePasswordClick}
+              >
+                Сменить пароль
+              </button>
+            </div>
             <TextField
               label="ФИО:"
               name="fio"
               value={data.fio}
               onChange={handleChange}
               error={errors.fio}
+              disabled={false}
             />
             <SelectField
               onChange={handleChange}
@@ -222,4 +239,4 @@ const Comments = () => {
   );
 };
 
-export default Comments;
+export default UserProfileDetails;

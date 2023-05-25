@@ -15,10 +15,7 @@ const SelectField = ({
   };
   const optionsArray =
     !Array.isArray(options) && typeof options === "object"
-      ? Object.keys(options).map((optionName) => ({
-          name: options[optionName].name,
-          value: options[optionName].id,
-        }))
+      ? Object.values(options)
       : options;
   // console.log("getRandomInt", getRandomInt());
   const handleChange = ({ target }) => {
@@ -45,7 +42,7 @@ const SelectField = ({
             <option
               key={getRandomInt() + option.name}
               // selected={departmemt.id === data.departmemt}
-              value={option.id}
+              value={option.value}
             >
               {option.name}
             </option>

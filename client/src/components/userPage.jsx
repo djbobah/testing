@@ -2,7 +2,7 @@ import React from "react";
 import UserCard from "./ui/userCard";
 import NumberTestsCard from "./ui/numberTestsCard";
 // import QualitiesCard from "./ui/qualitiesCard";
-import Comments from "./ui/comments";
+import Comments from "./ui/userProfileDetails";
 const UserPage = () => {
   return (
     // <div className="gy-5">
