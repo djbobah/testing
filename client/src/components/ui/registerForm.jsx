@@ -92,11 +92,13 @@ const RegisterForm = ({ departments }) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    console.log(data);
+    // console.log(data);
+    // console.log(data.department);
+    // console.log(departmentOptions);
     const newData = {
       ...data,
       id_department: departmentOptions.filter(
-        (dep) => dep.name === data.department
+        (dep) => dep.value === Number(data.department)
       )[0].value,
       roles: "user",
     };

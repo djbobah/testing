@@ -18,7 +18,7 @@ const UserProfileDetails = () => {
     password: "",
     fio: currentUser.fio,
     // department: currentDepartment.name,
-    department: currentDepartment.id,
+    department: currentUser.id_department,
   });
   const [errors, setErrors] = useState({});
 
