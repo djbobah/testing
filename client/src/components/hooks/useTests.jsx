@@ -2,18 +2,18 @@ import React, { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
-import DeparmmentService from "../../services/department.service";
+import TestService from "../../services/test.service";
 import { useAuth } from "./useAuth";
 
-const DepatrmentsContext = React.createContext();
+const TestsContext = React.createContext();
 
-export const useDepartments = () => {
-  return useContext(DepatrmentsContext);
+export const useTests = () => {
+  return useContext(TestsContext);
 };
 
-const DepartmentsProvider = ({ children }) => {
-  const [departments, setDepartments] = useState();
-  const [currentDepartment, setCurrentDepartment] = useState();
+const TestsProvider = ({ children }) => {
+  const [tests, setTests] = useState();
+  const [currentTest, setCurrentTest] = useState();
 
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -26,15 +26,15 @@ const DepartmentsProvider = ({ children }) => {
     setError(message);
   }
 
-  async function getDepartmentsData() {
+  async function getTestsData() {
     try {
-      const data = await DeparmmentService.getDepartmments();
+      const data = await TestService.getTests();
       // console.log("content", data);
-      setDepartments(data);
-      const curDep = await DeparmmentService.getCurrentDepartment(
-        currentUser.id_department
-      );
-      setCurrentDepartment(curDep);
+      setTests(data);
+      // const curTest = await TestService.getCurrentTest(
+      //   currentUser.id_department
+      // );
+      // setCurrentDepartment(curDep);
     } catch (error) {
       errorCatcher(error);
     } finally {
@@ -42,7 +42,7 @@ const DepartmentsProvider = ({ children }) => {
     }
   }
   useEffect(() => {
-    getDepartmentsData();
+    getTestsData();
   }, []);
   useEffect(() => {
     if (error !== null) {
@@ -51,10 +51,10 @@ const DepartmentsProvider = ({ children }) => {
     }
   }, [error]);
   return (
-    <DepatrmentsContext.Provider value={{ departments, currentDepartment }}>
+    <TestsContext.Provider value={{ tests, currentTest }}>
       {!isLoading ? children : "Loading..."}
-    </DepatrmentsContext.Provider>
+    </TestsContext.Provider>
   );
 };
 
-export default DepartmentsProvider;
+export default TestsProvider;

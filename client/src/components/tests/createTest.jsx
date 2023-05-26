@@ -12,14 +12,9 @@ const CreateTest = () => {
     description: "",
     timeOfTest: "",
     numderOfQuestionsForTest: "",
-    // sex: "male",
-    // qualities: [],
     isRandomQuestions: false,
   });
-  // const [qualities, setQualities] = useState({});
-  // const [departments, setDepartments] = useState();
   const [errors, setErrors] = useState({});
-  // console.log("departments", departments);
   const { currentUser } = useAuth();
 
   const handleChange = (target) => {
@@ -28,7 +23,6 @@ const CreateTest = () => {
   const validatorConfig = {
     testName: {
       isRequired: { message: "Наименование теста обязательно для заполнения" },
-      // isEmail: { message: "Электронная почта введена некорректно" },
     },
   };
 
@@ -67,12 +61,6 @@ const CreateTest = () => {
     <div className="container " style={{ marginTop: "50px" }}>
       <div className="row gutters-sm">
         <div className="col-md-12">
-          {/* <div className="card mb-2  ">
-            {" "}
-            <div className="card-body ">
-              <h2></h2>{" "}
-            </div>
-          </div> */}
           <div className="card mb-3">
             <div className="card-body ">
               <h2>Создание теста</h2>
@@ -115,32 +103,6 @@ const CreateTest = () => {
                     />
                   </div>
                 </div>
-                {/* <SelectField
-                  onChange={handleChange}
-                  options={departmentOptions}
-                  name="department"
-                  defaultOption="Выберите подразделение..."
-                  error={errors.department}
-                  value={data.department}
-                  label="Выберите ваше подразделение..."
-                /> */}
-                {/* <RadioField
-        options={[
-          { name: "Мужской", value: "male" },
-          { name: "Женский", value: "female" },
-        ]}
-        value={data.sex}
-        name="sex"
-        onChange={handleChange}
-        label="Выберите ваш пол:"
-      /> */}
-                {/* <MultiSelectField
-        options={qualities}
-        onChange={handleChange}
-        defaultValue={data.qualities}
-        name="qualities"
-        label="Выберите ваши качаства"
-      /> */}
                 <CheckBoxField
                   value={data.isRandomQuestions}
                   onChange={handleChange}
@@ -167,12 +129,6 @@ const CreateTest = () => {
                 </div>
               </form>
             </div>
-            {/* <div className="position-relative m-2 ">
-              <div className="position-absolute  bottom-0 end-0">
-                <button className="btn btn-primary me-2">Сохранить</button>
-                <button className="btn btn-secondary">Отмена</button>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

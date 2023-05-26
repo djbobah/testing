@@ -45,7 +45,7 @@ const SideBar = () => {
                   onClick={() => setActive(2)}
                 >
                   <i className="bi bi-pencil-square me-3 fs-5"></i>
-                  <span>Создание тестов</span>
+                  <span>Менеджер тестов</span>
                 </li>
               </Link>
               <Link
