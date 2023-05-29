@@ -5,6 +5,7 @@ import { validator } from "../../utils/validator";
 import { useAuth } from "./../hooks/useAuth";
 import TextAreaField from "../common/form/textAreaField";
 import CheckBoxField from "../common/form/checkBoxField";
+import { useTests } from "../hooks/useTests";
 
 const CreateTest = () => {
   const [data, setData] = useState({
@@ -16,6 +17,7 @@ const CreateTest = () => {
   });
   const [errors, setErrors] = useState({});
   const { currentUser } = useAuth();
+  const { create } = useTests();
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -47,16 +49,16 @@ const CreateTest = () => {
       idAuthor: currentUser.id,
     };
     console.log(newData);
-    // try {
-    //   await signUp(newData);
-    //   navigate("/main/home");
-    //   // console.log(userService.get());
-    // } catch (error) {
-    //   setErrors(error);
-    // }
+    try {
+      const data = await create(newData);
+      // navigate("/main/home");
+      console.log("data test", data);
+    } catch (error) {
+      setErrors(error);
+    }
   };
 
-  console.log("currentUser", currentUser);
+  // console.log("currentUser", currentUser);
   return (
     <div className="container " style={{ marginTop: "50px" }}>
       <div className="row gutters-sm">
