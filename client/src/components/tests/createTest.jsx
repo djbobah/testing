@@ -17,7 +17,7 @@ const CreateTest = () => {
   });
   const [errors, setErrors] = useState({});
   const { currentUser } = useAuth();
-  const { create } = useTests();
+  const { tests } = useTests();
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -49,13 +49,13 @@ const CreateTest = () => {
       idAuthor: currentUser.id,
     };
     console.log(newData);
-    try {
-      const data = await create(newData);
-      // navigate("/main/home");
-      console.log("data test", data);
-    } catch (error) {
-      setErrors(error);
-    }
+    // try {
+    //   const data = await create(newData);
+    //   // navigate("/main/home");
+    //   console.log("data test", data);
+    // } catch (error) {
+    //   setErrors(error);
+    // }
   };
 
   // console.log("currentUser", currentUser);
