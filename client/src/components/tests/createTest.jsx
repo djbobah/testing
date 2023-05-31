@@ -12,12 +12,12 @@ const CreateTest = () => {
     testName: "",
     description: "",
     timeOfTest: "",
-    numderOfQuestionsForTest: "",
+    numberOfQuestionsForTest: "",
     isRandomQuestions: false,
   });
   const [errors, setErrors] = useState({});
   const { currentUser } = useAuth();
-  const { tests } = useTests();
+  const { create } = useTests();
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -43,19 +43,20 @@ const CreateTest = () => {
     e.preventDefault();
     // const isValid = validate();
     // if (!isValid) return;
-
+    console.log("currentUser", currentUser);
     const newData = {
       ...data,
       idAuthor: currentUser.id,
+      isPublished: false,
     };
     console.log(newData);
-    // try {
-    //   const data = await create(newData);
-    //   // navigate("/main/home");
-    //   console.log("data test", data);
-    // } catch (error) {
-    //   setErrors(error);
-    // }
+    try {
+      const data = await create(newData);
+      // navigate("/main/home");
+      console.log("data test", data);
+    } catch (error) {
+      setErrors(error);
+    }
   };
 
   // console.log("currentUser", currentUser);
@@ -97,7 +98,7 @@ const CreateTest = () => {
                   <div className="w-50 mx-auto">
                     <TextField
                       label="Укажите число вопросов для тестирования:"
-                      name="numderOfQuestionsForTest"
+                      name="numberOfQuestionsForTest"
                       type="number"
                       value={data.numderOfQuestionsForTest}
                       onChange={handleChange}

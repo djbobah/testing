@@ -13,6 +13,19 @@ const Tests = model.Tests;
 //   check("email", "Некорректный email").isEmail(),
 //   check("password", "Минимальная длина пароля 6 символов").isLength({ min: 6 }),
 // ];
+
+//получаем список всех тестов
+router.get("/", async (req, res) => {
+  // router.get("/", async (req, res) => {
+  try {
+    const list = await Tests.findAll();
+    res.status(200).send(list);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+  }
+});
 router.post("/create", [
   // check("email", "Некорректный email").isEmail(),
   // check("password", "Минимальная длина пароля 6 символов").isLength({ min: 6 }),
@@ -43,8 +56,11 @@ router.post("/create", [
       // console.log("existingUser ", existingUser);
       // // пользователь не найден
       // const hashedPassword = await bcrypt.hash(password, 12);
+      // console.log("existingUser ", existingUser);
       const newTest = await Tests.create({
         ...req.body,
+        // timeOfTest: Number(req.body.timeOfTest),
+        // timeOfTest: Number(req.body.timeOfTest),
         // isPublished: false,
       });
       console.log("newTest ", newTest);

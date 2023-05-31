@@ -28,26 +28,26 @@ const TestsProvider = ({ children }) => {
   }
 
   async function create(newData) {
-    console.log("create test");
-    // try {
-    //   let { data } = await httpAuth.post("/tests/create", newData);
-    //   // console.log(data);
-    //   data = { ...data, ...newData };
-    //   setTests(data);
-    // } catch (error) {
-    //   errorCatcher(error);
-    //   const { code, message } = error.response.data.error;
-    //   console.log(code, message);
-    //   // if (code === 400) {
-    //   //   if (message === "EMAIL_EXISTS") {
-    //   //     const errorObject = {
-    //   //       email: "Пользователь с таким email уже существует",
-    //   //     };
-    //   //     throw errorObject;
-    //   //     // setError({ email: "Пользователь с таким email уже существует" });
-    //   //   }
-    //   // }
-    // }
+    console.log("create test new DATA", newData);
+    try {
+      let { data } = await httpAuth.post("/tests/create", newData);
+      console.log(data);
+      data = { ...data, ...newData };
+      setTests("data", data);
+    } catch (error) {
+      errorCatcher(error);
+      const { code, message } = error.response.data.error;
+      console.log(code, message);
+      // if (code === 400) {
+      //   if (message === "EMAIL_EXISTS") {
+      //     const errorObject = {
+      //       email: "Пользователь с таким email уже существует",
+      //     };
+      //     throw errorObject;
+      //     // setError({ email: "Пользователь с таким email уже существует" });
+      //   }
+      // }
+    }
   }
 
   async function getTestsData() {
