@@ -15,6 +15,9 @@ const userService = {
     // console.log("user service data", data);
     return data;
   },
+  getUserDataById: async (userId) => {
+    const data = userEndpoint + userId;
+  },
   update: async (payload) => {
     const { data } = await httpService.patch(
       userEndpoint + localStorageService.getUserId(),

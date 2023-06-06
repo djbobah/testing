@@ -11,8 +11,8 @@ const CreateTest = () => {
   const [data, setData] = useState({
     testName: "",
     description: "",
-    timeOfTest: "",
-    numberOfQuestionsForTest: "",
+    timeOfTest: 30,
+    numberOfQuestionsForTest: 0,
     isRandomQuestions: false,
   });
   const [errors, setErrors] = useState({});
@@ -44,18 +44,20 @@ const CreateTest = () => {
     // const isValid = validate();
     // if (!isValid) return;
     console.log("currentUser", currentUser);
-    const newData = {
-      ...data,
-      idAuthor: currentUser.id,
-      isPublished: false,
-    };
-    console.log(newData);
-    try {
-      const data = await create(newData);
-      // navigate("/main/home");
-      console.log("data test", data);
-    } catch (error) {
-      setErrors(error);
+    if (currentUser) {
+      const newData = {
+        ...data,
+        authorId: currentUser.id,
+        isPublished: false,
+      };
+      console.log(newData);
+      try {
+        const data = await create(newData);
+        // navigate("/main/home");
+        console.log("data test", data);
+      } catch (error) {
+        setErrors(error);
+      }
     }
   };
 
@@ -84,18 +86,18 @@ const CreateTest = () => {
                   onChange={handleChange}
                   error={errors.description}
                 />
-                <div className="d-flex ">
-                  <div className="w-50 mx-auto me-4">
-                    <TextField
-                      label="Время на прохождение теста (мин):"
-                      name="timeOfTest"
-                      type="number"
-                      value={data.timeOfTest}
-                      onChange={handleChange}
-                      error={errors.timeOfTest}
-                    />
-                  </div>
-                  <div className="w-50 mx-auto">
+                {/* <div className="d-flex ">
+                  <div className="w-50 mx-auto me-4"> */}
+                <TextField
+                  label="Время на прохождение теста (мин):"
+                  name="timeOfTest"
+                  type="number"
+                  value={data.timeOfTest}
+                  onChange={handleChange}
+                  error={errors.timeOfTest}
+                />
+                {/* </div> */}
+                {/* <div className="w-50 mx-auto">
                     <TextField
                       label="Укажите число вопросов для тестирования:"
                       name="numberOfQuestionsForTest"
@@ -104,8 +106,8 @@ const CreateTest = () => {
                       onChange={handleChange}
                       error={errors.numderOfQuestionsForTest}
                     />
-                  </div>
-                </div>
+                  </div> */}
+                {/* </div> */}
                 <CheckBoxField
                   value={data.isRandomQuestions}
                   onChange={handleChange}

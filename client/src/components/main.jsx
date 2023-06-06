@@ -3,7 +3,7 @@ import SideBar from "./sideBar";
 import NavBar from "./navBar";
 import Home from "./home";
 import UsersList from "./usersList";
-import TestsList from "./testsList";
+import TestsList from "./tests/testsList";
 import Reports from "./reports";
 import { Route, Routes } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
@@ -67,7 +67,7 @@ const Main = () => {
           {/* </div> */}
           <div className="col mt-5">
             <Routes>
-              <Route exact path="/home" element={<Home />} />
+              <Route exact path="/home" element={<TestsList />} />
               <Route exact path="/createTest" element={<CreateTest />} />
               <Route exact path="/users" element={<UsersList />} />
               <Route exact path="/tests" element={<TestsList />} />
