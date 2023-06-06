@@ -33,7 +33,7 @@ const TestsProvider = ({ children }) => {
       let { data } = await httpAuth.post("/tests/create", newData);
       console.log(data);
       data = { ...data, ...newData };
-      setTests("data", data);
+      setTests(data);
     } catch (error) {
       errorCatcher(error);
       const { code, message } = error.response.data.error;
