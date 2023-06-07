@@ -5,6 +5,7 @@ const TestCard = () => {
       <div className="card">
         <div className="card-body">
           <h5 className="card-title">Название теста</h5>
+          <hr />
           <p className="card-text">
             Описательная часть выавыа ывавыа ыва ыва ыва ыва ыва выа вы а выа вы
             а ыва выа ываывавыа ывавыа.
