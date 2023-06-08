@@ -16,7 +16,9 @@ const userService = {
     return data;
   },
   getUserDataById: async (userId) => {
-    const data = userEndpoint + userId;
+    const { data } = await httpService.get(userEndpoint + userId);
+    // console.log("getUserDataById", data);
+    return data;
   },
   update: async (payload) => {
     const { data } = await httpService.patch(

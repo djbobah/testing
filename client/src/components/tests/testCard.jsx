@@ -1,5 +1,9 @@
 import React from "react";
-const TestCard = () => {
+import userService from "../../services/user.service";
+const TestCard = ({ test }) => {
+  const author = userService.getUserDataById(test.authorId);
+  console.log(author);
+
   return (
     <div className="col">
       <div className="card">
@@ -18,7 +22,8 @@ const TestCard = () => {
           <div className="d-flex justify-content-between">
             <div className="text-muted">
               <div>Автор:</div>
-              <div>Bdftyjd DD</div>
+              <div></div>
+              {/* {await userService.getUserDataById(test.authorId)} */}
             </div>
 
             <div className="text-muted">
