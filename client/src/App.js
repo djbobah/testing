@@ -14,6 +14,7 @@ import MainPage from "./components/mainPage";
 import UserPage from "./components/page/userPage";
 import DepartmentsProvider from "./components/hooks/useDepartments";
 import TestsProvider from "./components/hooks/useTests";
+import UsersProvider from "./components/hooks/useUsers";
 // const QContext = React.createContext();
 // const qqq = { name: "name", value: "12345" };
 
@@ -32,21 +33,23 @@ function App() {
       <AuthProvider>
         <DepartmentsProvider>
           <TestsProvider>
-            <NavBar />
-            <Routes>
-              <Route path="/">
-                <Route path="/" element={<MainPage />} />
+            <UsersProvider>
+              <NavBar />
+              <Routes>
+                <Route path="/">
+                  <Route path="/" element={<MainPage />} />
 
-                <Route path=":type?" element={<Login />} />
-              </Route>
-              <Route element={<ProtectedRoute />}>
-                <Route exact path="/main/*" element={<Main />} />
-                <Route exact path="/users/">
-                  <Route path=":idUser?" element={<UserPage />} />
+                  <Route path=":type?" element={<Login />} />
                 </Route>
-              </Route>
-              <Route path="/main/logout" element={<LogOut />} />
-            </Routes>
+                <Route element={<ProtectedRoute />}>
+                  <Route exact path="/main/*" element={<Main />} />
+                  <Route exact path="/users/">
+                    <Route path=":idUser?" element={<UserPage />} />
+                  </Route>
+                </Route>
+                <Route path="/main/logout" element={<LogOut />} />
+              </Routes>
+            </UsersProvider>
           </TestsProvider>
         </DepartmentsProvider>
       </AuthProvider>

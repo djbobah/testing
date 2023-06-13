@@ -6,7 +6,7 @@ import httpService from "../../services/http.service";
 import localStorageService, {
   setTokens,
 } from "../../services/localStorage.service";
-import userService from "../../services/user.service";
+import UserService from "../../services/user.service";
 import { useNavigate } from "react-router-dom";
 
 // axios.defaults.baseURL = config.apiEndpoint;
@@ -112,7 +112,7 @@ const AuthProvider = ({ children }) => {
 
   async function getUserData() {
     try {
-      const { data } = await userService.getCurrentUser();
+      const { data } = await UserService.getCurrentUser();
       console.log("content", data);
       console.log("currentUser", currentUser);
       setCurrentUser(data);
