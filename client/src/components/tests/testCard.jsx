@@ -18,7 +18,7 @@ const TestCard = ({ test }) => {
   // getUserData(test.authorId).then((author) => {
   //   setAuthor(author);
   // });
-  // console.log("test date", new Date(author.updatedAt).toLocaleDateString());
+  console.log("test date", test);
 
   return (
     <div className="col">
@@ -36,18 +36,27 @@ const TestCard = ({ test }) => {
           <div className="">
             <div className="text-muted">
               <div>
-                Автор: <span>{shortFio(author.fio)}</span>
+                Автор:{" "}
+                <b>
+                  <u>
+                    <i>{shortFio(author.fio)}</i>
+                  </u>
+                </b>
               </div>
 
               {/* {await userService.getUserDataById(test.authorId)} */}
             </div>
-
+            <hr />
             <div className="text-muted">
               <div>
                 Последнее обновление:{" "}
-                <span className="">
-                  {new Date(author.updatedAt).toLocaleDateString()}
-                </span>
+                <u>
+                  {" "}
+                  <i className="">
+                    {new Date(test.updatedAt).toLocaleDateString()}
+                    {/* {author.updatedAt} */}
+                  </i>
+                </u>
               </div>
             </div>
           </div>
