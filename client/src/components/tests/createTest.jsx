@@ -17,7 +17,7 @@ const CreateTest = () => {
   });
   const [errors, setErrors] = useState({});
   const { currentUser } = useAuth();
-  const { create } = useTests();
+  const { create, currentTest } = useTests();
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -61,7 +61,7 @@ const CreateTest = () => {
     }
   };
 
-  // console.log("currentUser", currentUser);
+  console.log("currentTest", currentTest);
   return (
     <div className="container " style={{ marginTop: "50px" }}>
       <div className="row gutters-sm">

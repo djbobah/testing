@@ -8,6 +8,7 @@ import Reports from "./reports";
 import { Route, Routes } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 import CreateTest from "./tests/createTest";
+import EditTest from "./tests/editTest";
 
 const Main = () => {
   const { currentUser } = useAuth();
@@ -68,7 +69,8 @@ const Main = () => {
           <div className="col mt-5">
             <Routes>
               <Route exact path="/home" element={<TestsList />} />
-              <Route exact path="/createTest" element={<CreateTest />} />
+              {/* <Route exact path="/createTest" element={<CreateTest />} /> */}
+              <Route exact path="/createTest" element={<EditTest />} />
               <Route exact path="/users" element={<UsersList />} />
               <Route exact path="/tests" element={<TestsList />} />
               <Route exact path="/reports" element={<Reports />} />

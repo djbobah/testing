@@ -1,14 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import userService from "../../services/user.service";
 import { useUsers } from "../hooks/useUsers";
-import { useState } from "react";
 
 import { shortFio } from "../../utils/fioUtils";
+import { useAuth } from "../hooks/useAuth";
+import { useTests } from "../hooks/useTests";
+import TestService from "../../services/test.service";
+import { Link, useNavigate } from "react-router-dom";
+
 const TestCard = ({ test }) => {
+  const navigate = useNavigate;
   const [author, setAuthor] = useState({});
   const { getUserData } = useUsers();
+  const { currentUser } = useAuth();
+  const { currentTest, setCurrentTest } = useTests();
+  const [enterError, setEnterError] = useState(null);
   // const author = userService.getUserDataById(test.authorId);
-  // console.log("test", getUserData());
+  // console.log("author", author);
+  // console.log("currentUser", currentUser);
 
   useEffect(() => {
     getUserData(test.authorId).then((author) => {
@@ -18,14 +27,38 @@ const TestCard = ({ test }) => {
   // getUserData(test.authorId).then((author) => {
   //   setAuthor(author);
   // });
-  console.log("test date", test);
+  // console.log("test date", test);
+
+  const handleClickEditTest = (id) => {
+    TestService.getCurrentTest(id).then((curTest) => {
+      setCurrentTest(curTest);
+    });
+    // navigate("/main/home");
+  };
 
   return (
     <div className="col">
       <div className="card">
         {/* <div className="card-header">asdasd</div> */}
         <div className="card-body">
-          <h5 className="card-title">{test.testName}</h5>
+          <div className="d-flex justify-content-between">
+            <div>
+              <h5 className="card-title">{test.testName}</h5>
+            </div>
+            {author.id === currentUser.id ? (
+              <Link
+                to="/main/createTest"
+                className="text-muted btn"
+                onClick={() => handleClickEditTest(test.id)}
+                id={test.id}
+              >
+                <i className="bi bi-pencil-fill"></i>
+              </Link>
+            ) : (
+              ""
+            )}
+          </div>
+
           <hr />
           <p className="card-text">{test.description}</p>
           <a href="#" className="btn btn-primary">

@@ -26,6 +26,21 @@ router.get("/", async (req, res) => {
       .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
   }
 });
+//получаем список теста по id
+router.get("/:testId", async (req, res) => {
+  // router.get("/", async (req, res) => {
+
+  try {
+    const { testId } = req.params;
+    // console.log("userId", userId);
+    const list = await Tests.findOne({ where: { id: testId } });
+    res.status(200).send(list);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+  }
+});
 router.post("/create", [
   // check("email", "Некорректный email").isEmail(),
   // check("password", "Минимальная длина пароля 6 символов").isLength({ min: 6 }),
