@@ -8,13 +8,23 @@ import { useTests } from "../hooks/useTests";
 import TestService from "../../services/test.service";
 import { Link, useNavigate } from "react-router-dom";
 
-const TestCard = ({ test }) => {
+const TestCard = ({ test, edit, setEdit }) => {
   const navigate = useNavigate;
   const [author, setAuthor] = useState({});
   const { getUserData } = useUsers();
   const { currentUser } = useAuth();
   const { currentTest, setCurrentTest } = useTests();
   const [enterError, setEnterError] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+  // const navigate = useNavigate();
+
+  function errorCatcher(error) {
+    // console.log(error);
+    const { message } = error.response.data;
+    setError(message);
+  }
+
   // const author = userService.getUserDataById(test.authorId);
   // console.log("author", author);
   // console.log("currentUser", currentUser);
@@ -29,11 +39,25 @@ const TestCard = ({ test }) => {
   // });
   // console.log("test date", test);
 
-  const handleClickEditTest = (id) => {
-    TestService.getCurrentTest(id).then((curTest) => {
-      setCurrentTest(curTest);
-    });
-    // navigate("/main/home");
+  const handleClickEditTest = async (id) => {
+    try {
+      await TestService.getCurrentTest(id).then((curTest) => {
+        setCurrentTest(curTest);
+        setEdit(true);
+      });
+      // navigate("/main/home");
+      // console.log("currentUser", currentUser);
+
+      // setTests(data);
+      // const curTest = await TestService.getCurrentTest(
+      //   currentUser.id_department
+      // );
+      // setCurrentDepartment(curDep);
+    } catch (error) {
+      errorCatcher(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

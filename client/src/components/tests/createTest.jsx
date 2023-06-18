@@ -7,17 +7,19 @@ import TextAreaField from "../common/form/textAreaField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { useTests } from "../hooks/useTests";
 
-const CreateTest = () => {
-  const [data, setData] = useState({
-    testName: "",
-    description: "",
-    timeOfTest: 30,
-    numberOfQuestionsForTest: 0,
-    isRandomQuestions: false,
-  });
+const CreateTest = ({ currentTest, edit }) => {
+  const { create } = useTests();
+  const [data, setData] = useState(
+    currentTest || {
+      testName: "",
+      description: "",
+      timeOfTest: 30,
+      numberOfQuestionsForTest: 0,
+      isRandomQuestions: false,
+    }
+  );
   const [errors, setErrors] = useState({});
   const { currentUser } = useAuth();
-  const { create, currentTest } = useTests();
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -61,15 +63,20 @@ const CreateTest = () => {
     }
   };
 
-  console.log("currentTest", currentTest);
+  // console.log("currentTest", currentTest);
+  console.log("edit", edit);
   return (
     <div className="container " style={{ marginTop: "50px" }}>
       <div className="row gutters-sm">
         <div className="col-md-12">
           <div className="card mb-3">
             <div className="card-body ">
-              <h2>Создание теста</h2>
-              <hr />
+              {!currentTest && (
+                <>
+                  <h2>Создание теста</h2>
+                  <hr />
+                </>
+              )}
               <form onSubmit={handleSubmit}>
                 <TextField
                   label="Наименование теста:"
@@ -116,22 +123,24 @@ const CreateTest = () => {
                 >
                   Вопросы для теста брать из базы случайным образом
                 </CheckBoxField>
-                <div className="d-flex">
-                  <button
-                    type="submit"
-                    disabled={!isValid}
-                    className="btn btn-primary w-50 mx-auto me-4"
-                  >
-                    Создать
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={!isValid}
-                    className="btn btn-secondary w-50 mx-auto"
-                  >
-                    Отмена
-                  </button>
-                </div>
+                {!currentTest && (
+                  <div className="d-flex">
+                    <button
+                      type="submit"
+                      disabled={!isValid}
+                      className="btn btn-primary w-50 mx-auto me-4"
+                    >
+                      Создать
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={!isValid}
+                      className="btn btn-secondary w-50 mx-auto"
+                    >
+                      Отмена
+                    </button>
+                  </div>
+                )}
               </form>
             </div>
           </div>

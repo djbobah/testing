@@ -53,21 +53,21 @@ const TestsProvider = ({ children }) => {
       // }
     }
   }
-  async function getCurrentTest(id) {
-    try {
-      const data = await TestService.getCurrentTest(id);
-      console.log("content", data);
-      // setTests(data);
-      // const curTest = await TestService.getCurrentTest(
-      //   currentUser.id_department
-      // );
-      // setCurrentDepartment(curDep);
-    } catch (error) {
-      errorCatcher(error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  // async function getCurrentTest(id) {
+  //   try {
+  //     const data = await TestService.getCurrentTest(id);
+  //     console.log("content", data);
+  //     // setTests(data);
+  //     // const curTest = await TestService.getCurrentTest(
+  //     //   currentUser.id_department
+  //     // );
+  //     // setCurrentDepartment(curDep);
+  //   } catch (error) {
+  //     errorCatcher(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
   async function getTestsData() {
     try {
       const data = await TestService.getTests();

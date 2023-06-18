@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import CardWrapper from "../common/cardWrapper";
 import Collapse from "../common/collapse";
 import BlockQuoteWrapper from "../common/blockQuote";
 import { useTests } from "../hooks/useTests";
+import CreateTest from "./createTest";
+import ContainerWrapper from "../common/container";
 
 const EditTest = () => {
   const { currentTest } = useTests();
   console.log("currentTest", currentTest);
 
-  return (
-    <CardWrapper>
-      <Collapse title="Информация">
-        <BlockQuoteWrapper>
+  if (currentTest) {
+    return (
+      // <CardWrapper>
+      <ContainerWrapper>
+        <Collapse title={currentTest.testName}>
+          {/* <Collapse title="sdfsdf"> */}
+          <CreateTest currentTest={currentTest} />
+          {/* <BlockQuoteWrapper>
           <p>
             Аргументы: callBack, [array of dependencies]
             <br />
@@ -22,10 +28,14 @@ const EditTest = () => {
           <figcaption>
             <cite title="reactjs.org">reactjs.org</cite>
           </figcaption>
-        </BlockQuoteWrapper>
-      </Collapse>
-    </CardWrapper>
-  );
+        </BlockQuoteWrapper> */}
+        </Collapse>
+      </ContainerWrapper>
+      // {/* </CardWrapper> */}
+    );
+  } else {
+    return "loading";
+  }
 };
 
 export default EditTest;
