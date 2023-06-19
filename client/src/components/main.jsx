@@ -9,6 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 import CreateTest from "./tests/createTest";
 import EditTest from "./tests/editTest";
+import EditTestProvider from "./hooks/useEditTest";
 
 const Main = () => {
   const { currentUser } = useAuth();
@@ -67,14 +68,16 @@ const Main = () => {
           </div>
           {/* </div> */}
           <div className="col mt-5">
-            <Routes>
-              <Route exact path="/home" element={<TestsList />} />
-              {/* <Route exact path="/createTest" element={<CreateTest />} /> */}
-              <Route exact path="/createTest" element={<EditTest />} />
-              <Route exact path="/users" element={<UsersList />} />
-              <Route exact path="/tests" element={<TestsList />} />
-              <Route exact path="/reports" element={<Reports />} />
-            </Routes>
+            <EditTestProvider>
+              <Routes>
+                <Route exact path="/home" element={<TestsList />} />
+                {/* <Route exact path="/createTest" element={<CreateTest />} /> */}
+                <Route exact path="/createTest" element={<EditTest />} />
+                <Route exact path="/users" element={<UsersList />} />
+                <Route exact path="/tests" element={<TestsList />} />
+                <Route exact path="/reports" element={<Reports />} />
+              </Routes>
+            </EditTestProvider>
           </div>
         </div>
         {/* </div> */}

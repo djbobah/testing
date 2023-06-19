@@ -7,8 +7,9 @@ import { useAuth } from "../hooks/useAuth";
 import { useTests } from "../hooks/useTests";
 import TestService from "../../services/test.service";
 import { Link, useNavigate } from "react-router-dom";
+import { useEditTest } from "../hooks/useEditTest";
 
-const TestCard = ({ test, edit, setEdit }) => {
+const TestCard = ({ test }) => {
   const navigate = useNavigate;
   const [author, setAuthor] = useState({});
   const { getUserData } = useUsers();
@@ -17,6 +18,7 @@ const TestCard = ({ test, edit, setEdit }) => {
   const [enterError, setEnterError] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const { setEdit } = useEditTest();
   // const navigate = useNavigate();
 
   function errorCatcher(error) {

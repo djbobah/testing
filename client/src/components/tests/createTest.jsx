@@ -6,8 +6,9 @@ import { useAuth } from "./../hooks/useAuth";
 import TextAreaField from "../common/form/textAreaField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { useTests } from "../hooks/useTests";
+import { useEditTest } from "../hooks/useEditTest";
 
-const CreateTest = ({ currentTest, edit }) => {
+const CreateTest = ({ currentTest }) => {
   const { create } = useTests();
   const [data, setData] = useState(
     currentTest || {
@@ -20,6 +21,7 @@ const CreateTest = ({ currentTest, edit }) => {
   );
   const [errors, setErrors] = useState({});
   const { currentUser } = useAuth();
+  const { edit } = useEditTest();
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -123,7 +125,7 @@ const CreateTest = ({ currentTest, edit }) => {
                 >
                   Вопросы для теста брать из базы случайным образом
                 </CheckBoxField>
-                {!currentTest && (
+                {!edit && (
                   <div className="d-flex">
                     <button
                       type="submit"
