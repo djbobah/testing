@@ -7,9 +7,12 @@ import TextAreaField from "../common/form/textAreaField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { useTests } from "../hooks/useTests";
 import { useEditTest } from "../hooks/useEditTest";
+// import { useTests } from "../hooks/useTests";
 
-const CreateTest = ({ currentTest }) => {
-  const { create } = useTests();
+const CreateTest = () => {
+  const { create, currentTest, setCurrentTest } = useTests();
+  const { edit, setEdit } = useEditTest();
+
   const [data, setData] = useState(
     currentTest || {
       testName: "",
@@ -21,7 +24,6 @@ const CreateTest = ({ currentTest }) => {
   );
   const [errors, setErrors] = useState({});
   const { currentUser } = useAuth();
-  const { edit } = useEditTest();
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -45,6 +47,7 @@ const CreateTest = ({ currentTest }) => {
   const isValid = Object.keys(errors).length === 0;
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     // const isValid = validate();
     // if (!isValid) return;
     console.log("currentUser", currentUser);
@@ -59,54 +62,57 @@ const CreateTest = ({ currentTest }) => {
         const data = await create(newData);
         // navigate("/main/home");
         console.log("data test", data);
+        setCurrentTest(data.newTest);
       } catch (error) {
         setErrors(error);
       }
+
+      setEdit(true);
     }
   };
 
   // console.log("currentTest", currentTest);
   console.log("edit", edit);
   return (
-    <div className="container " style={{ marginTop: "50px" }}>
-      <div className="row gutters-sm">
-        <div className="col-md-12">
-          <div className="card mb-3">
-            <div className="card-body ">
-              {!currentTest && (
-                <>
-                  <h2>Создание теста</h2>
-                  <hr />
-                </>
-              )}
-              <form onSubmit={handleSubmit}>
-                <TextField
-                  label="Наименование теста:"
-                  name="testName"
-                  value={data.testName}
-                  onChange={handleChange}
-                  error={errors.testName}
-                  autoFocus
-                />{" "}
-                <TextAreaField
-                  label="Описание:"
-                  name="description"
-                  value={data.description}
-                  onChange={handleChange}
-                  error={errors.description}
-                />
-                {/* <div className="d-flex ">
+    <div className="container " style={{ marginTop: "1px" }}>
+      {/* <div className="row gutters-sm"> */}
+      {/* <div className="col-md-12"> */}
+      {/* <div className="card mb-3"> */}
+      <div className="card-body ">
+        {!edit && (
+          <>
+            <h2>Создание теста</h2>
+            <hr />
+          </>
+        )}
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Наименование теста:"
+            name="testName"
+            value={data.testName}
+            onChange={handleChange}
+            error={errors.testName}
+            autoFocus
+          />{" "}
+          <TextAreaField
+            label="Описание:"
+            name="description"
+            value={data.description}
+            onChange={handleChange}
+            error={errors.description}
+          />
+          {/* <div className="d-flex ">
                   <div className="w-50 mx-auto me-4"> */}
-                <TextField
-                  label="Время на прохождение теста (мин):"
-                  name="timeOfTest"
-                  type="number"
-                  value={data.timeOfTest}
-                  onChange={handleChange}
-                  error={errors.timeOfTest}
-                />
-                {/* </div> */}
-                {/* <div className="w-50 mx-auto">
+          <TextField
+            label="Время на прохождение теста (мин):"
+            name="timeOfTest"
+            type="number"
+            value={data.timeOfTest}
+            onChange={handleChange}
+            error={errors.timeOfTest}
+          />
+          {/* </div> */}
+          {/* <div className="w-50 mx-auto">
                     <TextField
                       label="Укажите число вопросов для тестирования:"
                       name="numberOfQuestionsForTest"
@@ -116,38 +122,38 @@ const CreateTest = ({ currentTest }) => {
                       error={errors.numderOfQuestionsForTest}
                     />
                   </div> */}
-                {/* </div> */}
-                <CheckBoxField
-                  value={data.isRandomQuestions}
-                  onChange={handleChange}
-                  name="isRandomQuestions"
-                  error={errors.isRandomQuestions}
-                >
-                  Вопросы для теста брать из базы случайным образом
-                </CheckBoxField>
-                {!edit && (
-                  <div className="d-flex">
-                    <button
-                      type="submit"
-                      disabled={!isValid}
-                      className="btn btn-primary w-50 mx-auto me-4"
-                    >
-                      Создать
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={!isValid}
-                      className="btn btn-secondary w-50 mx-auto"
-                    >
-                      Отмена
-                    </button>
-                  </div>
-                )}
-              </form>
+          {/* </div> */}
+          <CheckBoxField
+            value={data.isRandomQuestions}
+            onChange={handleChange}
+            name="isRandomQuestions"
+            error={errors.isRandomQuestions}
+          >
+            Вопросы для теста брать из базы случайным образом
+          </CheckBoxField>
+          {!edit && (
+            <div className="d-flex">
+              <button
+                type="submit"
+                disabled={!isValid}
+                className="btn btn-primary w-50 mx-auto me-4"
+              >
+                Создать
+              </button>
+              <button
+                type="submit"
+                disabled={!isValid}
+                className="btn btn-secondary w-50 mx-auto"
+              >
+                Отмена
+              </button>
             </div>
-          </div>
-        </div>
+          )}
+        </form>
       </div>
+      {/* </div> */}
+      {/* </div> */}
+      {/* </div> */}
     </div>
   );
 };

@@ -24,7 +24,7 @@ const NavBar = ({ onToggle }) => {
       // style={{ backgroundColor: "#121194" }}
     >
       <div className="container-fluid">
-        <Link to="/" className="navbar-brand d-none d-md-block">
+        <Link to="/main/home" className="navbar-brand d-none d-md-block">
           Kamensk
         </Link>
         <a className="navbar-brand d-block d-md-none" onClick={onToggle}>

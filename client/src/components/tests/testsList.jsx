@@ -3,14 +3,16 @@ import TestCard from "./testCard";
 import { useTests } from "../hooks/useTests";
 import ContainerWrapper from "../common/container";
 import { useEditTest } from "../hooks/useEditTest";
+import { Link } from "react-router-dom";
 const TestsList = () => {
   // const [editTest, setEditTest] = useState(false);
 
-  const { tests } = useTests();
+  const { tests, setCurrentTest } = useTests();
   console.log("tests", tests);
   const { setEdit } = useEditTest();
 
   const handleClickAddTest = () => {
+    setCurrentTest(undefined);
     setEdit(false);
   };
 
@@ -20,10 +22,17 @@ const TestsList = () => {
       <div className="row ">
         {/* <div class="col-11"></div> */}
         <div className="text-end">
-          <i
-            className="bi bi-plus-square-fill text-success fs-3 btn"
-            onClick={handleClickAddTest}
-          ></i>
+          <Link
+            to="/main/createTest"
+            // className="text-muted btn"
+            onClick={() => handleClickAddTest}
+            // id={test.id}
+          >
+            <i
+              className="bi bi-plus-square-fill text-success fs-3 btn"
+              onClick={handleClickAddTest}
+            ></i>
+          </Link>
         </div>
       </div>
       {tests ? (
