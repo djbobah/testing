@@ -12,18 +12,19 @@ const EditTest = () => {
   const { edit } = useEditTest();
   console.log("currentTest", currentTest);
 
+  function RenderTest(currentTest) {
+    return (
+      <Collapse title={`Редактируем тест: ${currentTest?.testName}`}>
+        {" "}
+        <CreateTest />{" "}
+      </Collapse>
+    );
+  }
   // if (currentTest) {
   return (
     // <CardWrapper>
     <ContainerWrapper>
-      {edit ? (
-        <Collapse title={`Редактируем тест: ${currentTest?.testName}`}>
-          {" "}
-          <CreateTest />{" "}
-        </Collapse>
-      ) : (
-        <CreateTest />
-      )}
+      {edit ? RenderTest(currentTest) : <CreateTest />}
 
       {/* <Collapse title="sdfsdf"> */}
 
@@ -39,7 +40,9 @@ const EditTest = () => {
             <cite title="reactjs.org">reactjs.org</cite>
           </figcaption>
         </BlockQuoteWrapper> */}
-      <div className="text-end">
+
+      <div className="text-end ">
+        <button className="btn btn-primary me-2">Сохранить тест</button>
         <button className="btn btn-secondary">Добавить вопрос</button>
       </div>
     </ContainerWrapper>
