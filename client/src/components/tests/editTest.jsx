@@ -14,10 +14,13 @@ const EditTest = () => {
 
   function RenderTest(currentTest) {
     return (
-      <Collapse title={`Редактируем тест: ${currentTest?.testName}`}>
-        {" "}
-        <CreateTest />{" "}
-      </Collapse>
+      <>
+        <Collapse title={`Редактируем тест: ${currentTest?.testName}`}>
+          {" "}
+          <CreateTest />{" "}
+        </Collapse>
+        <Collapse></Collapse>
+      </>
     );
   }
   // if (currentTest) {
