@@ -46,11 +46,12 @@ const EditTest = () => {
             <cite title="reactjs.org">reactjs.org</cite>
           </figcaption>
         </BlockQuoteWrapper> */}
-
-      <div className="text-end ">
-        <button className="btn btn-primary me-2">Сохранить тест</button>
-        <button className="btn btn-secondary">Добавить вопрос</button>
-      </div>
+      {edit && (
+        <div className="text-end ">
+          <button className="btn btn-primary me-2">Сохранить тест</button>
+          <button className="btn btn-secondary">Добавить вопрос</button>
+        </div>
+      )}
     </ContainerWrapper>
     // {/* </CardWrapper> */}
   );

@@ -8,7 +8,9 @@ const CreateQuestion = () => {
     { id: 1, answer: "lorem10", isTrue: true },
     { id: 2, answer: "lorem20", isTrue: false },
   ];
-  const handleClickAddAnswer = (params) => {};
+  const handleClickAddAnswer = (e) => {
+    e.preventDefault();
+  };
   const renderAnswers = (answers) => {
     return answers.map((answer) => (
       <div className="d-flex fs-4 ">
