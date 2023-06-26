@@ -7,6 +7,7 @@ import TextAreaField from "../common/form/textAreaField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { useTests } from "../hooks/useTests";
 import { useEditTest } from "../hooks/useEditTest";
+import { toast } from "react-toastify";
 // import { useTests } from "../hooks/useTests";
 
 const CreateTest = () => {
@@ -68,6 +69,7 @@ const CreateTest = () => {
       }
 
       setEdit(true);
+      toast("Тест создан");
     }
   };
 
