@@ -23,7 +23,7 @@ const SelectField = ({
   };
   return (
     <div className="mb-4">
-      <label htmlFor={name} className="form-label">
+      <label htmlFor={name} className="form-label text-muted">
         {label}
       </label>
       <select

@@ -6,7 +6,7 @@ import { useTests } from "../hooks/useTests";
 import CreateTest from "./createTest";
 import ContainerWrapper from "../common/container";
 import { useEditTest } from "../hooks/useEditTest";
-import CreatrQuestion from "./createQuestion";
+import CreateQuestion from "./createQuestion";
 
 const EditTest = () => {
   const { currentTest } = useTests();
@@ -21,7 +21,7 @@ const EditTest = () => {
           <CreateTest />{" "}
         </Collapse>
         <Collapse title={`Вопрос №: ${currentTest?.testName}`}>
-          <CreatrQuestion />
+          <CreateQuestion />
         </Collapse>
       </>
     );

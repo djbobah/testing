@@ -25,9 +25,14 @@ const TextField = ({
   const dis = true;
   return (
     <div className="mb-4">
-      <label htmlFor={name} className="text-muted">
+      {label && (
+        <label htmlFor={name} className="text-muted">
+          {label}
+        </label>
+      )}
+      {/* <label htmlFor={name} className="text-muted">
         {label}
-      </label>
+      </label> */}
       <div className="input-group has-validation">
         <input
           type={showPassword ? "text" : type}
