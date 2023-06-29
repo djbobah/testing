@@ -8,6 +8,12 @@ import ContainerWrapper from "../common/container";
 import { useEditTest } from "../hooks/useEditTest";
 import CreateQuestion from "./createQuestion";
 
+const questions = [
+  { id: 1, description: "description of test", typeOfQuestions: 1 },
+  { id: 2, description: "description of test 2", typeOfQuestions: 1 },
+  { id: 3, description: "description of test 3", typeOfQuestions: 2 },
+];
+
 const EditTest = () => {
   const { currentTest } = useTests();
   const { edit } = useEditTest();
@@ -20,12 +26,18 @@ const EditTest = () => {
           {" "}
           <CreateTest />{" "}
         </Collapse>
-        <Collapse title={`Вопрос №: ${currentTest?.testName}`}>
-          <CreateQuestion />
-        </Collapse>
+
+        {questions.map((question) => (
+          <Collapse title={`Вопрос №: ${currentTest?.testName}`}>
+            <CreateQuestion />{" "}
+          </Collapse>
+        ))}
       </>
     );
   }
+  const handleClickAddQuestion = (e) => {
+    e.preventDefault();
+  };
   // if (currentTest) {
   return (
     // <CardWrapper>
@@ -49,7 +61,12 @@ const EditTest = () => {
       {edit && (
         <div className="text-end ">
           <button className="btn btn-primary me-2">Сохранить тест</button>
-          <button className="btn btn-secondary">Добавить вопрос</button>
+          <button
+            className="btn btn-secondary"
+            onClick={handleClickAddQuestion}
+          >
+            Добавить вопрос
+          </button>
         </div>
       )}
     </ContainerWrapper>
