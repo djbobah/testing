@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardWrapper from "../common/cardWrapper";
 import Collapse from "../common/collapse";
 import BlockQuoteWrapper from "../common/blockQuote";
@@ -8,18 +8,21 @@ import ContainerWrapper from "../common/container";
 import { useEditTest } from "../hooks/useEditTest";
 import CreateQuestion from "./createQuestion";
 
-const questions = [
+const questionsArr = [
   { id: 1, description: "description of test", typeOfQuestions: 1 },
   { id: 2, description: "description of test 2", typeOfQuestions: 1 },
   { id: 3, description: "description of test 3", typeOfQuestions: 2 },
 ];
 
 const EditTest = () => {
+  const [questions, setQuestions] = useState(questionsArr);
   const { currentTest } = useTests();
   const { edit } = useEditTest();
+
   console.log("currentTest", currentTest);
 
   function RenderTest(currentTest) {
+    // console.log("questionsLength", questionsLength);
     return (
       <>
         <Collapse title={`Редактируем тест: ${currentTest?.testName}`}>
@@ -27,16 +30,42 @@ const EditTest = () => {
           <CreateTest />{" "}
         </Collapse>
 
-        {questions.map((question) => (
-          <Collapse title={`Вопрос №: ${currentTest?.testName}`}>
-            <CreateQuestion />{" "}
-          </Collapse>
-        ))}
+        {questions.map((question, idx) => {
+          // console.log(idx);
+
+          if (questions.length === idx + 1) {
+            // console.log("true");
+            return (
+              <Collapse
+                title={`Вопрос №: ${currentTest?.testName}`}
+                open={true}
+              >
+                <CreateQuestion />{" "}
+              </Collapse>
+            );
+          } else {
+            return (
+              <Collapse title={`Вопрос №: ${currentTest?.testName}`}>
+                <CreateQuestion />{" "}
+              </Collapse>
+            );
+          }
+        })}
       </>
     );
   }
+  useEffect(() => {
+    RenderTest();
+  }, [questions]);
   const handleClickAddQuestion = (e) => {
     e.preventDefault();
+    questionsArr.push({
+      // id: 3,
+      description: "description of test 4",
+      typeOfQuestions: 2,
+    });
+    setQuestions(questionsArr);
+    console.log(questions);
   };
   // if (currentTest) {
   return (
