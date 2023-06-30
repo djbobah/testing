@@ -1,6 +1,7 @@
 const departmentsMock = require("../../mock/departments.json");
+const QuestionTypes = require("../../mock/questionTypes.json");
 const rolesMock = require("../../mock/roles.json");
-const { Roles, Departments } = require("../../models");
+const { Roles, Departments, QuestionTypes } = require("../../models");
 const UserController = require("../../controllers/users-controller");
 
 module.exports = async () => {
@@ -8,6 +9,11 @@ module.exports = async () => {
   if (departments.length !== departmentsMock.length) {
     // console.log("not identy");
     await createInitialEntity(Departments, departmentsMock);
+  }
+  const questionTypes = await QuestionTypes.findAll();
+  if (questionTypes.length !== questionTypesMock.length) {
+    // console.log("not identy");
+    await createInitialEntity(QuestionTypes, QuestionTypes);
   }
   // const roles = await Roles.findAll();
   // if (roles.length !== rolesMock.length) {
