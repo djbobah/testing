@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TextAreaField from "../common/form/textAreaField";
 import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import SelectField from "../common/form/selectField";
 const CreateQuestion = () => {
-  const answers = [
+  // const answers = ;
+  const [answers, setAnswers] = useState([
     { id: 1, answer: "lorem10", isTrue: true },
     { id: 2, answer: "lorem20", isTrue: false },
-  ];
+  ]);
   const handleClickAddAnswer = (e) => {
     e.preventDefault();
+    const addAnswer = { id: 3, answer: "lorem30", isTrue: false };
+    setAnswers([...answers, addAnswer]);
+    // answers.push();
+    console.log(answers);
   };
+  const handleClickSaveAnswer = (e) => {
+    e.preventDefault();
+  };
+  useEffect(() => {
+    console.log("useEff", answers);
+    renderAnswers(answers);
+  }, [answers]);
   const renderAnswers = (answers) => {
-    return answers.map((answer) => (
-      <div className="d-flex fs-4 ">
+    console.log("ans", answers);
+    return answers?.map((answer) => (
+      <div className="d-flex fs-4 " key={answer.id}>
         <CheckBoxField
           value={answer.isTrue}
           //{data.isRandomQuestions}
@@ -66,7 +79,12 @@ const CreateQuestion = () => {
             >
               Добавить ответ
             </button>
-            <button className="btn btn-primary me-2">Сохранить вопрос</button>
+            <button
+              onClick={handleClickSaveAnswer}
+              className="btn btn-primary me-2"
+            >
+              Сохранить вопрос
+            </button>
           </div>
         </form>
       </div>

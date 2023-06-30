@@ -37,6 +37,7 @@ const EditTest = () => {
             // console.log("true");
             return (
               <Collapse
+                key={question.id}
                 title={`Вопрос №: ${currentTest?.testName}`}
                 open={true}
               >
@@ -45,7 +46,10 @@ const EditTest = () => {
             );
           } else {
             return (
-              <Collapse title={`Вопрос №: ${currentTest?.testName}`}>
+              <Collapse
+                key={question.id}
+                title={`Вопрос №: ${currentTest?.testName}`}
+              >
                 <CreateQuestion />{" "}
               </Collapse>
             );
