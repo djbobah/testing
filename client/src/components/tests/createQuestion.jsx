@@ -11,8 +11,8 @@ const CreateQuestion = () => {
   ]);
   const handleClickAddAnswer = (e) => {
     e.preventDefault();
-    const addAnswer = { id: 3, answer: "lorem30", isTrue: false };
-    setAnswers([...answers, addAnswer]);
+    // const addAnswer = { id: 3, answer: "lorem30", isTrue: false };
+    setAnswers([...answers, { answer: "", isTrue: false }]);
     // answers.push();
     console.log(answers);
   };
