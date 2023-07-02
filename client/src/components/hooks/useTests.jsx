@@ -42,15 +42,6 @@ const TestsProvider = ({ children }) => {
       errorCatcher(error);
       const { code, message } = error.response.data.error;
       console.log(code, message);
-      // if (code === 400) {
-      //   if (message === "EMAIL_EXISTS") {
-      //     const errorObject = {
-      //       email: "Пользователь с таким email уже существует",
-      //     };
-      //     throw errorObject;
-      //     // setError({ email: "Пользователь с таким email уже существует" });
-      //   }
-      // }
     }
   }
   // async function getCurrentTest(id) {
@@ -71,12 +62,7 @@ const TestsProvider = ({ children }) => {
   async function getTestsData() {
     try {
       const data = await TestService.getTests();
-      // console.log("content", data);
       setTests(data);
-      // const curTest = await TestService.getCurrentTest(
-      //   currentUser.id_department
-      // );
-      // setCurrentDepartment(curDep);
     } catch (error) {
       errorCatcher(error);
     } finally {

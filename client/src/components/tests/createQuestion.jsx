@@ -3,12 +3,27 @@ import TextAreaField from "../common/form/textAreaField";
 import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import SelectField from "../common/form/selectField";
+import { useTypeOfQuestions } from "../hooks/useTypeOfQuestions";
+
 const CreateQuestion = () => {
   // const answers = ;
   const [answers, setAnswers] = useState([
     { id: 1, answer: "lorem10", isTrue: true },
     { id: 2, answer: "lorem20", isTrue: false },
   ]);
+  const { typeOfQuestions } = useTypeOfQuestions();
+  const typeOfQuestionsOptions = typeOfQuestions?.map((type) => {
+    console.log("1", type.description === "1");
+    // if (type.description === "1") {
+    // console.log("1");
+    return {
+      name: type.name,
+      value: type.id,
+    };
+    // }
+  });
+
+  console.log("typeOfQuestions", typeOfQuestions);
   const handleClickAddAnswer = (e) => {
     e.preventDefault();
     // const addAnswer = { id: 3, answer: "lorem30", isTrue: false };
@@ -63,7 +78,7 @@ const CreateQuestion = () => {
           />
           <SelectField
             // onChange={handleChange}
-            // options={departmentOptions}
+            options={typeOfQuestionsOptions}
             name="typeOfQuestions"
             defaultOption="Выберите тип ответов..."
             // error={errors.department}
