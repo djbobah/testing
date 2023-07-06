@@ -5,9 +5,9 @@ const { QuestionTypes, Answers, Questions } = require("../../models");
 module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface
-      .addColumn("Questions", "typeOfQuestion", {
+      .addColumn("Questions", "typeOfAnswers", {
         type: Sequelize.DataTypes.INTEGER,
-        references: { model: { tableName: "QuestionTypes" }, key: "id" },
+        references: { model: { tableName: "AnswerTypes" }, key: "id" },
         allowNull: false,
       })
       .then(() => {
@@ -34,7 +34,7 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     return queryInterface
-      .removeColumn("Questions", "typeOfQuestion")
+      .removeColumn("Questions", "typeOfAnswers")
       .then(() => {
         queryInterface.removeColumn("Questions", "idTest");
       })
