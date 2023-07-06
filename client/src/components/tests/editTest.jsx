@@ -10,8 +10,6 @@ import CreateQuestion from "./createQuestion";
 
 const questionsArr = [
   { id: 1, description: "description of test", typeOfQuestions: 1 },
-  { id: 2, description: "description of test 2", typeOfQuestions: 1 },
-  { id: 3, description: "description of test 3", typeOfQuestions: 2 },
 ];
 
 const EditTest = () => {
@@ -26,13 +24,12 @@ const EditTest = () => {
     return (
       <>
         <Collapse title={`Редактируем тест: ${currentTest?.testName}`}>
-          {" "}
-          <CreateTest />{" "}
+          <CreateTest />
         </Collapse>
 
         {questions.map((question, idx) => {
           // console.log(idx);
-
+          // разворачиваем последний вопрос
           if (questions.length === idx + 1) {
             // console.log("true");
             return (
@@ -41,7 +38,7 @@ const EditTest = () => {
                 title={`Вопрос №: ${currentTest?.testName}`}
                 open={true}
               >
-                <CreateQuestion />{" "}
+                <CreateQuestion />
               </Collapse>
             );
           } else {
@@ -50,7 +47,7 @@ const EditTest = () => {
                 key={question.id}
                 title={`Вопрос №: ${currentTest?.testName}`}
               >
-                <CreateQuestion />{" "}
+                <CreateQuestion />
               </Collapse>
             );
           }

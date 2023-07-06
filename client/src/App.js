@@ -15,7 +15,7 @@ import UserPage from "./components/page/userPage";
 import DepartmentsProvider from "./components/hooks/useDepartments";
 import TestsProvider from "./components/hooks/useTests";
 import UsersProvider from "./components/hooks/useUsers";
-import TypeOfQuestionsProvider from "./components/hooks/useTypeOfQuestions";
+import TypeOfAnswersProvider from "./components/hooks/useTypeOfAnswers";
 // const QContext = React.createContext();
 // const qqq = { name: "name", value: "12345" };
 
@@ -35,7 +35,7 @@ function App() {
         <DepartmentsProvider>
           <TestsProvider>
             <UsersProvider>
-              <TypeOfQuestionsProvider>
+              <TypeOfAnswersProvider>
                 <NavBar />
                 <Routes>
                   <Route path="/">
@@ -51,7 +51,7 @@ function App() {
                   </Route>
                   <Route path="/main/logout" element={<LogOut />} />
                 </Routes>
-              </TypeOfQuestionsProvider>
+              </TypeOfAnswersProvider>
             </UsersProvider>
           </TestsProvider>
         </DepartmentsProvider>

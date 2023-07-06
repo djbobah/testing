@@ -2,17 +2,17 @@ import React, { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
-import TypeOfQuestionsService from "../../services/typeOfQuestions.service";
+import TypeOfAnswersService from "../../services/typeOfAnswers.service";
 import { useAuth } from "./useAuth";
 
-const TypeOfQuestionsContext = React.createContext();
+const TypeOfAnswersContext = React.createContext();
 
-export const useTypeOfQuestions = () => {
-  return useContext(TypeOfQuestionsContext);
+export const useTypeOfAnswers = () => {
+  return useContext(TypeOfAnswersContext);
 };
 
-const TypeOfQuestionsProvider = ({ children }) => {
-  const [typeOfQuestions, setTypeOfQuestions] = useState();
+const TypeOfAnswersProvider = ({ children }) => {
+  const [typeOfAnswers, setTypeOfAnswers] = useState();
   // const [currentDepartment, setCurrentDepartment] = useState();
 
   const [error, setError] = useState(null);
@@ -26,11 +26,11 @@ const TypeOfQuestionsProvider = ({ children }) => {
     setError(message);
   }
 
-  async function getTypeOfQuestionsData() {
+  async function getTypeOfAnswersData() {
     try {
-      const data = await TypeOfQuestionsService.getTypeOfQuestions();
+      const data = await TypeOfAnswersService.getTypeOfAnswers();
       // console.log("content", data);
-      setTypeOfQuestions(data);
+      setTypeOfAnswers(data);
       // const curDep = await TypeOfQuestionsService.getCurrentDepartment(
       //   currentUser.id_department
       // );
@@ -42,7 +42,7 @@ const TypeOfQuestionsProvider = ({ children }) => {
     }
   }
   useEffect(() => {
-    getTypeOfQuestionsData();
+    getTypeOfAnswersData();
   }, []);
   useEffect(() => {
     if (error !== null) {
@@ -51,10 +51,10 @@ const TypeOfQuestionsProvider = ({ children }) => {
     }
   }, [error]);
   return (
-    <TypeOfQuestionsContext.Provider value={{ typeOfQuestions }}>
+    <TypeOfAnswersContext.Provider value={{ typeOfAnswers }}>
       {!isLoading ? children : "Loading..."}
-    </TypeOfQuestionsContext.Provider>
+    </TypeOfAnswersContext.Provider>
   );
 };
 
-export default TypeOfQuestionsProvider;
+export default TypeOfAnswersProvider;

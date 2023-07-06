@@ -8,7 +8,7 @@ const TestsList = () => {
   // const [editTest, setEditTest] = useState(false);
 
   const { tests, setCurrentTest } = useTests();
-  console.log("tests", tests);
+  // console.log("tests", tests);
   const { setEdit } = useEditTest();
 
   const handleClickAddTest = () => {

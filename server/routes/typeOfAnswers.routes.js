@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const models = require("../models");
 //userValidator, UserController.create
-const TypeOfQuestions = models.QuestionTypes;
+const TypeOfAnswers = models.AnswerTypes;
 router.get("/", async (req, res) => {
   try {
-    const typeOfQuestions = await TypeOfQuestions.findAll(
+    const typeOfAnswers = await TypeOfAnswers.findAll(
       { where: { description: "1" } },
       { raw: true }
     );
-    res.status(200).send(typeOfQuestions);
+    res.status(200).send(typeOfAnswers);
   } catch (error) {
     res
       .status(500)

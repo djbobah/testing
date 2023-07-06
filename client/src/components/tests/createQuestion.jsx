@@ -3,7 +3,7 @@ import TextAreaField from "../common/form/textAreaField";
 import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import SelectField from "../common/form/selectField";
-import { useTypeOfQuestions } from "../hooks/useTypeOfQuestions";
+import { useTypeOfAnswers } from "../hooks/useTypeOfAnswers";
 
 const CreateQuestion = () => {
   // const answers = ;
@@ -11,8 +11,12 @@ const CreateQuestion = () => {
     { id: 1, answer: "lorem10", isTrue: true },
     { id: 2, answer: "lorem20", isTrue: false },
   ]);
-  const { typeOfQuestions } = useTypeOfQuestions();
-  const typeOfQuestionsOptions = typeOfQuestions?.map((type) => {
+  const [data, setData] = useState({
+    question: { description: "текст вопроса", typeOfAnswers: "" },
+    answers: [],
+  });
+  const { typeOfAnswers } = useTypeOfAnswers();
+  const typeOfAnswersOptions = typeOfAnswers?.map((type) => {
     console.log("1", type.description === "1");
     // if (type.description === "1") {
     // console.log("1");
@@ -23,7 +27,7 @@ const CreateQuestion = () => {
     // }
   });
 
-  console.log("typeOfQuestions", typeOfQuestions);
+  console.log("typeOfAnswers", typeOfAnswers);
   const handleClickAddAnswer = (e) => {
     e.preventDefault();
     // const addAnswer = { id: 3, answer: "lorem30", isTrue: false };
@@ -31,7 +35,7 @@ const CreateQuestion = () => {
     // answers.push();
     console.log(answers);
   };
-  const handleClickSaveAnswer = (e) => {
+  const handleClickSaveQuestion = (e) => {
     e.preventDefault();
   };
   useEffect(() => {
@@ -78,8 +82,8 @@ const CreateQuestion = () => {
           />
           <SelectField
             // onChange={handleChange}
-            options={typeOfQuestionsOptions}
-            name="typeOfQuestions"
+            options={typeOfAnswersOptions}
+            name="typeOfAnswers"
             defaultOption="Выберите тип ответов..."
             // error={errors.department}
             // value={data.department}
@@ -95,7 +99,8 @@ const CreateQuestion = () => {
               Добавить ответ
             </button>
             <button
-              onClick={handleClickSaveAnswer}
+              type="submit"
+              onClick={handleClickSaveQuestion}
               className="btn btn-primary me-2"
             >
               Сохранить вопрос
