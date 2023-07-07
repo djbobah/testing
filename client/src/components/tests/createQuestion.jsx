@@ -47,7 +47,7 @@ const CreateQuestion = () => {
   const handleClickSaveQuestion = (e) => {
     e.preventDefault();
   };
-  useEffect(() => 
+  useEffect(() => {
     console.log("useEff", answers);
     renderAnswers(answers);
   }, [answers]);
