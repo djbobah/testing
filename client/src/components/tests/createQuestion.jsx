@@ -11,9 +11,13 @@ const CreateQuestion = () => {
     { id: 1, answer: "lorem10", isTrue: true },
     { id: 2, answer: "lorem20", isTrue: false },
   ]);
+
   const [data, setData] = useState({
-    question: { description: "текст вопроса", typeOfAnswers: "" },
-    answers: [],
+    question: { description: "текст вопроса", typeOfAnswers: 2 },
+    answers: [
+      { answer: "lorem10", isTrue: false },
+      { answer: "lorem20", isTrue: false },
+    ],
   });
   const { typeOfAnswers } = useTypeOfAnswers();
   const typeOfAnswersOptions = typeOfAnswers?.map((type) => {
@@ -28,6 +32,11 @@ const CreateQuestion = () => {
   });
 
   console.log("typeOfAnswers", typeOfAnswers);
+
+  const handleChange = (target) => {
+    setData((prevState) => ({ ...prevState, [target.name]: target.value }));
+    console.log("target", target);
+  };
   const handleClickAddAnswer = (e) => {
     e.preventDefault();
     // const addAnswer = { id: 3, answer: "lorem30", isTrue: false };
@@ -38,7 +47,7 @@ const CreateQuestion = () => {
   const handleClickSaveQuestion = (e) => {
     e.preventDefault();
   };
-  useEffect(() => {
+  useEffect(() => 
     console.log("useEff", answers);
     renderAnswers(answers);
   }, [answers]);
@@ -74,10 +83,10 @@ const CreateQuestion = () => {
         <form>
           <TextAreaField
             // label="Описание:"
-            name="description"
-            value="текст вопроса"
+            name="data.question.description"
+            value={data.question.description}
             //{data.description}
-            // onChange={handleChange}
+            onChange={handleChange}
             // error={errors.description}
           />
           <SelectField
@@ -86,7 +95,7 @@ const CreateQuestion = () => {
             name="typeOfAnswers"
             defaultOption="Выберите тип ответов..."
             // error={errors.department}
-            // value={data.department}
+            value={data.question.typeOfAnswers}
             label="Выберите тип ответов..."
           />
           <label className="text-muted mb-2">Ответы:</label>
