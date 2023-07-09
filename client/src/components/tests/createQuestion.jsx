@@ -83,14 +83,14 @@ const CreateQuestion = () => {
         <form>
           <TextAreaField
             // label="Описание:"
-            name="data.question.description"
+            name="question.description"
             value={data.question.description}
             //{data.description}
             onChange={handleChange}
             // error={errors.description}
           />
           <SelectField
-            // onChange={handleChange}
+            onChange={handleChange}
             options={typeOfAnswersOptions}
             name="typeOfAnswers"
             defaultOption="Выберите тип ответов..."
