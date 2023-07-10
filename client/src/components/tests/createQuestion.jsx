@@ -4,20 +4,20 @@ import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import SelectField from "../common/form/selectField";
 import { useTypeOfAnswers } from "../hooks/useTypeOfAnswers";
+import { useAnswers } from "../hooks/useAnswers";
+import { useTests } from "../hooks/useTests";
 
 const CreateQuestion = () => {
   // const answers = ;
-  const [answers, setAnswers] = useState([
-    { id: 1, answer: "lorem10", isTrue: true },
-    { id: 2, answer: "lorem20", isTrue: false },
-  ]);
+  // const [answers, setAnswers] = useState([]);
+  const { currentTest } = useTests();
+  const { answers, create } = useAnswers();
 
+  console.log("currentTest", currentTest);
   const [data, setData] = useState({
-    question: { description: "текст вопроса", typeOfAnswers: 2 },
-    answers: [
-      { answer: "lorem10", isTrue: false },
-      { answer: "lorem20", isTrue: false },
-    ],
+    questionDescription: "текст вопроса",
+    typeOfAnswers: 2,
+    answersData: [],
   });
   const { typeOfAnswers } = useTypeOfAnswers();
   const typeOfAnswersOptions = typeOfAnswers?.map((type) => {
@@ -39,8 +39,10 @@ const CreateQuestion = () => {
   };
   const handleClickAddAnswer = (e) => {
     e.preventDefault();
+    // create()
     // const addAnswer = { id: 3, answer: "lorem30", isTrue: false };
-    setAnswers([...answers, { answer: "", isTrue: false }]);
+
+    // setAnswers([...answers, { answer: "", isTrue: false }]);
     // answers.push();
     console.log(answers);
   };
@@ -83,8 +85,8 @@ const CreateQuestion = () => {
         <form>
           <TextAreaField
             // label="Описание:"
-            name="question.description"
-            value={data.question.description}
+            name="questionDescription"
+            value={data.questionDescription}
             //{data.description}
             onChange={handleChange}
             // error={errors.description}
@@ -95,7 +97,7 @@ const CreateQuestion = () => {
             name="typeOfAnswers"
             defaultOption="Выберите тип ответов..."
             // error={errors.department}
-            value={data.question.typeOfAnswers}
+            value={data.typeOfAnswers}
             label="Выберите тип ответов..."
           />
           <label className="text-muted mb-2">Ответы:</label>

@@ -70,13 +70,13 @@ router.patch("/:answerId", async (req, res) => {
 // });
 
 //получаем список всех ответов на вопрос
-router.get("/:questionId", async (req, res) => {
+router.get("/:idQuestion", async (req, res) => {
   // router.get("/", async (req, res) => {
 
   try {
     const { questionId } = req.params;
     // console.log("userId", userId);
-    const list = await Answers.findAll({ where: { id: questionId } });
+    const list = await Answers.findAll({ where: { id: idQuestion } });
     res.status(200).send(list);
   } catch (error) {
     res
