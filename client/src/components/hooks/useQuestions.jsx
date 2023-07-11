@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import QuestionsService from "../../services/questions.service";
 import { useAuth, httpAuth } from "./useAuth";
+import { useTests } from "./useTests";
 
 const QuestionsContext = React.createContext();
 
@@ -20,6 +21,7 @@ const QuestionsProvider = ({ children }) => {
   const [isLoading, setLoading] = useState(false);
   // const navigate = useNavigate();
   const { currentUser } = useAuth();
+  const { currentTest } = useTests();
 
   function errorCatcher(error) {
     // console.log(error);
@@ -34,8 +36,9 @@ const QuestionsProvider = ({ children }) => {
 
       // data = { ...data, ...newData };
       // console.log("tests", tests);
-      console.log("data", data.newTest);
+      console.log("currentTest.id", currentTest);
 
+      // getQuestionsData(currentTest.id);
       // getTestsData();
       return data;
     } catch (error) {
@@ -61,6 +64,7 @@ const QuestionsProvider = ({ children }) => {
   // }
   async function getQuestionsData(idTest) {
     try {
+      console.log("idTest", idTest);
       const data = await QuestionsService.getQuestionsForTest(idTest);
       setQuestions(data);
     } catch (error) {

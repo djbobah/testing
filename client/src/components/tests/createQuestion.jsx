@@ -13,12 +13,11 @@ const CreateQuestion = () => {
   // const [answers, setAnswers] = useState([]);
   const { currentTest } = useTests();
 
-  const { getQuestionsData } = useQuestions();
+  const { questions } = useQuestions();
   const { answers, create } = useAnswers();
   // console.log("currentTest", currentTest);
-
-  const qData = getQuestionsData(currentTest.id);
-  // console.log("qData", qData);
+  // getQuestionsData(currentTest.id);
+  console.log("qData", questions);
 
   const [data, setData] = useState({
     questionDescription: "текст вопроса",
