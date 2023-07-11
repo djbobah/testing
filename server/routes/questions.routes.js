@@ -88,7 +88,7 @@ router.post("/create", [
   // check("email", "Некорректный email").isEmail(),
   // check("password", "Минимальная длина пароля 6 символов").isLength({ min: 6 }),
   async (req, res) => {
-    console.log(req.body);
+    console.log("qqqqqqqqqqq", req.body);
     try {
       const newQuestion = await Questions.create({
         ...req.body,
@@ -97,9 +97,9 @@ router.post("/create", [
 
       res.status(201).send({ newQuestion });
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+      res.status(500).json({
+        message: "На сервере произошла ошибка questions. Попробуйте позже",
+      });
     }
   },
 ]);

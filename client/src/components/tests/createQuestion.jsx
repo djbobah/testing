@@ -6,14 +6,20 @@ import SelectField from "../common/form/selectField";
 import { useTypeOfAnswers } from "../hooks/useTypeOfAnswers";
 import { useAnswers } from "../hooks/useAnswers";
 import { useTests } from "../hooks/useTests";
+import { useQuestions } from "../hooks/useQuestions";
 
 const CreateQuestion = () => {
   // const answers = ;
   // const [answers, setAnswers] = useState([]);
   const { currentTest } = useTests();
-  const { answers, create } = useAnswers();
 
-  console.log("currentTest", currentTest);
+  const { getQuestionsData } = useQuestions();
+  const { answers, create } = useAnswers();
+  // console.log("currentTest", currentTest);
+
+  const qData = getQuestionsData(currentTest.id);
+  // console.log("qData", qData);
+
   const [data, setData] = useState({
     questionDescription: "текст вопроса",
     typeOfAnswers: 2,
@@ -21,7 +27,7 @@ const CreateQuestion = () => {
   });
   const { typeOfAnswers } = useTypeOfAnswers();
   const typeOfAnswersOptions = typeOfAnswers?.map((type) => {
-    console.log("1", type.description === "1");
+    // console.log("1", type.description === "1");
     // if (type.description === "1") {
     // console.log("1");
     return {
@@ -31,7 +37,7 @@ const CreateQuestion = () => {
     // }
   });
 
-  console.log("typeOfAnswers", typeOfAnswers);
+  // console.log("typeOfAnswers", typeOfAnswers);
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -49,10 +55,7 @@ const CreateQuestion = () => {
   const handleClickSaveQuestion = (e) => {
     e.preventDefault();
   };
-  useEffect(() => {
-    console.log("useEff", answers);
-    renderAnswers(answers);
-  }, [answers]);
+
   const renderAnswers = (answers) => {
     console.log("ans", answers);
     return answers?.map((answer) => (
@@ -79,6 +82,11 @@ const CreateQuestion = () => {
       </div>
     ));
   };
+
+  useEffect(() => {
+    console.log("useEff", answers);
+    renderAnswers(answers);
+  }, [answers]);
   return (
     <div className="container " style={{ marginTop: "1px" }}>
       <div className="card-body ">

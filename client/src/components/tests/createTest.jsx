@@ -8,10 +8,12 @@ import CheckBoxField from "../common/form/checkBoxField";
 import { useTests } from "../hooks/useTests";
 import { useEditTest } from "../hooks/useEditTest";
 import { toast } from "react-toastify";
+import { useQuestions } from "../hooks/useQuestions";
 // import { useTests } from "../hooks/useTests";
 
 const CreateTest = () => {
   const { create, currentTest, setCurrentTest } = useTests();
+  const { createQuestion } = useQuestions();
   const { edit, setEdit } = useEditTest();
 
   const [data, setData] = useState(
@@ -65,6 +67,14 @@ const CreateTest = () => {
         // navigate("/main/home");
         console.log("data test", data);
         setCurrentTest(data.newTest);
+
+        console.log("try create question");
+        await createQuestion({
+          idTest: data.newTest.id,
+          question: "DataTypes.STRING",
+          typeOfAnswers: 1,
+          cost: 0,
+        });
       } catch (error) {
         setErrors(error);
       }
@@ -75,7 +85,7 @@ const CreateTest = () => {
   };
 
   // console.log("currentTest", currentTest);
-  console.log("edit", edit);
+  // console.log("edit", edit);
   return (
     <div className="container " style={{ marginTop: "1px" }}>
       {/* <div className="row gutters-sm"> */}

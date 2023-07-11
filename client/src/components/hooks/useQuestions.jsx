@@ -27,8 +27,8 @@ const QuestionsProvider = ({ children }) => {
     setError(message);
   }
 
-  async function create(newData) {
-    console.log("create new answer DATA", newData);
+  async function createQuestion(newData) {
+    // console.log("create new answer DATA", newData);
     try {
       let { data } = await httpAuth.post("/questions/create", newData);
 
@@ -79,7 +79,9 @@ const QuestionsProvider = ({ children }) => {
     }
   }, [error]);
   return (
-    <QuestionsContext.Provider value={{ questions, create, getQuestionsData }}>
+    <QuestionsContext.Provider
+      value={{ questions, createQuestion, getQuestionsData }}
+    >
       {!isLoading ? children : "Loading..."}
     </QuestionsContext.Provider>
   );
