@@ -7,17 +7,22 @@ import CreateTest from "./createTest";
 import ContainerWrapper from "../common/container";
 import { useEditTest } from "../hooks/useEditTest";
 import CreateQuestion from "./createQuestion";
+import { useQuestions } from "../hooks/useQuestions";
 
-const questionsArr = [
-  { id: 1, description: "description of test", typeOfQuestions: 1 },
-];
+// const questionsArr = [
+//   { id: 1, description: "description of test", typeOfQuestions: 1 },
+// ];
 
 const EditTest = () => {
-  const [questions, setQuestions] = useState(questionsArr);
+  // const [questions, setQuestions] = useState({});
   const { currentTest } = useTests();
   const { edit } = useEditTest();
+  const [errors, setErrors] = useState({});
+
+  const { questions, createQuestion } = useQuestions();
 
   console.log("currentTest", currentTest);
+  console.log("currentTest questions", questions);
 
   function RenderTest(currentTest) {
     // console.log("questionsLength", questionsLength);
@@ -27,45 +32,59 @@ const EditTest = () => {
           <CreateTest />
         </Collapse>
 
-        {questions.map((question, idx) => {
-          // console.log(idx);
-          // разворачиваем последний вопрос
-          if (questions.length === idx + 1) {
-            // console.log("true");
-            return (
-              <Collapse
-                key={question.id}
-                title={`Вопрос №: ${currentTest?.testName}`}
-                open={true}
-              >
-                <CreateQuestion />
-              </Collapse>
-            );
-          } else {
-            return (
-              <Collapse
-                key={question.id}
-                title={`Вопрос №: ${currentTest?.testName}`}
-              >
-                <CreateQuestion />
-              </Collapse>
-            );
-          }
-        })}
+        {questions &&
+          questions.map((question, idx) => {
+            // console.log(idx);
+            // разворачиваем последний вопрос
+            if (questions.length === idx + 1) {
+              // console.log("true");
+              return (
+                <Collapse
+                  key={question.id}
+                  title={`Вопрос №: ${currentTest?.testName}`}
+                  open={true}
+                >
+                  <CreateQuestion />
+                </Collapse>
+              );
+            } else {
+              return (
+                <Collapse
+                  key={question.id}
+                  title={`Вопрос №: ${currentTest?.testName}`}
+                >
+                  <CreateQuestion />
+                </Collapse>
+              );
+            }
+          })}
       </>
     );
   }
   useEffect(() => {
-    RenderTest();
+    RenderTest(currentTest);
   }, [questions]);
-  const handleClickAddQuestion = (e) => {
+  const handleClickAddQuestion = async (e) => {
     e.preventDefault();
-    questionsArr.push({
-      // id: 3,
-      description: "description of test 4",
-      typeOfQuestions: 2,
-    });
-    setQuestions(questionsArr);
+
+    try {
+      console.log("try create question");
+      await createQuestion({
+        idTest: currentTest.id,
+        question: "",
+        typeOfAnswers: 1,
+        cost: 0,
+      });
+    } catch (error) {
+      setErrors(error);
+    }
+
+    // questionsArr.push({
+    //   // id: 3,
+    //   description: "description of test 4",
+    //   typeOfQuestions: 2,
+    // });
+    // setQuestions(questionsArr);
     console.log(questions);
   };
   // if (currentTest) {

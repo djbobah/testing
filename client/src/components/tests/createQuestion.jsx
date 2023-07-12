@@ -7,17 +7,24 @@ import { useTypeOfAnswers } from "../hooks/useTypeOfAnswers";
 import { useAnswers } from "../hooks/useAnswers";
 import { useTests } from "../hooks/useTests";
 import { useQuestions } from "../hooks/useQuestions";
+import QuestionsService from "../../services/questions.service";
 
 const CreateQuestion = () => {
   // const answers = ;
   // const [answers, setAnswers] = useState([]);
   const { currentTest } = useTests();
 
-  const { questions } = useQuestions();
+  const { questions, getQuestionsData } = useQuestions();
   const { answers, create } = useAnswers();
   // console.log("currentTest", currentTest);
   // getQuestionsData(currentTest.id);
-  console.log("qData", questions);
+
+  // const qTest = QuestionsService.getQuestionsForTest(currentTest.id);
+  // const qTest2 = getQuestionsData(currentTest.id);
+
+  console.log("questions", questions);
+  // console.log("qData", qTest);
+  // console.log("qData2", qTest2);
 
   const [data, setData] = useState({
     questionDescription: "текст вопроса",

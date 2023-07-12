@@ -70,13 +70,28 @@ router.get("/", auth, async (req, res) => {
 });
 
 //получаем список всех пользователей
-router.get("/:questionId", async (req, res) => {
+router.get("/edit/:questionId", async (req, res) => {
   // router.get("/", async (req, res) => {
 
   try {
     const { questionId } = req.params;
     // console.log("userId", userId);
     const list = await Questions.findOne({ where: { id: questionId } });
+    res.status(200).send(list);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+  }
+});
+//получаем список всех вопросов теста
+router.get("/:testId", async (req, res) => {
+  // router.get("/", async (req, res) => {
+
+  try {
+    const { testId } = req.params;
+    // console.log("userId", userId);
+    const list = await Questions.findAll({ where: { idTest: testId } });
     res.status(200).send(list);
   } catch (error) {
     res

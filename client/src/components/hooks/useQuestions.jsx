@@ -14,7 +14,7 @@ export const useQuestions = () => {
 };
 
 const QuestionsProvider = ({ children }) => {
-  const [questions, setQuestions] = useState();
+  const [questions, setQuestions] = useState([]);
   // const [currentTest, setCurrentTest] = useState();
 
   const [error, setError] = useState(null);
@@ -36,9 +36,9 @@ const QuestionsProvider = ({ children }) => {
 
       // data = { ...data, ...newData };
       // console.log("tests", tests);
-      console.log("currentTest.id", currentTest);
+      console.log("currentTest.id", data.newQuestion.idTest);
 
-      // getQuestionsData(currentTest.id);
+      getQuestionsData(data.newQuestion.idTest);
       // getTestsData();
       return data;
     } catch (error) {
@@ -66,6 +66,9 @@ const QuestionsProvider = ({ children }) => {
     try {
       console.log("idTest", idTest);
       const data = await QuestionsService.getQuestionsForTest(idTest);
+
+      console.log("getQuestionData", data);
+
       setQuestions(data);
     } catch (error) {
       errorCatcher(error);
@@ -73,9 +76,9 @@ const QuestionsProvider = ({ children }) => {
       setLoading(false);
     }
   }
-  // useEffect(() => {
-  //   getTestsData();
-  // }, []);
+  useEffect(() => {
+    getQuestionsData();
+  }, []);
   useEffect(() => {
     if (error !== null) {
       toast(error);
