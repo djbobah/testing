@@ -24,7 +24,7 @@ const QuestionsProvider = ({ children }) => {
   const { currentTest } = useTests();
 
   function errorCatcher(error) {
-    // console.log(error);
+    console.log("currentTest use Questions", currentTest);
     const { message } = error.response.data;
     setError(message);
   }
