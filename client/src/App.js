@@ -12,15 +12,14 @@ import Main from "./components/main";
 import NavBar from "./components/navBar";
 import MainPage from "./components/mainPage";
 import UserPage from "./components/page/userPage";
-import DepartmentsProvider from "./components/hooks/useDepartments";
 import TestsProvider from "./components/hooks/useTests";
 import UsersProvider from "./components/hooks/useUsers";
-import TypeOfAnswersProvider from "./components/hooks/useTypeOfAnswers";
 import AnswersProvider from "./components/hooks/useAnswers";
 import QuestionsProvider from "./components/hooks/useQuestions";
 import { useDispatch } from "react-redux";
 import { loadDepartments } from "./store/departments";
 import { loadTypeOfAnswers } from "./store/typeOfAnswers";
+import { loadTests } from "./store/tests";
 // const QContext = React.createContext();
 // const qqq = { name: "name", value: "12345" };
 
@@ -38,11 +37,11 @@ function App() {
   useEffect(() => {
     dispatch(loadDepartments());
     dispatch(loadTypeOfAnswers());
+    dispatch(loadTests());
   }, []);
   return (
     <>
       <AuthProvider>
-        {/* <DepartmentsProvider> */}
         <TestsProvider>
           <UsersProvider>
             <QuestionsProvider>
@@ -66,7 +65,6 @@ function App() {
             </QuestionsProvider>
           </UsersProvider>
         </TestsProvider>
-        {/* </DepartmentsProvider> */}
       </AuthProvider>
       <ToastContainer />
     </>

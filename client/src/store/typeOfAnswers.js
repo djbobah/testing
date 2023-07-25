@@ -25,6 +25,7 @@ const {
   typeOfAnswersRecived,
   typeOfAnswersRequestFiled,
 } = actions;
+
 export const loadTypeOfAnswers = () => async (dispatch) => {
   dispatch(typeOfAnswersRequested());
   try {
