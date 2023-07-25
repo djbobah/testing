@@ -3,11 +3,12 @@ import TextAreaField from "../common/form/textAreaField";
 import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import SelectField from "../common/form/selectField";
-import { useTypeOfAnswers } from "../hooks/useTypeOfAnswers";
 import { useAnswers } from "../hooks/useAnswers";
 import { useTests } from "../hooks/useTests";
 import { useQuestions } from "../hooks/useQuestions";
 import QuestionsService from "../../services/questions.service";
+import { useSelector } from "react-redux";
+import { getTypeOfAnswers } from "../../store/typeOfAnswers";
 
 const CreateQuestion = () => {
   // const answers = ;
@@ -31,7 +32,7 @@ const CreateQuestion = () => {
     typeOfAnswers: 2,
     answersData: [],
   });
-  const { typeOfAnswers } = useTypeOfAnswers();
+  const typeOfAnswers = useSelector(getTypeOfAnswers());
   const typeOfAnswersOptions = typeOfAnswers?.map((type) => {
     // console.log("1", type.description === "1");
     // if (type.description === "1") {

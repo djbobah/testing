@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
 import DeparmmentService from "../services/department.service";
-import { useDepartments } from "../components/hooks/useDepartments";
+import { useSelector } from "react-redux";
+import { getDepartmments } from "../store/departments";
 const Login = () => {
   const { type } = useParams();
   const [formType, setFormType] = useState(
@@ -12,7 +13,7 @@ const Login = () => {
 
   // const [departments, setDepartments] = useState("");
   // console.log("config.apiEndpoint ", config.apiEndpoint);
-  const { departments } = useDepartments();
+  const departments = useSelector(getDepartmments());
   // useEffect(() => {
   //   try {
   //     // const dep = DeparmmentService.getDepartmments();

@@ -5,12 +5,13 @@ import SelectField from "../common/form/selectField";
 import { useAuth } from "../hooks/useAuth";
 import { validator } from "../../utils/validator";
 import { useNavigate } from "react-router-dom";
-import { useDepartments } from "../hooks/useDepartments";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { getDepartmments } from "../../store/departments";
 
 const UserProfileDetails = () => {
   const { currentUser, updateUser } = useAuth();
-  const { departments, currentDepartment } = useDepartments();
+  const departments = useSelector(getDepartmments());
   const [disabledTextField, setDisabledTextField] = useState(true);
   // console.log("currentDepartment", currentDepartment);
   const [data, setData] = useState({
