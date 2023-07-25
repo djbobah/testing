@@ -36,5 +36,9 @@ export const loadTests = () => async (dispatch) => {
 export const getTests = () => (state) => state.tests.entities;
 
 export const getTestsLoadingStatus = () => (state) => state.tests.isLoading;
+export const getTestById = (testId) => (state) => {
+  if (state.tests.entities) {
+  }
+};
 
 export default testsReducer;
