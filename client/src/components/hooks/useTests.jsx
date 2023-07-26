@@ -31,11 +31,8 @@ const TestsProvider = ({ children }) => {
   async function create(newData) {
     console.log("create test new DATA", newData);
     try {
-      let { data } = await httpAuth.post("/tests/create", newData);
-
-      // data = { ...data, ...newData };
-      console.log("tests", tests);
-      console.log("data", data.newTest);
+      // let { data } = await httpAuth.post("/tests/create", newData);
+      const data = await TestService.create(newData);
 
       getTestsData();
       return data;

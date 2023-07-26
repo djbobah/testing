@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import CardWrapper from "../common/cardWrapper";
 import Collapse from "../common/collapse";
 import BlockQuoteWrapper from "../common/blockQuote";
-import { useTests } from "../hooks/useTests";
 import CreateTest from "./createTest";
 import ContainerWrapper from "../common/container";
 import { useEditTest } from "../hooks/useEditTest";
 import CreateQuestion from "./createQuestion";
 import { useQuestions } from "../hooks/useQuestions";
+import { useSelector } from "react-redux";
+import { getCurrentTest } from "../../store/tests";
 
 // const questionsArr = [
 //   { id: 1, description: "description of test", typeOfQuestions: 1 },
@@ -15,7 +16,7 @@ import { useQuestions } from "../hooks/useQuestions";
 
 const EditTest = () => {
   // const [questions, setQuestions] = useState({});
-  const { currentTest } = useTests();
+  const currentTest = useSelector(getCurrentTest());
   const { edit } = useEditTest();
   const [errors, setErrors] = useState({});
 
@@ -93,20 +94,6 @@ const EditTest = () => {
     <ContainerWrapper>
       {edit ? RenderTest(currentTest) : <CreateTest />}
 
-      {/* <Collapse title="sdfsdf"> */}
-
-      {/* <BlockQuoteWrapper>
-          <p>
-            Аргументы: callBack, [array of dependencies]
-            <br />
-            Возвращает: Закэшированное значение выполненной функции, которое
-            обновляется только при изменении зависимостей.
-          </p>
-
-          <figcaption>
-            <cite title="reactjs.org">reactjs.org</cite>
-          </figcaption>
-        </BlockQuoteWrapper> */}
       {edit && (
         <div className="text-end ">
           <button className="btn btn-primary me-2">Сохранить тест</button>

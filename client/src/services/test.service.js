@@ -13,5 +13,9 @@ const TestService = {
 
     return data;
   },
+  create: async (newData) => {
+    let { data } = await httpService.post("/tests/create", newData);
+    return data;
+  },
 };
 export default TestService;

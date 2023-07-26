@@ -9,12 +9,20 @@ import { useTests } from "../hooks/useTests";
 import { useEditTest } from "../hooks/useEditTest";
 import { toast } from "react-toastify";
 import { useQuestions } from "../hooks/useQuestions";
-// import { useTests } from "../hooks/useTests";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentTest, setCurrentTest } from "../../store/tests";
 
 const CreateTest = () => {
-  const { create, currentTest, setCurrentTest } = useTests();
+  const dispatch = useDispatch();
+  const currentTest = useSelector(getCurrentTest());
+  const { create } = useTests();
+
   const { createQuestion } = useQuestions();
   const { edit, setEdit } = useEditTest();
+  // const currentTest = useSelector(getCurrentTest());
+
+  console.log("create test currentTest", currentTest);
+  console.log("create test edit", edit);
 
   const [data, setData] = useState(
     currentTest || {
@@ -65,8 +73,9 @@ const CreateTest = () => {
       try {
         const data = await create(newData);
         // navigate("/main/home");
-        console.log("data test", data);
-        setCurrentTest(data.newTest);
+        console.log("data new test", data);
+        dispatch(setCurrentTest(data.newTest.id));
+        // setCurrentTest(data.newTest);
 
         console.log("try create question");
         await createQuestion({

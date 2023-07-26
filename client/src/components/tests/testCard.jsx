@@ -4,17 +4,18 @@ import { useUsers } from "../hooks/useUsers";
 
 import { shortFio } from "../../utils/fioUtils";
 import { useAuth } from "../hooks/useAuth";
-import { useTests } from "../hooks/useTests";
 import TestService from "../../services/test.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useEditTest } from "../hooks/useEditTest";
+import { useDispatch } from "react-redux";
+import { getCurrentTest, setCurrentTest } from "../../store/tests";
 
 const TestCard = ({ test }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate;
   const [author, setAuthor] = useState({});
   const { getUserData } = useUsers();
   const { currentUser } = useAuth();
-  const { currentTest, setCurrentTest } = useTests();
   const [enterError, setEnterError] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -41,25 +42,8 @@ const TestCard = ({ test }) => {
   // });
   // console.log("test date", test);
 
-  const handleClickEditTest = async (id) => {
-    try {
-      await TestService.getCurrentTest(id).then((curTest) => {
-        setCurrentTest(curTest);
-        setEdit(true);
-      });
-      // navigate("/main/home");
-      // console.log("currentUser", currentUser);
-
-      // setTests(data);
-      // const curTest = await TestService.getCurrentTest(
-      //   currentUser.id_department
-      // );
-      // setCurrentDepartment(curDep);
-    } catch (error) {
-      errorCatcher(error);
-    } finally {
-      setLoading(false);
-    }
+  const handleClickEditTest = (id) => {
+    dispatch(setCurrentTest(id));
   };
 
   return (

@@ -4,7 +4,6 @@ import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import SelectField from "../common/form/selectField";
 import { useAnswers } from "../hooks/useAnswers";
-import { useTests } from "../hooks/useTests";
 import { useQuestions } from "../hooks/useQuestions";
 import QuestionsService from "../../services/questions.service";
 import { useSelector } from "react-redux";
@@ -13,7 +12,6 @@ import { getTypeOfAnswers } from "../../store/typeOfAnswers";
 const CreateQuestion = () => {
   // const answers = ;
   // const [answers, setAnswers] = useState([]);
-  const { currentTest } = useTests();
 
   const { questions, getQuestionsData } = useQuestions();
   const { answers, create } = useAnswers();

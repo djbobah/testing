@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 import QuestionsService from "../../services/questions.service";
 import { useAuth, httpAuth } from "./useAuth";
-import { useTests } from "./useTests";
+import { useSelector } from "react-redux";
+import { getCurrentTest } from "../../store/tests";
 
 const QuestionsContext = React.createContext();
 
@@ -21,7 +22,7 @@ const QuestionsProvider = ({ children }) => {
   const [isLoading, setLoading] = useState(false);
   // const navigate = useNavigate();
   const { currentUser } = useAuth();
-  const { currentTest } = useTests();
+  const currentTest = useSelector(getCurrentTest());
 
   function errorCatcher(error) {
     console.log("currentTest use Questions", currentTest);

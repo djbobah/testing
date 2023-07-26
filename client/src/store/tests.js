@@ -4,7 +4,12 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const testsSlice = createSlice({
   name: "tests",
-  initialState: { entities: null, isLoading: true },
+  initialState: {
+    entities: null,
+    currentTest: null,
+    isLoading: true,
+    isEdit: false,
+  },
   reducers: {
     testsRequested: (state) => {
       state.isLoading = true;
@@ -17,11 +22,29 @@ const testsSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
+    currentTestRequested: (state) => {
+      state.isLoading = true;
+    },
+    currentTestRecived: (state, action) => {
+      state.currentTest = action.payload;
+      state.isLoading = false;
+    },
+    currentTestRequestFiled: (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
   },
 });
 
 const { reducer: testsReducer, actions } = testsSlice;
-const { testsRequested, testsRecived, testsRequestFiled } = actions;
+const {
+  testsRequested,
+  testsRecived,
+  testsRequestFiled,
+  currentTestRequested,
+  currentTestRecived,
+  currentTestRequestFiled,
+} = actions;
 
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());
@@ -36,9 +59,17 @@ export const loadTests = () => async (dispatch) => {
 export const getTests = () => (state) => state.tests.entities;
 
 export const getTestsLoadingStatus = () => (state) => state.tests.isLoading;
-export const getTestById = (testId) => (state) => {
-  if (state.tests.entities) {
+
+export const setCurrentTest = (testId) => async (dispatch) => {
+  dispatch(currentTestRequested());
+  try {
+    const data = await TestService.getCurrentTest(testId);
+    dispatch(currentTestRecived(data));
+  } catch (error) {
+    dispatch(currentTestRequestFiled(error.message));
   }
 };
+
+export const getCurrentTest = () => (state) => state.tests.currentTest;
 
 export default testsReducer;

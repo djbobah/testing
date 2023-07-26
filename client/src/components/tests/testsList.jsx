@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
 import TestCard from "./testCard";
-import { useTests } from "../hooks/useTests";
 import ContainerWrapper from "../common/container";
 import { useEditTest } from "../hooks/useEditTest";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getTests, loadTests } from "../../store/tests";
+import { getTests, loadTests, setCurrentTest } from "../../store/tests";
 const TestsList = () => {
   // const [editTest, setEditTest] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadTests());
   }, []);
-  const { setCurrentTest } = useTests();
+
   // console.log("tests", tests);
   const tests = useSelector(getTests());
   console.log("tests", tests);
   const { setEdit } = useEditTest();
 
-  const handleClickAddTest = () => {
-    setCurrentTest(undefined);
+  const handleClickAddTest = (e) => {
+    // e.preventDefault();
+    // dispatch(setCurrentTest(null));
+    // setCurrentTest(undefined);
     setEdit(false);
   };
 
