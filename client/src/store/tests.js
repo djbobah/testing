@@ -17,6 +17,8 @@ const testsSlice = createSlice({
     testsRecived: (state, action) => {
       state.entities = action.payload;
       state.isLoading = false;
+      state.isEdit = false;
+      state.currentTest = null;
     },
     testsRequestFiled: (state, action) => {
       state.error = action.payload;
@@ -28,6 +30,7 @@ const testsSlice = createSlice({
     currentTestRecived: (state, action) => {
       state.currentTest = action.payload;
       state.isLoading = false;
+      state.isEdit = true;
     },
     currentTestRequestFiled: (state, action) => {
       state.error = action.payload;
@@ -62,6 +65,7 @@ export const getTestsLoadingStatus = () => (state) => state.tests.isLoading;
 
 export const setCurrentTest = (testId) => async (dispatch) => {
   dispatch(currentTestRequested());
+
   try {
     const data = await TestService.getCurrentTest(testId);
     dispatch(currentTestRecived(data));
@@ -71,5 +75,6 @@ export const setCurrentTest = (testId) => async (dispatch) => {
 };
 
 export const getCurrentTest = () => (state) => state.tests.currentTest;
+export const getIsEditTest = () => (state) => state.tests.isEdit;
 
 export default testsReducer;

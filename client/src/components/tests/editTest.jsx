@@ -8,7 +8,8 @@ import { useEditTest } from "../hooks/useEditTest";
 import CreateQuestion from "./createQuestion";
 import { useQuestions } from "../hooks/useQuestions";
 import { useSelector } from "react-redux";
-import { getCurrentTest } from "../../store/tests";
+import { getCurrentTest, getIsEditTest } from "../../store/tests";
+import { getQuestions } from "../../store/questions";
 
 // const questionsArr = [
 //   { id: 1, description: "description of test", typeOfQuestions: 1 },
@@ -17,20 +18,26 @@ import { getCurrentTest } from "../../store/tests";
 const EditTest = () => {
   // const [questions, setQuestions] = useState({});
   const currentTest = useSelector(getCurrentTest());
-  const { edit } = useEditTest();
+  const edit = useSelector(getIsEditTest());
   const [errors, setErrors] = useState({});
 
-  const { questions, createQuestion } = useQuestions();
+  const { createQuestion } = useQuestions();
 
-  console.log("currentTest", currentTest);
-  console.log("currentTest questions", questions);
+  // console.log(currentTest);
+  console.log("edit test currentTest", currentTest);
+  let questions = "";
+  questions = useSelector(getQuestions(currentTest.id));
+
+  // const questions = useSelector(getQuestions(currentTest?.id));
+
+  console.log("edit test currentTest questions", questions);
 
   function RenderTest(currentTest) {
     // console.log("questionsLength", questionsLength);
     return (
       <>
         <Collapse title={`Редактируем тест: ${currentTest?.testName}`}>
-          <CreateTest />
+          <CreateTest currentTest={currentTest} />
         </Collapse>
 
         {questions &&

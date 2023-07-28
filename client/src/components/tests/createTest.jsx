@@ -10,15 +10,20 @@ import { useEditTest } from "../hooks/useEditTest";
 import { toast } from "react-toastify";
 import { useQuestions } from "../hooks/useQuestions";
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentTest, setCurrentTest } from "../../store/tests";
+import {
+  getCurrentTest,
+  getIsEditTest,
+  setCurrentTest,
+} from "../../store/tests";
 
-const CreateTest = () => {
+const CreateTest = ({ currentTest }) => {
   const dispatch = useDispatch();
-  const currentTest = useSelector(getCurrentTest());
+  // const currentTest = useSelector(getCurrentTest());
   const { create } = useTests();
 
   const { createQuestion } = useQuestions();
-  const { edit, setEdit } = useEditTest();
+  const { setEdit } = useEditTest();
+  const edit = useSelector(getIsEditTest());
   // const currentTest = useSelector(getCurrentTest());
 
   console.log("create test currentTest", currentTest);
@@ -88,7 +93,7 @@ const CreateTest = () => {
         setErrors(error);
       }
 
-      setEdit(true);
+      // setEdit(true);
       toast("Тест создан");
     }
   };
