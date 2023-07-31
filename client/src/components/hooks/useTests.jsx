@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 import TestService from "../../services/test.service";
 import { useAuth, httpAuth } from "./useAuth";
-import { useQuestions } from "./useQuestions";
 
 const TestsContext = React.createContext();
 
@@ -20,7 +19,6 @@ const TestsProvider = ({ children }) => {
   const [isLoading, setLoading] = useState(true);
   // const navigate = useNavigate();
   const { currentUser } = useAuth();
-  // const { questions, createQuestion } = useQuestions();
 
   function errorCatcher(error) {
     // console.log(error);
