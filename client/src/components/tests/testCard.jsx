@@ -7,7 +7,7 @@ import { useAuth } from "../hooks/useAuth";
 import TestService from "../../services/test.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useEditTest } from "../hooks/useEditTest";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCurrentTest, setCurrentTest } from "../../store/tests";
 
 const TestCard = ({ test }) => {
@@ -43,7 +43,11 @@ const TestCard = ({ test }) => {
   // console.log("test date", test);
 
   const handleClickEditTest = (id) => {
+    console.log("test id", id);
+    // const currentTest = useSelector(setCurrentTest(id));
     dispatch(setCurrentTest(id));
+    // console.log("current test ", currentTest);
+    // dispatch(getCurrentTest(id));
   };
 
   return (

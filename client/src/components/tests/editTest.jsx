@@ -8,8 +8,12 @@ import { useEditTest } from "../hooks/useEditTest";
 import CreateQuestion from "./createQuestion";
 import { useQuestions } from "../hooks/useQuestions";
 import { useSelector } from "react-redux";
-import { getCurrentTest, getIsEditTest } from "../../store/tests";
-import { getQuestions } from "../../store/questions";
+import {
+  getCurrentTest,
+  getCurrentTestQuestions,
+  getIsEditTest,
+} from "../../store/tests";
+// import { getQuestions } from "../../store/questions";
 
 // const questionsArr = [
 //   { id: 1, description: "description of test", typeOfQuestions: 1 },
@@ -26,7 +30,7 @@ const EditTest = () => {
   // console.log(currentTest);
   console.log("edit test currentTest", currentTest);
   let questions = "";
-  questions = useSelector(getQuestions(currentTest.id));
+  questions = useSelector(getCurrentTestQuestions());
 
   // const questions = useSelector(getQuestions(currentTest?.id));
 
@@ -80,7 +84,7 @@ const EditTest = () => {
       await createQuestion({
         idTest: currentTest.id,
         question: "",
-        typeOfAnswers: 1,
+        typeOfAnswers: 0,
         cost: 0,
       });
     } catch (error) {

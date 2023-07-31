@@ -79,7 +79,7 @@ const CreateTest = ({ currentTest }) => {
         const data = await create(newData);
         // navigate("/main/home");
         console.log("data new test", data);
-        dispatch(setCurrentTest(data.newTest.id));
+        // dispatch(setCurrentTest(data.newTest.id));
         // setCurrentTest(data.newTest);
 
         console.log("try create question");
