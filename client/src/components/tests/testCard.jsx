@@ -6,7 +6,6 @@ import { shortFio } from "../../utils/fioUtils";
 import { useAuth } from "../hooks/useAuth";
 import TestService from "../../services/test.service";
 import { Link, useNavigate } from "react-router-dom";
-import { useEditTest } from "../hooks/useEditTest";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentTest, setCurrentTest } from "../../store/tests";
 
@@ -19,7 +18,6 @@ const TestCard = ({ test }) => {
   const [enterError, setEnterError] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const { setEdit } = useEditTest();
   // const navigate = useNavigate();
 
   function errorCatcher(error) {

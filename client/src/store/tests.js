@@ -1,7 +1,7 @@
 import QuestionsService from "../services/questions.service";
 import TestService from "../services/test.service";
 
-const { createSlice } = require("@reduxjs/toolkit");
+const { createSlice, createAction } = require("@reduxjs/toolkit");
 
 const testsSlice = createSlice({
   name: "tests",
@@ -26,31 +26,29 @@ const testsSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
-    // currentTestRequested: (state) => {
-    //   state.isLoading = true;
-    // },
+
     currentTestRecived: (state, action) => {
       state.currentTest = action.payload;
       state.isLoading = false;
       state.isEdit = true;
     },
-    // currentTestRequestFiled: (state, action) => {
-    //   state.error = action.payload;
-    //   state.isLoading = false;
-    // },
+
     questionsRequested: (state) => {
       state.isLoading = true;
     },
     questionsRecived: (state, action) => {
       state.questions = action.payload;
-      // state.questions =
       state.isLoading = false;
-      // state.isEdit = false;
-      // state.currentTest = null;
     },
     questionsRequestFiled: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
+    },
+    createTestRequest: (state, action) => {
+      if (!Array.isArray(state.entities)) {
+        state.entities = [];
+      }
+      state.entities.push(action.payload);
     },
   },
 });
@@ -60,14 +58,15 @@ const {
   testsRequested,
   testsRecived,
   testsRequestFiled,
-  // currentTestRequested,
   currentTestRecived,
-  // currentTestRequestFiled,
   questionsRequested,
   questionsRecived,
   questionsRequestFiled,
+  createTestRequest,
 } = actions;
 
+const createTestRequested = createAction("tests/createTestRequested");
+const createTestFailed = createAction("tests/createTestFailed");
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());
   try {
@@ -95,13 +94,6 @@ export const getTestsLoadingStatus = () => (state) => state.tests.isLoading;
 export const setCurrentTest = (testId) => async (dispatch) => {
   dispatch(currentTestRecived(testId));
   dispatch(loadQuestions(testId));
-  // dispatch(questionsRequested());
-  // try {
-  //   const data = await QuestionsService.getQuestionsForTest(testId);
-  //   dispatch(questionsRecived(data));
-  // } catch (error) {
-  //   dispatch(questionsRequestFiled(error.message));
-  // }
 };
 export const getCurrentTest = () => (state) => {
   if (state.tests.currentTest) {
@@ -117,5 +109,18 @@ export const getCurrentTestQuestions = () => (state) => {
 };
 
 export const getIsEditTest = () => (state) => state.tests.isEdit;
+
+export const createTest = (payload) => async (dispatch) => {
+  dispatch(createTestRequested());
+  try {
+    // console.log("create test payload", payload);
+    const data = await TestService.create(payload);
+    // console.log("create test data", data.newTest);
+    dispatch(createTestRequest(data.newTest));
+    dispatch(setCurrentTest(data.newTest.id));
+  } catch (error) {
+    dispatch(createTestFailed(error.message));
+  }
+};
 
 export default testsReducer;

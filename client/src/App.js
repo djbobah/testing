@@ -12,7 +12,6 @@ import Main from "./components/main";
 import NavBar from "./components/navBar";
 import MainPage from "./components/mainPage";
 import UserPage from "./components/page/userPage";
-import TestsProvider from "./components/hooks/useTests";
 import UsersProvider from "./components/hooks/useUsers";
 import AnswersProvider from "./components/hooks/useAnswers";
 import QuestionsProvider from "./components/hooks/useQuestions";
@@ -42,29 +41,27 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <TestsProvider>
-          <UsersProvider>
-            <QuestionsProvider>
-              <AnswersProvider>
-                <NavBar />
-                <Routes>
-                  <Route path="/">
-                    <Route path="/" element={<MainPage />} />
+        <UsersProvider>
+          <QuestionsProvider>
+            <AnswersProvider>
+              <NavBar />
+              <Routes>
+                <Route path="/">
+                  <Route path="/" element={<MainPage />} />
 
-                    <Route path=":type?" element={<Login />} />
+                  <Route path=":type?" element={<Login />} />
+                </Route>
+                <Route element={<ProtectedRoute />}>
+                  <Route exact path="/main/*" element={<Main />} />
+                  <Route exact path="/users/">
+                    <Route path=":idUser?" element={<UserPage />} />
                   </Route>
-                  <Route element={<ProtectedRoute />}>
-                    <Route exact path="/main/*" element={<Main />} />
-                    <Route exact path="/users/">
-                      <Route path=":idUser?" element={<UserPage />} />
-                    </Route>
-                  </Route>
-                  <Route path="/main/logout" element={<LogOut />} />
-                </Routes>
-              </AnswersProvider>
-            </QuestionsProvider>
-          </UsersProvider>
-        </TestsProvider>
+                </Route>
+                <Route path="/main/logout" element={<LogOut />} />
+              </Routes>
+            </AnswersProvider>
+          </QuestionsProvider>
+        </UsersProvider>
       </AuthProvider>
       <ToastContainer />
     </>

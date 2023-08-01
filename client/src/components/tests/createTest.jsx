@@ -5,29 +5,27 @@ import { validator } from "../../utils/validator";
 import { useAuth } from "./../hooks/useAuth";
 import TextAreaField from "../common/form/textAreaField";
 import CheckBoxField from "../common/form/checkBoxField";
-import { useTests } from "../hooks/useTests";
-import { useEditTest } from "../hooks/useEditTest";
 import { toast } from "react-toastify";
 import { useQuestions } from "../hooks/useQuestions";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  createTest,
   getCurrentTest,
   getIsEditTest,
   setCurrentTest,
 } from "../../store/tests";
+import { Link } from "react-router-dom";
 
 const CreateTest = ({ currentTest }) => {
   const dispatch = useDispatch();
   // const currentTest = useSelector(getCurrentTest());
-  const { create } = useTests();
 
   const { createQuestion } = useQuestions();
-  const { setEdit } = useEditTest();
   const edit = useSelector(getIsEditTest());
   // const currentTest = useSelector(getCurrentTest());
 
-  console.log("create test currentTest", currentTest);
-  console.log("create test edit", edit);
+  // console.log("create test currentTest", currentTest);
+  // console.log("create test edit", edit);
 
   const [data, setData] = useState(
     currentTest || {
@@ -74,24 +72,24 @@ const CreateTest = ({ currentTest }) => {
         authorId: currentUser.id,
         isPublished: false,
       };
-      console.log(newData);
-      try {
-        const data = await create(newData);
-        // navigate("/main/home");
-        console.log("data new test", data);
-        // dispatch(setCurrentTest(data.newTest.id));
-        // setCurrentTest(data.newTest);
+      // console.log(newData);
+      dispatch(createTest(newData));
+      // const curTest = useSelector(getCurrentTest());
+      // console.log("data2", data2);
+      // console.log("currentTest", currentTest);
+      // try {
+      //   // navigate("/main/home");
 
-        console.log("try create question");
-        await createQuestion({
-          idTest: data.newTest.id,
-          question: "DataTypes.STRING",
-          typeOfAnswers: 1,
-          cost: 0,
-        });
-      } catch (error) {
-        setErrors(error);
-      }
+      //   console.log("try create question");
+      //   await createQuestion({
+      //     idTest: data.newTest.id,
+      //     question: "DataTypes.STRING",
+      //     typeOfAnswers: 1,
+      //     cost: 0,
+      //   });
+      // } catch (error) {
+      //   setErrors(error);
+      // }
 
       // setEdit(true);
       toast("Тест создан");
@@ -167,13 +165,9 @@ const CreateTest = ({ currentTest }) => {
               >
                 Создать
               </button>
-              <button
-                type="submit"
-                disabled={!isValid}
-                className="btn btn-secondary w-50 mx-auto"
-              >
+              <Link to="/main/home" className="btn btn-secondary w-50 mx-auto">
                 Отмена
-              </button>
+              </Link>
             </div>
           )}
         </form>

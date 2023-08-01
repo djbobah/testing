@@ -4,7 +4,6 @@ import Collapse from "../common/collapse";
 import BlockQuoteWrapper from "../common/blockQuote";
 import CreateTest from "./createTest";
 import ContainerWrapper from "../common/container";
-import { useEditTest } from "../hooks/useEditTest";
 import CreateQuestion from "./createQuestion";
 import { useQuestions } from "../hooks/useQuestions";
 import { useSelector } from "react-redux";
