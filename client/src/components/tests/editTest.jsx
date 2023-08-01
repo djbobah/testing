@@ -6,8 +6,9 @@ import CreateTest from "./createTest";
 import ContainerWrapper from "../common/container";
 import CreateQuestion from "./createQuestion";
 import { useQuestions } from "../hooks/useQuestions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  createQuestion,
   getCurrentTest,
   getCurrentTestQuestions,
   getIsEditTest,
@@ -19,12 +20,13 @@ import {
 // ];
 
 const EditTest = () => {
+  const dispatch = useDispatch();
   // const [questions, setQuestions] = useState({});
   const currentTest = useSelector(getCurrentTest());
   const edit = useSelector(getIsEditTest());
   const [errors, setErrors] = useState({});
 
-  const { createQuestion } = useQuestions();
+  // const { createQuestion } = useQuestions();
 
   // console.log(currentTest);
   console.log("edit test currentTest", currentTest);
@@ -77,18 +79,25 @@ const EditTest = () => {
   }, [questions]);
   const handleClickAddQuestion = async (e) => {
     e.preventDefault();
-
-    try {
-      console.log("try create question");
-      await createQuestion({
+    dispatch(
+      createQuestion({
         idTest: currentTest.id,
         question: "",
-        typeOfAnswers: 0,
-        cost: 0,
-      });
-    } catch (error) {
-      setErrors(error);
-    }
+        typeOfAnswers: 1,
+        cost: 0.5,
+      })
+    );
+    // try {
+    //   console.log("try create question");
+    //   await createQuestion({
+    //     idTest: currentTest.id,
+    //     question: "",
+    //     typeOfAnswers: 0,
+    //     cost: 0,
+    //   });
+    // } catch (error) {
+    //   setErrors(error);
+    // }
 
     // questionsArr.push({
     //   // id: 3,
@@ -96,7 +105,7 @@ const EditTest = () => {
     //   typeOfQuestions: 2,
     // });
     // setQuestions(questionsArr);
-    console.log(questions);
+    // console.log(questions);
   };
   // if (currentTest) {
   return (

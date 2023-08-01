@@ -110,7 +110,7 @@ router.post("/create", [
       });
       console.log("newQuestion ", newQuestion);
 
-      res.status(201).send({ newQuestion });
+      res.status(201).send(newQuestion);
     } catch (error) {
       res.status(500).json({
         message: "На сервере произошла ошибка questions. Попробуйте позже",

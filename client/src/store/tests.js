@@ -50,6 +50,12 @@ const testsSlice = createSlice({
       }
       state.entities.push(action.payload);
     },
+    createQuestionRequest: (state, action) => {
+      if (!Array.isArray(state.questions)) {
+        state.questions = [];
+      }
+      state.questions.push(action.payload);
+    },
   },
 });
 
@@ -63,10 +69,13 @@ const {
   questionsRecived,
   questionsRequestFiled,
   createTestRequest,
+  createQuestionRequest,
 } = actions;
 
 const createTestRequested = createAction("tests/createTestRequested");
 const createTestFailed = createAction("tests/createTestFailed");
+const createQuestionRequested = createAction("tests/createQuestionRequested");
+const createQuestionFailed = createAction("tests/createQuestionFailed");
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());
   try {
@@ -122,5 +131,17 @@ export const createTest = (payload) => async (dispatch) => {
     dispatch(createTestFailed(error.message));
   }
 };
+export const createQuestion = (payload) => async (dispatch) => {
+  dispatch(createQuestionRequested());
+  try {
+    // console.log("create test payload", payload);
+    const data = await QuestionsService.create(payload);
 
+    console.log("create question data", data);
+    dispatch(createQuestionRequest(data));
+    // dispatch(setCurrentTest(data.newTest.id));
+  } catch (error) {
+    dispatch(createQuestionFailed(error.message));
+  }
+};
 export default testsReducer;
