@@ -13,5 +13,9 @@ const QuestionsService = {
 
     return data;
   },
+  create: async (data) => {
+    const { data } = await httpAuth.post("/questions/create", data);
+    return data;
+  },
 };
 export default QuestionsService;
