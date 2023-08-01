@@ -13,8 +13,8 @@ const QuestionsService = {
 
     return data;
   },
-  create: async (data) => {
-    const { data } = await httpAuth.post("/questions/create", data);
+  create: async (payload) => {
+    const { data } = await httpService.post("/questions/create", payload);
     return data;
   },
 };
