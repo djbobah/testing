@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTypeOfAnswers } from "../../store/typeOfAnswers";
 import { getCurrentTestQuestions, updateQuestion } from "../../store/tests";
 
-const CreateQuestion = ({ onSave }) => {
+const CreateQuestion = ({ onSave, question }) => {
   // const answers = ;
   // const [answers, setAnswers] = useState([]);
   const dispatch = useDispatch();
@@ -25,13 +25,12 @@ const CreateQuestion = ({ onSave }) => {
   // console.log("qData2", qTest2);
 
   const [data, setData] = useState({
-    questionDescription: "текст вопроса",
-    typeOfAnswers: 1,
+    ...question,
     answersData: [],
   });
   const typeOfAnswers = useSelector(getTypeOfAnswers());
   const typeOfAnswersOptions = typeOfAnswers?.map((type) => {
-    // console.log("1", type.description === "1");
+    console.log("data", data);
     // if (type.description === "1") {
     // console.log("1");
     return {
@@ -99,8 +98,8 @@ const CreateQuestion = ({ onSave }) => {
         <form>
           <TextAreaField
             // label="Описание:"
-            name="questionDescription"
-            value={data.questionDescription}
+            name="question"
+            value={data.question}
             //{data.description}
             onChange={handleChange}
             // error={errors.description}

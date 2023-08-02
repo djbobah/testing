@@ -40,7 +40,13 @@ router.patch("/:questionId", async (req, res) => {
       },
       { where: { id: questionId } }
     );
-    res.send(updatedQuestion);
+    console.log("updatedQuestion", updatedQuestion);
+
+    res.send({
+      questionId: questionId,
+      question: req.body.question,
+      typeOfAnswers: req.body.typeOfAnswers,
+    });
     // }
     // res.status(200).send()=res.send()
     // console.log("updatedUser", updatedUser);

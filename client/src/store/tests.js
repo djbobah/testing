@@ -65,8 +65,20 @@ const testsSlice = createSlice({
       // state.questions[action.payload].save = (prevState) => !prevState;
     },
     updateQuestionRequest: (state, action) => {
-      console.log("updateQuestionRequest action", action);
-      // const idx = state.questions.findIndex((i) => i.id === action.payload.id);
+      // console.log("state.questions", state.questions[0].id);
+      // console.log(
+      //   "updateQuestionRequest action.payload.questionId",
+      //   action.payload.questionId
+      // );
+      const idx = state.questions.findIndex(
+        (i) => i.id === Number(action.payload.questionId)
+      );
+      state.questions[idx].question = action.payload.question;
+      state.questions[idx].typeOfAnswers = action.payload.typeOfAnswers;
+      // console.log("updateQuestionRequest ", action.payload.question);
+      // console.log("updateQuestionRequest ", action.payload.typeOfAnswers);
+      // console.log("updateQuestionRequest ", state.questions[idx]);
+
       // state.questions[idx] = action.payload;
     },
   },

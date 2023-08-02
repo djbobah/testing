@@ -65,10 +65,11 @@ const EditTest = () => {
               return (
                 <Collapse
                   key={question.id}
-                  title={`Вопрос №: ${currentTest?.testName}`}
+                  title={`Вопрос №: ${idx + 1}`}
                   open={!question.save}
                 >
                   <CreateQuestion
+                    question={question}
                     onSave={(data) => handleClickSave(question.id, data)}
                   />
                 </Collapse>
@@ -82,6 +83,7 @@ const EditTest = () => {
                   // open={openQuestion}
                 >
                   <CreateQuestion
+                    question={question}
                     onSave={(data) => handleClickSave(question.id, data)}
                   />
                 </Collapse>
