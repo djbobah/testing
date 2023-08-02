@@ -20,5 +20,10 @@ const QuestionsService = {
 
     return data;
   },
+  update: async (id, payload) => {
+    console.log("update question payload", payload);
+    const { data } = await httpService.path("/questions/" + id, payload);
+    console.log("update question data", data);
+  },
 };
 export default QuestionsService;

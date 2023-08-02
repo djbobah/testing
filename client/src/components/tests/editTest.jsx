@@ -8,10 +8,12 @@ import CreateQuestion from "./createQuestion";
 import { useQuestions } from "../hooks/useQuestions";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  changeQuestion,
   createQuestion,
   getCurrentTest,
   getCurrentTestQuestions,
   getIsEditTest,
+  updateQuestion,
 } from "../../store/tests";
 // import { getQuestions } from "../../store/questions";
 
@@ -25,17 +27,26 @@ const EditTest = () => {
   const currentTest = useSelector(getCurrentTest());
   const edit = useSelector(getIsEditTest());
   const [errors, setErrors] = useState({});
+  // const [openQuestion, setOpenQuestion] = useState(true);
 
   // const { createQuestion } = useQuestions();
 
   // console.log(currentTest);
-  console.log("edit test currentTest", currentTest);
+  // console.log("edit test currentTest", currentTest);
   let questions = "";
   questions = useSelector(getCurrentTestQuestions());
 
   // const questions = useSelector(getQuestions(currentTest?.id));
+  // if (questions) {
+  //   console.log("edit test currentTest questions", questions);
+  // }
 
-  console.log("edit test currentTest questions", questions);
+  const handleClickSave = (id, data) => {
+    console.log("handleClickSave data", data);
+    // console.log("open", openQuestion);
+    dispatch(updateQuestion(id, data));
+    // setOpenQuestion((prevState) => !prevState);
+  };
 
   function RenderTest(currentTest) {
     // console.log("questionsLength", questionsLength);
@@ -55,18 +66,24 @@ const EditTest = () => {
                 <Collapse
                   key={question.id}
                   title={`Вопрос №: ${currentTest?.testName}`}
-                  open={true}
+                  open={!question.save}
                 >
-                  <CreateQuestion />
+                  <CreateQuestion
+                    onSave={(data) => handleClickSave(question.id, data)}
+                  />
                 </Collapse>
               );
             } else {
               return (
                 <Collapse
                   key={question.id}
-                  title={`Вопрос №: ${currentTest?.testName}`}
+                  title={`Вопрос №: ${idx + 1}`}
+                  open={!question.save}
+                  // open={openQuestion}
                 >
-                  <CreateQuestion />
+                  <CreateQuestion
+                    onSave={(data) => handleClickSave(question.id, data)}
+                  />
                 </Collapse>
               );
             }
@@ -76,7 +93,9 @@ const EditTest = () => {
   }
   useEffect(() => {
     RenderTest(currentTest);
+    console.log("rerender");
   }, [questions]);
+
   const handleClickAddQuestion = async (e) => {
     e.preventDefault();
     dispatch(

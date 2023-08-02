@@ -13,6 +13,7 @@ router.patch("/:questionId", async (req, res) => {
   try {
     const { questionId } = req.params;
     console.log("questionId", questionId);
+    console.log("req.body", req.body);
     // console.log("req.user.id", req.user.id);
 
     // проверка что userId =id текущего пользователя
@@ -32,16 +33,14 @@ router.patch("/:questionId", async (req, res) => {
     // } else {
     //   const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
-    //   const updatedUser = await Users.update(
-    //     {
-    //       password: hashedPassword,
-    //       email: req.body.email,
-    //       fio: req.body.fio,
-    //       id_department: req.body.department,
-    //     },
-    //     { where: { id: userId } }
-    //   );
-    //   res.send(updatedUser);
+    const updatedQuestion = await Questions.update(
+      {
+        question: req.body.questionDescription,
+        typeOfAnswers: req.body.typeOfAnswers,
+      },
+      { where: { id: questionId } }
+    );
+    res.send(updatedQuestion);
     // }
     // res.status(200).send()=res.send()
     // console.log("updatedUser", updatedUser);
@@ -50,9 +49,9 @@ router.patch("/:questionId", async (req, res) => {
     //   res.status(401).json({ message: "Unauthorized" });
     // }
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+    res.status(500).json({
+      message: "На сервере произошла ошибка update question. Попробуйте позже",
+    });
   }
 });
 

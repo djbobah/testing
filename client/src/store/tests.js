@@ -37,7 +37,7 @@ const testsSlice = createSlice({
       state.isLoading = true;
     },
     questionsRecived: (state, action) => {
-      state.questions = action.payload;
+      state.questions = action.payload.map((q) => ({ ...q, save: true }));
       state.isLoading = false;
     },
     questionsRequestFiled: (state, action) => {
@@ -54,7 +54,20 @@ const testsSlice = createSlice({
       if (!Array.isArray(state.questions)) {
         state.questions = [];
       }
-      state.questions.push(action.payload);
+      state.questions.push({ ...action.payload, save: false });
+    },
+    changeQuestionSave: (state, action) => {
+      console.log("changeQuestionSave", action.payload);
+      const idx = state.questions.findIndex((i) => i.id === action.payload);
+      state.questions[idx].save = !state.questions[idx].save;
+      // console.log("state.questions[action.payload]", state.questions[9].save);
+      // console.log("idx");
+      // state.questions[action.payload].save = (prevState) => !prevState;
+    },
+    updateQuestionRequest: (state, action) => {
+      console.log("updateQuestionRequest action", action);
+      // const idx = state.questions.findIndex((i) => i.id === action.payload.id);
+      // state.questions[idx] = action.payload;
     },
   },
 });
@@ -70,12 +83,16 @@ const {
   questionsRequestFiled,
   createTestRequest,
   createQuestionRequest,
+  changeQuestionSave,
+  updateQuestionRequest,
 } = actions;
 
 const createTestRequested = createAction("tests/createTestRequested");
 const createTestFailed = createAction("tests/createTestFailed");
 const createQuestionRequested = createAction("tests/createQuestionRequested");
 const createQuestionFailed = createAction("tests/createQuestionFailed");
+const updateQuestionRequested = createAction("tests/updateQuestionRequested");
+const updateQuestionFailed = createAction("tests/updateQuestionFailed");
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());
   try {
@@ -142,6 +159,20 @@ export const createQuestion = (payload) => async (dispatch) => {
     // dispatch(setCurrentTest(data.newTest.id));
   } catch (error) {
     dispatch(createQuestionFailed(error.message));
+  }
+};
+
+export const changeQuestion = (id) => (dispatch) => {
+  dispatch(changeQuestionSave(id));
+};
+
+export const updateQuestion = (id, payload) => async (dispatch) => {
+  dispatch(updateQuestionRequested());
+  try {
+    const data = await QuestionsService.update(id, payload);
+    dispatch(updateQuestionRequest(data));
+  } catch (error) {
+    dispatch(updateQuestionFailed());
   }
 };
 export default testsReducer;

@@ -4,14 +4,14 @@ import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import SelectField from "../common/form/selectField";
 import { useAnswers } from "../hooks/useAnswers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTypeOfAnswers } from "../../store/typeOfAnswers";
-import { getCurrentTestQuestions } from "../../store/tests";
+import { getCurrentTestQuestions, updateQuestion } from "../../store/tests";
 
-const CreateQuestion = () => {
+const CreateQuestion = ({ onSave }) => {
   // const answers = ;
   // const [answers, setAnswers] = useState([]);
-
+  const dispatch = useDispatch();
   const { answers, create } = useAnswers();
   const questions = useSelector(getCurrentTestQuestions());
   // console.log("currentTest", currentTest);
@@ -20,13 +20,13 @@ const CreateQuestion = () => {
   // const qTest = QuestionsService.getQuestionsForTest(currentTest.id);
   // const qTest2 = getQuestionsData(currentTest.id);
 
-  console.log("questions", questions);
+  // console.log("questions", questions);
   // console.log("qData", qTest);
   // console.log("qData2", qTest2);
 
   const [data, setData] = useState({
     questionDescription: "текст вопроса",
-    typeOfAnswers: 2,
+    typeOfAnswers: 1,
     answersData: [],
   });
   const typeOfAnswers = useSelector(getTypeOfAnswers());
@@ -58,10 +58,12 @@ const CreateQuestion = () => {
   };
   const handleClickSaveQuestion = (e) => {
     e.preventDefault();
+    // dispatch
+    onSave(data);
   };
 
   const renderAnswers = (answers) => {
-    console.log("ans", answers);
+    // console.log("ans", answers);
     return answers?.map((answer) => (
       <div className="d-flex fs-4 " key={answer.id}>
         <CheckBoxField
@@ -88,7 +90,7 @@ const CreateQuestion = () => {
   };
 
   useEffect(() => {
-    console.log("useEff", answers);
+    // console.log("useEff", answers);
     renderAnswers(answers);
   }, [answers]);
   return (
