@@ -28,6 +28,7 @@ const EditTest = () => {
   const currentTest = useSelector(getCurrentTest());
   const edit = useSelector(getIsEditTest());
   const [errors, setErrors] = useState({});
+  const [showTest, setShowTest] = useState(false);
   const [dataTest, setDataTest] = useState(
     currentTest || {
       testName: "",
@@ -60,12 +61,25 @@ const EditTest = () => {
     // setOpenQuestion((prevState) => !prevState);
   };
 
+  console.log("dataTest", dataTest);
+
   function RenderTest(currentTest) {
-    // console.log("questionsLength", questionsLength);
+    console.log("renderTest");
     return (
       <>
-        <Collapse title={`Редактируем тест: ${currentTest?.testName}`}>
-          <CreateTest data={dataTest} onChange={handleChange} />
+        <Collapse
+          title={`Редактируем тест: ${currentTest?.testName}`}
+          open={showTest}
+        >
+          <CreateTest data={dataTest} onChange={handleChange} />{" "}
+          <div className="text-end ">
+            <button
+              className="btn btn-primary me-2"
+              onClick={handleClickSaveTest}
+            >
+              Сохранить
+            </button>
+          </div>
         </Collapse>
 
         {questions &&
@@ -123,7 +137,9 @@ const EditTest = () => {
   };
   const handleClickSaveTest = () => {
     console.log("edit test currentTest ", dataTest);
+    setShowTest(false);
     dispatch(updateTest(dataTest));
+    console.log("showTest", showTest);
   };
 
   // if (currentTest) {
@@ -138,12 +154,12 @@ const EditTest = () => {
 
       {edit && (
         <div className="text-end ">
-          <button
+          {/* <button
             className="btn btn-primary me-2"
             onClick={handleClickSaveTest}
           >
             Сохранить тест
-          </button>
+          </button> */}
           <button
             className="btn btn-secondary"
             onClick={handleClickAddQuestion}

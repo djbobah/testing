@@ -60,6 +60,9 @@ const CreateQuestion = ({ onSave, question }) => {
     // dispatch
     onSave(data);
   };
+  const handleClickDeleteQuestion = (questionId) => {
+    console.log(questionId);
+  };
 
   const renderAnswers = (answers) => {
     // console.log("ans", answers);
@@ -128,6 +131,13 @@ const CreateQuestion = ({ onSave, question }) => {
               className="btn btn-primary me-2"
             >
               Сохранить вопрос
+            </button>
+            <button
+              type="button"
+              onClick={() => handleClickDeleteQuestion(question.id)}
+              className="btn btn-danger me-2"
+            >
+              Удалить вопрос
             </button>
           </div>
         </form>
