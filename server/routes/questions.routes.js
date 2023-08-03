@@ -35,7 +35,7 @@ router.patch("/:questionId", async (req, res) => {
 
     const updatedQuestion = await Questions.update(
       {
-        question: req.body.questionDescription,
+        question: req.body.question,
         typeOfAnswers: req.body.typeOfAnswers,
       },
       { where: { id: questionId } }

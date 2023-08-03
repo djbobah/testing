@@ -14,6 +14,7 @@ import {
   getCurrentTestQuestions,
   getIsEditTest,
   updateQuestion,
+  updateTest,
 } from "../../store/tests";
 // import { getQuestions } from "../../store/questions";
 
@@ -27,6 +28,15 @@ const EditTest = () => {
   const currentTest = useSelector(getCurrentTest());
   const edit = useSelector(getIsEditTest());
   const [errors, setErrors] = useState({});
+  const [dataTest, setDataTest] = useState(
+    currentTest || {
+      testName: "",
+      description: "",
+      timeOfTest: 30,
+      numberOfQuestionsForTest: 0,
+      isRandomQuestions: false,
+    }
+  );
   // const [openQuestion, setOpenQuestion] = useState(true);
 
   // const { createQuestion } = useQuestions();
@@ -40,7 +50,9 @@ const EditTest = () => {
   // if (questions) {
   //   console.log("edit test currentTest questions", questions);
   // }
-
+  const handleChange = (target) => {
+    setDataTest((prevState) => ({ ...prevState, [target.name]: target.value }));
+  };
   const handleClickSave = (id, data) => {
     console.log("handleClickSave data", data);
     // console.log("open", openQuestion);
@@ -53,42 +65,42 @@ const EditTest = () => {
     return (
       <>
         <Collapse title={`Редактируем тест: ${currentTest?.testName}`}>
-          <CreateTest currentTest={currentTest} />
+          <CreateTest data={dataTest} onChange={handleChange} />
         </Collapse>
 
         {questions &&
           questions.map((question, idx) => {
             // console.log(idx);
             // разворачиваем последний вопрос
-            if (questions.length === idx + 1) {
-              // console.log("true");
-              return (
-                <Collapse
-                  key={question.id}
-                  title={`Вопрос №: ${idx + 1}`}
-                  open={!question.save}
-                >
-                  <CreateQuestion
-                    question={question}
-                    onSave={(data) => handleClickSave(question.id, data)}
-                  />
-                </Collapse>
-              );
-            } else {
-              return (
-                <Collapse
-                  key={question.id}
-                  title={`Вопрос №: ${idx + 1}`}
-                  open={!question.save}
-                  // open={openQuestion}
-                >
-                  <CreateQuestion
-                    question={question}
-                    onSave={(data) => handleClickSave(question.id, data)}
-                  />
-                </Collapse>
-              );
-            }
+            // if (questions.length === idx + 1) {
+            //   // console.log("true");
+            //   return (
+            //     <Collapse
+            //       key={question.id}
+            //       title={`Вопрос №: ${idx + 1}`}
+            //       open={!question.save}
+            //     >
+            //       <CreateQuestion
+            //         question={question}
+            //         onSave={(data) => handleClickSave(question.id, data)}
+            //       />
+            //     </Collapse>
+            //   );
+            // } else {
+            return (
+              <Collapse
+                key={question.id}
+                title={`Вопрос №: ${idx + 1}`}
+                open={!question.save}
+                // open={openQuestion}
+              >
+                <CreateQuestion
+                  question={question}
+                  onSave={(data) => handleClickSave(question.id, data)}
+                />
+              </Collapse>
+            );
+            // }
           })}
       </>
     );
@@ -98,7 +110,7 @@ const EditTest = () => {
     console.log("rerender");
   }, [questions]);
 
-  const handleClickAddQuestion = async (e) => {
+  const handleClickAddQuestion = (e) => {
     e.preventDefault();
     dispatch(
       createQuestion({
@@ -108,35 +120,30 @@ const EditTest = () => {
         cost: 0.5,
       })
     );
-    // try {
-    //   console.log("try create question");
-    //   await createQuestion({
-    //     idTest: currentTest.id,
-    //     question: "",
-    //     typeOfAnswers: 0,
-    //     cost: 0,
-    //   });
-    // } catch (error) {
-    //   setErrors(error);
-    // }
-
-    // questionsArr.push({
-    //   // id: 3,
-    //   description: "description of test 4",
-    //   typeOfQuestions: 2,
-    // });
-    // setQuestions(questionsArr);
-    // console.log(questions);
   };
+  const handleClickSaveTest = () => {
+    console.log("edit test currentTest ", dataTest);
+    dispatch(updateTest(dataTest));
+  };
+
   // if (currentTest) {
   return (
     // <CardWrapper>
     <ContainerWrapper>
-      {edit ? RenderTest(currentTest) : <CreateTest />}
+      {edit ? (
+        RenderTest(currentTest)
+      ) : (
+        <CreateTest data={dataTest} onChange={handleChange} />
+      )}
 
       {edit && (
         <div className="text-end ">
-          <button className="btn btn-primary me-2">Сохранить тест</button>
+          <button
+            className="btn btn-primary me-2"
+            onClick={handleClickSaveTest}
+          >
+            Сохранить тест
+          </button>
           <button
             className="btn btn-secondary"
             onClick={handleClickAddQuestion}

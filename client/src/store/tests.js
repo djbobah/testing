@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import QuestionsService from "../services/questions.service";
 import TestService from "../services/test.service";
 
@@ -60,26 +61,21 @@ const testsSlice = createSlice({
       console.log("changeQuestionSave", action.payload);
       const idx = state.questions.findIndex((i) => i.id === action.payload);
       state.questions[idx].save = !state.questions[idx].save;
-      // console.log("state.questions[action.payload]", state.questions[9].save);
-      // console.log("idx");
-      // state.questions[action.payload].save = (prevState) => !prevState;
     },
     updateQuestionRequest: (state, action) => {
-      // console.log("state.questions", state.questions[0].id);
-      // console.log(
-      //   "updateQuestionRequest action.payload.questionId",
-      //   action.payload.questionId
-      // );
       const idx = state.questions.findIndex(
         (i) => i.id === Number(action.payload.questionId)
       );
       state.questions[idx].question = action.payload.question;
-      state.questions[idx].typeOfAnswers = action.payload.typeOfAnswers;
-      // console.log("updateQuestionRequest ", action.payload.question);
-      // console.log("updateQuestionRequest ", action.payload.typeOfAnswers);
-      // console.log("updateQuestionRequest ", state.questions[idx]);
-
-      // state.questions[idx] = action.payload;
+      state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
+    },
+    updateTestRequest: (state, action) => {
+      console.log("updateTestRequest");
+      // const idx = state.questions.findIndex(
+      //   (i) => i.id === Number(action.payload.questionId)
+      // );
+      // state.questions[idx].question = action.payload.question;
+      // state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
     },
   },
 });
@@ -96,6 +92,7 @@ const {
   createTestRequest,
   createQuestionRequest,
   changeQuestionSave,
+  updateTestRequest,
   updateQuestionRequest,
 } = actions;
 
@@ -103,6 +100,8 @@ const createTestRequested = createAction("tests/createTestRequested");
 const createTestFailed = createAction("tests/createTestFailed");
 const createQuestionRequested = createAction("tests/createQuestionRequested");
 const createQuestionFailed = createAction("tests/createQuestionFailed");
+const updateTestRequested = createAction("tests/updateTestRequested");
+const updateTestFailed = createAction("tests/updateTestFailed");
 const updateQuestionRequested = createAction("tests/updateQuestionRequested");
 const updateQuestionFailed = createAction("tests/updateQuestionFailed");
 export const loadTests = () => async (dispatch) => {
@@ -177,14 +176,24 @@ export const createQuestion = (payload) => async (dispatch) => {
 export const changeQuestion = (id) => (dispatch) => {
   dispatch(changeQuestionSave(id));
 };
-
+export const updateTest = (payload) => async (dispatch) => {
+  dispatch(updateTestRequested());
+  try {
+    const data = await TestService.update(payload);
+    dispatch(updateTestRequest(data));
+    toast("Тест сохранен");
+  } catch (error) {
+    dispatch(updateTestFailed(error.message));
+  }
+};
 export const updateQuestion = (id, payload) => async (dispatch) => {
   dispatch(updateQuestionRequested());
   try {
     const data = await QuestionsService.update(id, payload);
     dispatch(updateQuestionRequest(data));
+    toast("Вопрос сохранен");
   } catch (error) {
-    dispatch(updateQuestionFailed());
+    dispatch(updateQuestionFailed(error.message));
   }
 };
 export default testsReducer;

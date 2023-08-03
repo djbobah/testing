@@ -17,5 +17,11 @@ const TestService = {
     let { data } = await httpService.post("/tests/create", newData);
     return data;
   },
+  update: async (payload) => {
+    console.log("update test payload", payload);
+    const { data } = await httpService.path("/tests/" + payload.id, payload);
+    console.log("update test data", data);
+    return data;
+  },
 };
 export default TestService;

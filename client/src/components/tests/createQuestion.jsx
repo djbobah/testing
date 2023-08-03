@@ -30,7 +30,7 @@ const CreateQuestion = ({ onSave, question }) => {
   });
   const typeOfAnswers = useSelector(getTypeOfAnswers());
   const typeOfAnswersOptions = typeOfAnswers?.map((type) => {
-    console.log("data", data);
+    // console.log("data", data);
     // if (type.description === "1") {
     // console.log("1");
     return {
@@ -44,7 +44,7 @@ const CreateQuestion = ({ onSave, question }) => {
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
-    console.log("target", target);
+    // console.log("target", target);
   };
   const handleClickAddAnswer = (e) => {
     e.preventDefault();
@@ -97,7 +97,7 @@ const CreateQuestion = ({ onSave, question }) => {
       <div className="card-body ">
         <form>
           <TextAreaField
-            // label="Описание:"
+            label="Текст вопроса:"
             name="question"
             value={data.question}
             //{data.description}

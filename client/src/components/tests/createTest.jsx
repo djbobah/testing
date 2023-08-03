@@ -16,7 +16,7 @@ import {
 } from "../../store/tests";
 import { Link } from "react-router-dom";
 
-const CreateTest = ({ currentTest }) => {
+const CreateTest = ({ data, onChange }) => {
   const dispatch = useDispatch();
   // const currentTest = useSelector(getCurrentTest());
 
@@ -27,21 +27,21 @@ const CreateTest = ({ currentTest }) => {
   // console.log("create test currentTest", currentTest);
   // console.log("create test edit", edit);
 
-  const [data, setData] = useState(
-    currentTest || {
-      testName: "",
-      description: "",
-      timeOfTest: 30,
-      numberOfQuestionsForTest: 0,
-      isRandomQuestions: false,
-    }
-  );
+  // const [data, setData] = useState(
+  //   currentTest || {
+  //     testName: "",
+  //     description: "",
+  //     timeOfTest: 30,
+  //     numberOfQuestionsForTest: 0,
+  //     isRandomQuestions: false,
+  //   }
+  // );
   const [errors, setErrors] = useState({});
   const { currentUser } = useAuth();
 
-  const handleChange = (target) => {
-    setData((prevState) => ({ ...prevState, [target.name]: target.value }));
-  };
+  // const handleChange = (target) => {
+  //   setData((prevState) => ({ ...prevState, [target.name]: target.value }));
+  // };
   const validatorConfig = {
     testName: {
       isRequired: { message: "Наименование теста обязательно для заполнения" },
@@ -115,7 +115,7 @@ const CreateTest = ({ currentTest }) => {
             label="Наименование теста:"
             name="testName"
             value={data.testName}
-            onChange={handleChange}
+            onChange={onChange}
             error={errors.testName}
             autoFocus
           />{" "}
@@ -123,7 +123,7 @@ const CreateTest = ({ currentTest }) => {
             label="Описание:"
             name="description"
             value={data.description}
-            onChange={handleChange}
+            onChange={onChange}
             error={errors.description}
           />
           {/* <div className="d-flex ">
@@ -133,7 +133,7 @@ const CreateTest = ({ currentTest }) => {
             name="timeOfTest"
             type="number"
             value={data.timeOfTest}
-            onChange={handleChange}
+            onChange={onChange}
             error={errors.timeOfTest}
           />
           {/* </div> */}
@@ -150,7 +150,7 @@ const CreateTest = ({ currentTest }) => {
           {/* </div> */}
           <CheckBoxField
             value={data.isRandomQuestions}
-            onChange={handleChange}
+            onChange={onChange}
             name="isRandomQuestions"
             error={errors.isRandomQuestions}
           >
