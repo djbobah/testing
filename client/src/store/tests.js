@@ -71,10 +71,11 @@ const testsSlice = createSlice({
     },
     updateTestRequest: (state, action) => {
       console.log("updateTestRequest");
-      // const idx = state.questions.findIndex(
-      //   (i) => i.id === Number(action.payload.questionId)
-      // );
-      // state.questions[idx].question = action.payload.question;
+      const idx = state.entities.findIndex(
+        (i) => i.id === Number(action.payload.id)
+      );
+      console.log("idx", idx);
+      state.entities[idx] = action.payload;
       // state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
     },
   },
