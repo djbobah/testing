@@ -78,6 +78,9 @@ const testsSlice = createSlice({
       state.entities[idx] = action.payload;
       // state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
     },
+    deleteQuestionRequest: (state, action) => {
+      console.log("deleteTestRequest", action.payload);
+    },
   },
 });
 
@@ -95,6 +98,7 @@ const {
   changeQuestionSave,
   updateTestRequest,
   updateQuestionRequest,
+  deleteQuestionRequest,
 } = actions;
 
 const createTestRequested = createAction("tests/createTestRequested");
@@ -105,6 +109,9 @@ const updateTestRequested = createAction("tests/updateTestRequested");
 const updateTestFailed = createAction("tests/updateTestFailed");
 const updateQuestionRequested = createAction("tests/updateQuestionRequested");
 const updateQuestionFailed = createAction("tests/updateQuestionFailed");
+const deleteQuestionRequested = createAction("tests/deleteQuestionRequested");
+const deleteQuestionFailed = createAction("tests/deleteQuestionFailed");
+
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());
   try {
@@ -195,6 +202,15 @@ export const updateQuestion = (id, payload) => async (dispatch) => {
     toast("Вопрос сохранен");
   } catch (error) {
     dispatch(updateQuestionFailed(error.message));
+  }
+};
+export const deleteQuestion = (id) => async (dispatch) => {
+  dispatch(deleteQuestionRequested());
+  try {
+    await QuestionsService.delete(id);
+    dispatch(deleteQuestionRequest(id));
+  } catch (error) {
+    dispatch(deleteQuestionFailed(error.message));
   }
 };
 export default testsReducer;

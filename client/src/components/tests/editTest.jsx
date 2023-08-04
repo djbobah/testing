@@ -29,6 +29,8 @@ const EditTest = () => {
   const edit = useSelector(getIsEditTest());
   const [errors, setErrors] = useState({});
   const [showTest, setShowTest] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
+
   const [dataTest, setDataTest] = useState(
     currentTest || {
       testName: "",
@@ -57,6 +59,7 @@ const EditTest = () => {
   const handleClickSave = (id, data) => {
     console.log("handleClickSave data", data);
     // console.log("open", openQuestion);
+    setShowQuestion(false);
     dispatch(updateQuestion(id, data));
     // setOpenQuestion((prevState) => !prevState);
   };
@@ -68,7 +71,7 @@ const EditTest = () => {
     return (
       <>
         <Collapse
-          title={`Редактируем тест: ${currentTest?.testName}`}
+          title={`Редактируем тест: ${currentTest?.testName} `}
           open={showTest}
         >
           <CreateTest data={dataTest} onChange={handleChange} />{" "}
@@ -102,17 +105,20 @@ const EditTest = () => {
             //   );
             // } else {
             return (
-              <Collapse
+              // <Collapse
+              //   key={question.id}
+              //   title={`Вопрос №: ${idx + 1} ${question.question}`}
+              //   open={!question.save}
+              //   // open={openQuestion}
+              // >
+              <CreateQuestion
                 key={question.id}
-                title={`Вопрос №: ${idx + 1}`}
-                open={!question.save}
-                // open={openQuestion}
-              >
-                <CreateQuestion
-                  question={question}
-                  onSave={(data) => handleClickSave(question.id, data)}
-                />
-              </Collapse>
+                idx={idx}
+                question={question}
+                onSave={(data) => handleClickSave(question.id, data)}
+                show={showQuestion}
+              />
+              // </Collapse>
             );
             // }
           })}
@@ -122,7 +128,7 @@ const EditTest = () => {
   useEffect(() => {
     RenderTest(currentTest);
     console.log("rerender");
-  }, [questions]);
+  }, [questions, showQuestion]);
 
   const handleClickAddQuestion = (e) => {
     e.preventDefault();

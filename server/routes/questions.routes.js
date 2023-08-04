@@ -14,24 +14,6 @@ router.patch("/:questionId", async (req, res) => {
     const { questionId } = req.params;
     console.log("questionId", questionId);
     console.log("req.body", req.body);
-    // console.log("req.user.id", req.user.id);
-
-    // проверка что userId =id текущего пользователя
-    //   if (userId === req.user.id) {
-    // обновляемые поля берем из req.body
-    // if (req.body.password === "") {
-    //   const updatedUser = await Users.update(
-    //     {
-    //       //  password: hashedPassword,
-    //       email: req.body.email,
-    //       fio: req.body.fio,
-    //       id_department: req.body.department,
-    //     },
-    //     { where: { id: userId } }
-    //   );
-    //   res.send(updatedUser);
-    // } else {
-    //   const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
     const updatedQuestion = await Questions.update(
       {
@@ -40,20 +22,13 @@ router.patch("/:questionId", async (req, res) => {
       },
       { where: { id: questionId } }
     );
-    console.log("updatedQuestion", updatedQuestion);
+    // console.log("updatedQuestion", updatedQuestion);
 
     res.send({
       questionId: questionId,
       question: req.body.question,
       typeOfAnswers: req.body.typeOfAnswers,
     });
-    // }
-    // res.status(200).send()=res.send()
-    // console.log("updatedUser", updatedUser);
-
-    // } else {
-    //   res.status(401).json({ message: "Unauthorized" });
-    // }
   } catch (error) {
     res.status(500).json({
       message: "На сервере произошла ошибка update question. Попробуйте позже",
@@ -121,6 +96,14 @@ router.post("/create", [
         message: "На сервере произошла ошибка questions. Попробуйте позже",
       });
     }
+  },
+]);
+router.delete("/:questionId", [
+  async (req, res) => {
+    const { questionId } = req.params;
+    try {
+      await Questions.destroy({ where: { id: questionId } });
+    } catch (error) {}
   },
 ]);
 

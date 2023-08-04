@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import TextAreaField from "../common/form/textAreaField";
 import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
+import Collapse from "../common/collapse";
 import SelectField from "../common/form/selectField";
 import { useAnswers } from "../hooks/useAnswers";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypeOfAnswers } from "../../store/typeOfAnswers";
-import { getCurrentTestQuestions, updateQuestion } from "../../store/tests";
+import {
+  deleteQuestion,
+  getCurrentTestQuestions,
+  updateQuestion,
+} from "../../store/tests";
 
-const CreateQuestion = ({ onSave, question }) => {
+const CreateQuestion = ({ onSave, question, idx, show }) => {
   // const answers = ;
   // const [answers, setAnswers] = useState([]);
   const dispatch = useDispatch();
@@ -62,6 +67,7 @@ const CreateQuestion = ({ onSave, question }) => {
   };
   const handleClickDeleteQuestion = (questionId) => {
     console.log(questionId);
+    dispatch(deleteQuestion(questionId));
   };
 
   const renderAnswers = (answers) => {
@@ -95,54 +101,64 @@ const CreateQuestion = ({ onSave, question }) => {
     // console.log("useEff", answers);
     renderAnswers(answers);
   }, [answers]);
+
+  console.log("show", show);
+
   return (
-    <div className="container " style={{ marginTop: "1px" }}>
-      <div className="card-body ">
-        <form>
-          <TextAreaField
-            label="Текст вопроса:"
-            name="question"
-            value={data.question}
-            //{data.description}
-            onChange={handleChange}
-            // error={errors.description}
-          />
-          <SelectField
-            onChange={handleChange}
-            options={typeOfAnswersOptions}
-            name="typeOfAnswers"
-            defaultOption="Выберите тип ответов..."
-            // error={errors.department}
-            value={data.typeOfAnswers}
-            label="Выберите тип ответов..."
-          />
-          <label className="text-muted mb-2">Ответы:</label>
-          {renderAnswers(answers)}
-          <div className="text-end">
-            <button
-              className="btn btn-success me-2"
-              onClick={handleClickAddAnswer}
-            >
-              Добавить ответ
-            </button>
-            <button
-              type="submit"
-              onClick={handleClickSaveQuestion}
-              className="btn btn-primary me-2"
-            >
-              Сохранить вопрос
-            </button>
-            <button
-              type="button"
-              onClick={() => handleClickDeleteQuestion(question.id)}
-              className="btn btn-danger me-2"
-            >
-              Удалить вопрос
-            </button>
-          </div>
-        </form>
+    <Collapse
+      key={question.id}
+      title={`Вопрос №: ${idx + 1} ${question.question}`}
+      open={show}
+      // open={openQuestion}
+    >
+      <div className="container " style={{ marginTop: "1px" }}>
+        <div className="card-body ">
+          <form>
+            <TextAreaField
+              label="Текст вопроса:"
+              name="question"
+              value={data.question}
+              //{data.description}
+              onChange={handleChange}
+              // error={errors.description}
+            />
+            <SelectField
+              onChange={handleChange}
+              options={typeOfAnswersOptions}
+              name="typeOfAnswers"
+              defaultOption="Выберите тип ответов..."
+              // error={errors.department}
+              value={data.typeOfAnswers}
+              label="Выберите тип ответов..."
+            />
+            <label className="text-muted mb-2">Ответы:</label>
+            {renderAnswers(answers)}
+            <div className="text-end">
+              <button
+                className="btn btn-success me-2"
+                onClick={handleClickAddAnswer}
+              >
+                Добавить ответ
+              </button>
+              <button
+                type="submit"
+                onClick={handleClickSaveQuestion}
+                className="btn btn-primary me-2"
+              >
+                Сохранить вопрос
+              </button>
+              <button
+                type="button"
+                onClick={() => handleClickDeleteQuestion(question.id)}
+                className="btn btn-danger me-2"
+              >
+                Удалить вопрос
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </Collapse>
   );
 };
 

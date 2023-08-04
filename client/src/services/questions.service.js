@@ -26,5 +26,8 @@ const QuestionsService = {
     console.log("update question data", data);
     return data;
   },
+  delete: async (id) => {
+    await httpService.delete("/questions/" + id);
+  },
 };
 export default QuestionsService;
