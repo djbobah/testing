@@ -68,6 +68,7 @@ const testsSlice = createSlice({
       );
       state.questions[idx].question = action.payload.question;
       state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
+      state.questions[idx].save = true;
     },
     updateTestRequest: (state, action) => {
       console.log("updateTestRequest");

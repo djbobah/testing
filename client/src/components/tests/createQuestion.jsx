@@ -25,7 +25,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
   // const qTest = QuestionsService.getQuestionsForTest(currentTest.id);
   // const qTest2 = getQuestionsData(currentTest.id);
 
-  // console.log("questions", questions);
+  console.log("question", question);
   // console.log("qData", qTest);
   // console.log("qData2", qTest2);
 
@@ -108,7 +108,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     <Collapse
       key={question.id}
       title={`Вопрос №: ${idx + 1} ${question.question}`}
-      open={show}
+      open={!question.save}
       // open={openQuestion}
     >
       <div className="container " style={{ marginTop: "1px" }}>
