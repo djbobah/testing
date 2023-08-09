@@ -81,6 +81,10 @@ const testsSlice = createSlice({
     },
     deleteQuestionRequest: (state, action) => {
       console.log("deleteTestRequest", action.payload);
+      console.log("state.questions", state.questions);
+      state.questions = state.questions.filter(
+        (question) => question.id !== action.payload
+      );
     },
   },
 });
@@ -205,11 +209,13 @@ export const updateQuestion = (id, payload) => async (dispatch) => {
     dispatch(updateQuestionFailed(error.message));
   }
 };
-export const deleteQuestion = (id) => async (dispatch) => {
+export const deleteQuestion = (id) => (dispatch) => {
   dispatch(deleteQuestionRequested());
   try {
-    await QuestionsService.delete(id);
+    QuestionsService.delete(id);
+    // console.log("after delete question from base ", deleteQuestion);
     dispatch(deleteQuestionRequest(id));
+    // console.log("after dispatch(deleteQuestionRequest(id)) ");
   } catch (error) {
     dispatch(deleteQuestionFailed(error.message));
   }

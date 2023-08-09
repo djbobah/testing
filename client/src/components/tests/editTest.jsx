@@ -5,7 +5,6 @@ import BlockQuoteWrapper from "../common/blockQuote";
 import CreateTest from "./createTest";
 import ContainerWrapper from "../common/container";
 import CreateQuestion from "./createQuestion";
-import { useQuestions } from "../hooks/useQuestions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeQuestion,
@@ -41,8 +40,6 @@ const EditTest = () => {
     }
   );
   // const [openQuestion, setOpenQuestion] = useState(true);
-
-  // const { createQuestion } = useQuestions();
 
   // console.log(currentTest);
   // console.log("edit test currentTest", currentTest);

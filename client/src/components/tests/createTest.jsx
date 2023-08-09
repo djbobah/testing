@@ -6,7 +6,6 @@ import { useAuth } from "./../hooks/useAuth";
 import TextAreaField from "../common/form/textAreaField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { toast } from "react-toastify";
-import { useQuestions } from "../hooks/useQuestions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createTest,
@@ -20,7 +19,6 @@ const CreateTest = ({ data, onChange }) => {
   const dispatch = useDispatch();
   // const currentTest = useSelector(getCurrentTest());
 
-  const { createQuestion } = useQuestions();
   const edit = useSelector(getIsEditTest());
   // const currentTest = useSelector(getCurrentTest());
 
