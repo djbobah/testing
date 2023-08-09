@@ -163,9 +163,7 @@ export const getIsEditTest = () => (state) => state.tests.isEdit;
 export const createTest = (payload) => async (dispatch) => {
   dispatch(createTestRequested());
   try {
-    // console.log("create test payload", payload);
     const data = await TestService.create(payload);
-    // console.log("create test data", data.newTest);
     dispatch(createTestRequest(data.newTest));
     dispatch(setCurrentTest(data.newTest.id));
   } catch (error) {
@@ -175,12 +173,8 @@ export const createTest = (payload) => async (dispatch) => {
 export const createQuestion = (payload) => async (dispatch) => {
   dispatch(createQuestionRequested());
   try {
-    // console.log("create test payload", payload);
     const data = await QuestionsService.create(payload);
-
-    console.log("create question data", data);
     dispatch(createQuestionRequest(data));
-    // dispatch(setCurrentTest(data.newTest.id));
   } catch (error) {
     dispatch(createQuestionFailed(error.message));
   }
@@ -213,9 +207,8 @@ export const deleteQuestion = (id) => (dispatch) => {
   dispatch(deleteQuestionRequested());
   try {
     QuestionsService.delete(id);
-    // console.log("after delete question from base ", deleteQuestion);
     dispatch(deleteQuestionRequest(id));
-    // console.log("after dispatch(deleteQuestionRequest(id)) ");
+    toast("Вопрос удален");
   } catch (error) {
     dispatch(deleteQuestionFailed(error.message));
   }
