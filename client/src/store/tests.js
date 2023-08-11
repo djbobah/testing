@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import QuestionsService from "../services/questions.service";
 import TestService from "../services/test.service";
+import AnswersService from "../services/answers.service";
 
 const { createSlice, createAction } = require("@reduxjs/toolkit");
 
@@ -38,7 +39,11 @@ const testsSlice = createSlice({
       state.isLoading = true;
     },
     questionsRecived: (state, action) => {
-      state.questions = action.payload.map((q) => ({ ...q, save: true }));
+      state.questions = action.payload.map((q) => ({
+        ...q,
+        save: true,
+        answers: [],
+      }));
       state.isLoading = false;
     },
     questionsRequestFiled: (state, action) => {
@@ -86,6 +91,24 @@ const testsSlice = createSlice({
         (question) => question.id !== action.payload
       );
     },
+    answersRequested: (state) => {
+      state.isLoading = true;
+    },
+    answersRecived: (state, action) => {
+      console.log("answers recived", action.payload);
+      if (action.payload.length > 0) {
+        console.log(
+          "action.payload[0].idQuestion",
+          action.payload[0].idQuestion
+        );
+      }
+      //  state.questions = action.payload.map((q) => ({ ...q, save: true }));
+      state.isLoading = false;
+    },
+    answersRequestFiled: (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
   },
 });
 
@@ -104,6 +127,9 @@ const {
   updateTestRequest,
   updateQuestionRequest,
   deleteQuestionRequest,
+  answersRequested,
+  answersRecived,
+  answersRequestFiled,
 } = actions;
 
 const createTestRequested = createAction("tests/createTestRequested");
@@ -211,6 +237,23 @@ export const deleteQuestion = (id) => (dispatch) => {
     toast("Вопрос удален");
   } catch (error) {
     dispatch(deleteQuestionFailed(error.message));
+  }
+};
+export const loadCurrentQuestionAnswers = (id) => async (dispatch) => {
+  console.log("loadCurentQwestionanswers dispatch id", id);
+  dispatch(answersRequested());
+  try {
+    const data = await AnswersService.getAnswersCurrentQuestion(id);
+    console.log("loadCurentQwestionanswers dispatch data", data);
+    dispatch(answersRecived(data));
+  } catch (error) {
+    dispatch(answersRequestFiled(error));
+  }
+};
+
+export const getCurrentQuestionAnswers = (id) => (state) => {
+  if (state.tests.questions) {
+    return state.tests.questions[id];
   }
 };
 export default testsReducer;

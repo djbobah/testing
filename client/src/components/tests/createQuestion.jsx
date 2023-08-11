@@ -9,15 +9,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTypeOfAnswers } from "../../store/typeOfAnswers";
 import {
   deleteQuestion,
+  loadCurrentQuestionAnswers,
   getCurrentTestQuestions,
   updateQuestion,
+  getCurrentQuestionAnswers,
 } from "../../store/tests";
 
 const CreateQuestion = ({ onSave, question, idx, show }) => {
   // const answers = ;
   // const [answers, setAnswers] = useState([]);
   const dispatch = useDispatch();
-  const { answers, create } = useAnswers();
+  const { create } = useAnswers();
   const questions = useSelector(getCurrentTestQuestions());
   // console.log("currentTest", currentTest);
   // getQuestionsData(currentTest.id);
@@ -26,12 +28,15 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
   // const qTest2 = getQuestionsData(currentTest.id);
 
   console.log("question", question);
-  // console.log("qData", qTest);
+  dispatch(loadCurrentQuestionAnswers(question.id));
+  const answers = useSelector(getCurrentQuestionAnswers(question.id));
+
+  console.log("answers", answers);
   // console.log("qData2", qTest2);
 
   const [data, setData] = useState({
     ...question,
-    answersData: [],
+    answers: answers || [],
   });
   const typeOfAnswers = useSelector(getTypeOfAnswers());
   const typeOfAnswersOptions = typeOfAnswers?.map((type) => {
@@ -45,7 +50,8 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     // }
   });
 
-  // console.log("typeOfAnswers", typeOfAnswers);
+  console.log("data answers", data.answers);
+  console.log("data ", data);
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -55,10 +61,15 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     e.preventDefault();
     // create()
     // const addAnswer = { id: 3, answer: "lorem30", isTrue: false };
-
+    const addAnswer = [...data.answers];
+    addAnswer.push({ answer: "sddds", isTrue: false });
+    setData((prevState) => ({
+      ...prevState,
+      answers: addAnswer,
+    }));
     // setAnswers([...answers, { answer: "", isTrue: false }]);
     // answers.push();
-    console.log(answers);
+    // console.log(answers);
   };
   const handleClickSaveQuestion = (e) => {
     e.preventDefault();
@@ -100,7 +111,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
   useEffect(() => {
     // console.log("useEff", answers);
     renderAnswers(answers);
-  }, [answers]);
+  }, [data]);
 
   console.log("show", show);
 
@@ -132,7 +143,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
               label="Выберите тип ответов..."
             />
             <label className="text-muted mb-2">Ответы:</label>
-            {renderAnswers(answers)}
+            {renderAnswers(data.answers)}
             <div className="text-end">
               <button
                 className="btn btn-success me-2"

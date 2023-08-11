@@ -74,14 +74,16 @@ router.get("/:idQuestion", async (req, res) => {
   // router.get("/", async (req, res) => {
 
   try {
-    const { questionId } = req.params;
+    const { idQuestion } = req.params;
     // console.log("userId", userId);
     const list = await Answers.findAll({ where: { id: idQuestion } });
     res.status(200).send(list);
   } catch (error) {
     res
       .status(500)
-      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+      .json({
+        message: "На сервере произошла ошибка answers. Попробуйте позже",
+      });
   }
 });
 router.post("/create", [
@@ -95,7 +97,7 @@ router.post("/create", [
       });
       console.log("newAnswer ", newAnswer);
 
-      res.status(201).send({ newAnswer });
+      res.status(201).send(newAnswer);
     } catch (error) {
       res
         .status(500)
