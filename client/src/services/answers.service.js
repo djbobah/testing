@@ -14,9 +14,9 @@ const AnswersService = {
     return data;
   },
   create: async (payload) => {
-    console.log("create question payload", payload);
+    // console.log("create question payload", payload);
     const { data } = await httpService.post("/answers/create", payload);
-    console.log("create answer data", data);
+    // console.log("create answer data", data);
 
     return data;
   },

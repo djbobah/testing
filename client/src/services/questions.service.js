@@ -24,6 +24,8 @@ const QuestionsService = {
     console.log("update question payload", payload);
     const { data } = await httpService.path("/questions/" + id, payload);
     console.log("update question data", data);
+    console.log("update question payload.answers", payload.answers);
+
     return data;
   },
   delete: async (id) => {

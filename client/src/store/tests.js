@@ -68,12 +68,14 @@ const testsSlice = createSlice({
       state.questions[idx].save = !state.questions[idx].save;
     },
     updateQuestionRequest: (state, action) => {
+      console.log("updateQuestionRequest", action.payload);
       const idx = state.questions.findIndex(
         (i) => i.id === Number(action.payload.questionId)
       );
       state.questions[idx].question = action.payload.question;
       state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
       state.questions[idx].save = true;
+      console.log("updateQuestionRequest", action.payload);
     },
     updateTestRequest: (state, action) => {
       console.log("updateTestRequest");
@@ -101,6 +103,16 @@ const testsSlice = createSlice({
           "action.payload[0].idQuestion",
           action.payload[0].idQuestion
         );
+        const idx = state.questions.findIndex(
+          (i) => i.id === Number(action.payload[0].idQuestion)
+        );
+        console.log("idx", idx);
+        console.log("state.questions", state.questions[idx].answers);
+        console.log("action payload", action.payload);
+        state.questions[idx].answers = action.payload;
+        // action.payload.map((item) => {
+        //   state.questions[idx].answers.push(item);
+        // });
       }
       //  state.questions = action.payload.map((q) => ({ ...q, save: true }));
       state.isLoading = false;
@@ -108,6 +120,21 @@ const testsSlice = createSlice({
     answersRequestFiled: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
+    },
+    createAnswerRequest: (state, action) => {
+      console.log("createAnswerRequest", action.payload);
+      const idx = state.questions.findIndex(
+        (i) => i.id === Number(action.payload.idQuestion)
+      );
+
+      // console.log("state.questions[idx]", state.questions[idx].answers);
+      state.questions[idx].answers.push(action.payload);
+      // state.questions[action.payload.idQuestion].answers.push(action.payload);
+
+      // if (!Array.isArray(state.questions)) {
+      //   state.questions = [];
+      // }
+      // state.questions.push({ ...action.payload, save: false });
     },
   },
 });
@@ -130,6 +157,7 @@ const {
   answersRequested,
   answersRecived,
   answersRequestFiled,
+  createAnswerRequest,
 } = actions;
 
 const createTestRequested = createAction("tests/createTestRequested");
@@ -142,6 +170,8 @@ const updateQuestionRequested = createAction("tests/updateQuestionRequested");
 const updateQuestionFailed = createAction("tests/updateQuestionFailed");
 const deleteQuestionRequested = createAction("tests/deleteQuestionRequested");
 const deleteQuestionFailed = createAction("tests/deleteQuestionFailed");
+const createAnswerRequested = createAction("tests/createAnswerRequested");
+const createAnswerFailed = createAction("tests/createAnswerFailed");
 
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());
@@ -222,6 +252,7 @@ export const updateTest = (payload) => async (dispatch) => {
 export const updateQuestion = (id, payload) => async (dispatch) => {
   dispatch(updateQuestionRequested());
   try {
+    console.log("updateQuestion", payload);
     const data = await QuestionsService.update(id, payload);
     dispatch(updateQuestionRequest(data));
     toast("Вопрос сохранен");
@@ -239,12 +270,25 @@ export const deleteQuestion = (id) => (dispatch) => {
     dispatch(deleteQuestionFailed(error.message));
   }
 };
+
+export const createAnswer = (payload) => async (dispatch) => {
+  dispatch(createAnswerRequested());
+  try {
+    const data = await AnswersService.create(payload);
+    // dispatch(createQuestionRequest(data));
+    console.log("answer created", data);
+    dispatch(createAnswerRequest(data));
+  } catch (error) {
+    dispatch(createAnswerFailed(error.message));
+  }
+};
+
 export const loadCurrentQuestionAnswers = (id) => async (dispatch) => {
-  console.log("loadCurentQwestionanswers dispatch id", id);
+  // console.log("loadCurentQwestionanswers dispatch id", id);
   dispatch(answersRequested());
   try {
     const data = await AnswersService.getAnswersCurrentQuestion(id);
-    console.log("loadCurentQwestionanswers dispatch data", data);
+    // console.log("loadCurentQwestionanswers dispatch data", data);
     dispatch(answersRecived(data));
   } catch (error) {
     dispatch(answersRequestFiled(error));
@@ -252,8 +296,12 @@ export const loadCurrentQuestionAnswers = (id) => async (dispatch) => {
 };
 
 export const getCurrentQuestionAnswers = (id) => (state) => {
+  console.log("getCurrentQuestionAnswers", state.tests.questions);
+  const idx = state.tests.questions.findIndex((i) => i.id === Number(id));
+
+  console.log("getCurrentQuestionAnswers idx", idx);
   if (state.tests.questions) {
-    return state.tests.questions[id];
+    return state.tests.questions[idx].answers;
   }
 };
 export default testsReducer;

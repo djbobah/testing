@@ -12,6 +12,7 @@ import {
   getCurrentTest,
   getCurrentTestQuestions,
   getIsEditTest,
+  loadCurrentQuestionAnswers,
   updateQuestion,
   updateTest,
 } from "../../store/tests";
@@ -84,30 +85,8 @@ const EditTest = () => {
 
         {questions &&
           questions.map((question, idx) => {
-            // console.log(idx);
-            // разворачиваем последний вопрос
-            // if (questions.length === idx + 1) {
-            //   // console.log("true");
-            //   return (
-            //     <Collapse
-            //       key={question.id}
-            //       title={`Вопрос №: ${idx + 1}`}
-            //       open={!question.save}
-            //     >
-            //       <CreateQuestion
-            //         question={question}
-            //         onSave={(data) => handleClickSave(question.id, data)}
-            //       />
-            //     </Collapse>
-            //   );
-            // } else {
+            // dispatch(loadCurrentQuestionAnswers(question.id));
             return (
-              // <Collapse
-              //   key={question.id}
-              //   title={`Вопрос №: ${idx + 1} ${question.question}`}
-              //   open={!question.save}
-              //   // open={openQuestion}
-              // >
               <CreateQuestion
                 key={question.id}
                 idx={idx}
@@ -115,9 +94,7 @@ const EditTest = () => {
                 onSave={(data) => handleClickSave(question.id, data)}
                 show={showQuestion}
               />
-              // </Collapse>
             );
-            // }
           })}
       </>
     );

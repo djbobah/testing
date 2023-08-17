@@ -76,14 +76,12 @@ router.get("/:idQuestion", async (req, res) => {
   try {
     const { idQuestion } = req.params;
     // console.log("userId", userId);
-    const list = await Answers.findAll({ where: { id: idQuestion } });
+    const list = await Answers.findAll({ where: { idQuestion: idQuestion } });
     res.status(200).send(list);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "На сервере произошла ошибка answers. Попробуйте позже",
-      });
+    res.status(500).json({
+      message: "На сервере произошла ошибка answers. Попробуйте позже",
+    });
   }
 });
 router.post("/create", [
