@@ -18,9 +18,9 @@ import {
 
 const CreateQuestion = ({ onSave, question, idx, show }) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadCurrentQuestionAnswers(question.id));
-  }, []);
+  // useEffect(() => {
+  //   // dispatch(loadCurrentQuestionAnswers(question.id));
+  // }, []);
   console.log("question", question);
   const answers = useSelector(getCurrentQuestionAnswers(question.id));
   // const answers = [];
@@ -73,6 +73,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     // create()
     dispatch(
       createAnswer({
+        idTest: question.idTest,
         idQuestion: question.id,
         answer: "",
         isCorrect: false,
@@ -129,10 +130,10 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     ));
   };
 
-  // useEffect(() => {
-  //   // console.log("useEff", answers);
-  //   renderAnswers(answers);
-  // }, [data]);
+  useEffect(() => {
+    // console.log("useEff", answers);
+    renderAnswers(answers);
+  }, [data]);
 
   console.log("show", show);
 

@@ -7,8 +7,8 @@ const AnswersService = {
 
   //   return data;
   // },
-  getAnswersCurrentQuestion: async (idQuestion) => {
-    const { data } = await httpService.get("/answers/" + idQuestion);
+  getAnswersCurrentTest: async (idTest) => {
+    const { data } = await httpService.get("/answers/" + idTest);
     // console.log("DeparmmentService data", data);
 
     return data;

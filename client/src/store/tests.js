@@ -11,6 +11,7 @@ const testsSlice = createSlice({
     entities: null,
     currentTest: null,
     questions: null,
+    answers: null,
     isLoading: true,
     isEdit: false,
   },
@@ -42,7 +43,7 @@ const testsSlice = createSlice({
       state.questions = action.payload.map((q) => ({
         ...q,
         save: true,
-        answers: [],
+        // answers: [],
       }));
       state.isLoading = false;
     },
@@ -97,23 +98,24 @@ const testsSlice = createSlice({
       state.isLoading = true;
     },
     answersRecived: (state, action) => {
-      console.log("answers recived", action.payload);
-      if (action.payload.length > 0) {
-        console.log(
-          "action.payload[0].idQuestion",
-          action.payload[0].idQuestion
-        );
-        const idx = state.questions.findIndex(
-          (i) => i.id === Number(action.payload[0].idQuestion)
-        );
-        console.log("idx", idx);
-        console.log("state.questions", state.questions[idx].answers);
-        console.log("action payload", action.payload);
-        state.questions[idx].answers = action.payload;
-        // action.payload.map((item) => {
-        //   state.questions[idx].answers.push(item);
-        // });
-      }
+      state.answers = action.payload;
+      // console.log("answers recived", action.payload);
+      // if (action.payload.length > 0) {
+      //   console.log(
+      //     "action.payload[0].idQuestion",
+      //     action.payload[0].idQuestion
+      //   );
+      //   const idx = state.questions.findIndex(
+      //     (i) => i.id === Number(action.payload[0].idQuestion)
+      //   );
+      //   console.log("idx", idx);
+      //   console.log("state.questions", state.questions[idx].answers);
+      //   console.log("action payload", action.payload);
+      //   state.questions[idx].answers = action.payload;
+      //   // action.payload.map((item) => {
+      //   //   state.questions[idx].answers.push(item);
+      //   // });
+      // }
       //  state.questions = action.payload.map((q) => ({ ...q, save: true }));
       state.isLoading = false;
     },
@@ -123,12 +125,12 @@ const testsSlice = createSlice({
     },
     createAnswerRequest: (state, action) => {
       console.log("createAnswerRequest", action.payload);
-      const idx = state.questions.findIndex(
-        (i) => i.id === Number(action.payload.idQuestion)
-      );
+      // const idx = state.questions.findIndex(
+      //   (i) => i.id === Number(action.payload.idQuestion)
+      // );
 
       // console.log("state.questions[idx]", state.questions[idx].answers);
-      state.questions[idx].answers.push(action.payload);
+      state.answers.push(action.payload);
       // state.questions[action.payload.idQuestion].answers.push(action.payload);
 
       // if (!Array.isArray(state.questions)) {
@@ -192,6 +194,17 @@ const loadQuestions = (testId) => async (dispatch) => {
     dispatch(questionsRequestFiled(error.message));
   }
 };
+const loadCurrentTestAnswers = (id) => async (dispatch) => {
+  // console.log("loadCurentQwestionanswers dispatch id", id);
+  dispatch(answersRequested());
+  try {
+    const data = await AnswersService.getAnswersCurrentTest(id);
+    console.log("loadCurentQwestionanswers dispatch data", data);
+    dispatch(answersRecived(data));
+  } catch (error) {
+    dispatch(answersRequestFiled(error));
+  }
+};
 
 export const getTests = () => (state) => state.tests.entities;
 
@@ -200,6 +213,7 @@ export const getTestsLoadingStatus = () => (state) => state.tests.isLoading;
 export const setCurrentTest = (testId) => async (dispatch) => {
   dispatch(currentTestRecived(testId));
   dispatch(loadQuestions(testId));
+  dispatch(loadCurrentTestAnswers(testId));
 };
 export const getCurrentTest = () => (state) => {
   if (state.tests.currentTest) {
@@ -283,25 +297,13 @@ export const createAnswer = (payload) => async (dispatch) => {
   }
 };
 
-export const loadCurrentQuestionAnswers = (id) => async (dispatch) => {
-  // console.log("loadCurentQwestionanswers dispatch id", id);
-  dispatch(answersRequested());
-  try {
-    const data = await AnswersService.getAnswersCurrentQuestion(id);
-    // console.log("loadCurentQwestionanswers dispatch data", data);
-    dispatch(answersRecived(data));
-  } catch (error) {
-    dispatch(answersRequestFiled(error));
-  }
-};
-
 export const getCurrentQuestionAnswers = (id) => (state) => {
   console.log("getCurrentQuestionAnswers", state.tests.questions);
-  const idx = state.tests.questions.findIndex((i) => i.id === Number(id));
+  // const idx = state.tests.questions.findIndex((i) => i.id === Number(id));
 
-  console.log("getCurrentQuestionAnswers idx", idx);
-  if (state.tests.questions) {
-    return state.tests.questions[idx].answers;
+  console.log("getCurrentQuestionAnswers idx", id);
+  if (state.tests.answers) {
+    return state.tests.answers.filter((ans) => ans.idQuestion === id);
   }
 };
 export default testsReducer;
