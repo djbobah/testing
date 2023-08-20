@@ -9,22 +9,13 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    return queryInterface
-      .renameColumn("Users", "role", "roles")
-      .then(() => {
-        queryInterface.changeColumn("Users", "roles", {
-          type: Sequelize.JSON,
-          // allowNull: false,
-          // defaultValue: "[1]",
-        });
-      })
-      .then(() => {
-        queryInterface.addColumn("Users", "dateRegistration", {
-          type: Sequelize.DATE,
-          allowNull: false,
-          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-        });
+    return queryInterface.renameColumn("Users", "role", "roles").then(() => {
+      queryInterface.addColumn("Users", "dateRegistration", {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       });
+    });
     // .changeColumn("Users", "CreatedAt", {
     //   type: Sequelize.DATE,
     //   allowNull: false,

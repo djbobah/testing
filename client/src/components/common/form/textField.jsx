@@ -8,10 +8,11 @@ const TextField = ({
   onChange,
   error,
   autoFocus,
+  disabled,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const getInputClasses = () => {
-    return "form-control " + (error ? "is-invalid" : "");
+    return "form-control " + (!disabled && error ? "is-invalid" : "");
   };
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
@@ -20,9 +21,18 @@ const TextField = ({
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value });
   };
+
+  const dis = true;
   return (
     <div className="mb-4">
-      <label htmlFor={name}>{label}</label>
+      {label && (
+        <label htmlFor={name} className="text-muted">
+          {label}
+        </label>
+      )}
+      {/* <label htmlFor={name} className="text-muted">
+        {label}
+      </label> */}
       <div className="input-group has-validation">
         <input
           type={showPassword ? "text" : type}
@@ -32,17 +42,20 @@ const TextField = ({
           onChange={handleChange}
           className={getInputClasses()}
           autoFocus={autoFocus}
+          disabled={disabled}
         />
-        {type === "password" && (
+        {!disabled && type === "password" && (
           <button
             type="button"
             className="btn btn-outline-secondary"
             onClick={toggleShowPassword}
+            // disabled={disabled}
           >
             <i className={"bi bi-eye" + (showPassword ? "-slash" : "")}></i>
           </button>
         )}
-        {error && <div className="invalid-feedback">{error}</div>}
+
+        {!disabled && error && <div className="invalid-feedback">{error}</div>}
       </div>
     </div>
   );

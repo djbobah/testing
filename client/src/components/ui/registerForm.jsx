@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textField";
-import api from "../../api";
 import { validator } from "../../utils/validator";
 import SelectField from "../common/form/selectField";
-import axios from "axios";
-import config from "../../config.json";
+import httpService from "../../services/http.service";
+import { setTokens } from "../../services/localStorage.service";
+import { useNavigate } from "react-router-dom";
 // import RadioField from "../common/form/radioField";
 // import MultiSelectField from "../common/form/multiSelectField";
 // import CheckBoxField from "../common/form/checkBoxField";
+import { useAuth } from "./../hooks/useAuth";
+import userService from "../../services/user.service";
 
 const RegisterForm = ({ departments }) => {
   const [data, setData] = useState({
@@ -19,14 +21,15 @@ const RegisterForm = ({ departments }) => {
     // qualities: [],
     // license: false,
   });
-  // const [qualities, setQualities] = useState({});
-  // const [departments, setDepartments] = useState();
   const [errors, setErrors] = useState({});
-  // console.log("departments", departments);
+  const { signUp } = useAuth();
+
   const departmentOptions = departments.map((dep) => ({
     name: dep.name,
     value: dep.id,
   }));
+
+  const navigate = useNavigate();
   // console.log("departmentOptions", departmentOptions);
   // useEffect(() => {
   //   api.department.fetchAll().then((data) => setDepartments(data));
@@ -85,26 +88,27 @@ const RegisterForm = ({ departments }) => {
   };
 
   const isValid = Object.keys(errors).length === 0;
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    console.log(data);
+    // console.log(data);
+    // console.log(data.department);
+    // console.log(departmentOptions);
     const newData = {
       ...data,
       id_department: departmentOptions.filter(
-        (dep) => dep.name === data.department
+        (dep) => dep.value === Number(data.department)
       )[0].value,
-      roles: [1],
+      roles: "user",
     };
     try {
-      axios.post(config.apiEndpoint + "/auth/signUp", newData);
-      // console.log("departments", departments);
+      await signUp(newData);
+      navigate("/main/home");
+      // console.log(userService.get());
     } catch (error) {
-      console.log(error);
+      setErrors(error);
     }
-    console.log(newData);
   };
   return (
     <form onSubmit={handleSubmit}>

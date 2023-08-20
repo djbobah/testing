@@ -17,3 +17,8 @@ npx sequelize-cli seed:generate --name demo-user
 npx sequelize-cli db:seed:all
 // удаление всех сидеров
 npx sequelize-cli db:seed:undo:all
+
+
+
+//прикольная штука Context
+видео Модуль2/15/17.Context

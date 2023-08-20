@@ -15,10 +15,7 @@ const SelectField = ({
   };
   const optionsArray =
     !Array.isArray(options) && typeof options === "object"
-      ? Object.keys(options).map((optionName) => ({
-          name: options[optionName].name,
-          value: options[optionName].id,
-        }))
+      ? Object.values(options)
       : options;
   // console.log("getRandomInt", getRandomInt());
   const handleChange = ({ target }) => {
@@ -26,7 +23,7 @@ const SelectField = ({
   };
   return (
     <div className="mb-4">
-      <label htmlFor={name} className="form-label">
+      <label htmlFor={name} className="form-label text-muted">
         {label}
       </label>
       <select
@@ -45,7 +42,7 @@ const SelectField = ({
             <option
               key={getRandomInt() + option.name}
               // selected={departmemt.id === data.departmemt}
-              value={option.id}
+              value={option.value}
             >
               {option.name}
             </option>

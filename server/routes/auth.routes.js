@@ -30,7 +30,7 @@ router.post("/signUp", [
         });
       }
       const { email, password } = req.body;
-      // console.log("req.body", req.body);
+      console.log("req.body", req.body);
       const existingUser = await Users.findOne({ where: { email: email } });
       // пользователь найден
       if (existingUser) {
@@ -39,14 +39,14 @@ router.post("/signUp", [
           .status(400)
           .json({ error: { message: "EMAIL_EXISTS", code: 400 } });
       }
-      // console.log("existingUser ", existingUser);
+      console.log("existingUser ", existingUser);
       // пользователь не найден
       const hashedPassword = await bcrypt.hash(password, 12);
       const newUser = await Users.create({
         ...req.body,
         password: hashedPassword,
       });
-      // console.log("newUser ", newUser);
+      console.log("newUser ", newUser);
       const tokens = tokenService.generate({
         id: newUser.id,
         userId: newUser.id,
@@ -56,7 +56,7 @@ router.post("/signUp", [
     } catch (error) {
       res
         .status(500)
-        .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+        .json({ message: "На сервере произошла ошибка111. Попробуйте позже" });
     }
   },
 ]);
@@ -122,6 +122,7 @@ router.post("/token", async (req, res) => {
   if (isTokenInvalid(data, dbToken)) {
     res.status(401).json({ message: "Unauthtorized" });
   }
+
   // console.log(data);
   const tokens = await tokenService.generate({ id: dbToken.userId });
   await tokenService.save(data.id, tokens.refreshToken);

@@ -8,10 +8,10 @@ class TokenService {
   //return accessToken, refreshToken, expiresIn
   generate(payload) {
     const accessToken = jwt.sign(payload, config.get("accessSecret"), {
-      expiresIn: "1h",
+      expiresIn: "3h",
     });
     const refreshToken = jwt.sign(payload, config.get("refreshSecret"));
-    return { accessToken, refreshToken, expiresIn: 3600 };
+    return { accessToken, refreshToken, expiresIn: 7200 };
   }
   async save(userId, refreshToken) {
     const data = await Token.findOne({ where: { userId: userId } });

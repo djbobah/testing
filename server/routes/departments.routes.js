@@ -14,5 +14,20 @@ router.get("/", async (req, res) => {
     // .send(error.message);
   }
 });
+//получаем список всех пользователей
+router.get("/:depId", async (req, res) => {
+  // router.get("/", async (req, res) => {
+
+  try {
+    const { depId } = req.params;
+    // console.log("userId", userId);
+    const list = await Departments.findOne({ where: { id: depId } });
+    res.status(200).send(list);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "На сервере произошла ошибка. Попробуйте позже" });
+  }
+});
 
 module.exports = router;
