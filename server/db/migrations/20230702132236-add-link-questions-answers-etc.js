@@ -11,6 +11,13 @@ module.exports = {
         allowNull: false,
       })
       .then(() => {
+        queryInterface.addColumn("Answers", "idTest", {
+          type: Sequelize.INTEGER,
+          references: { model: { tableName: "Tests" }, key: "id" },
+          allowNull: false,
+        });
+      })
+      .then(() => {
         queryInterface.addColumn("Answers", "idQuestion", {
           type: Sequelize.INTEGER,
           references: { model: { tableName: "Questions" }, key: "id" },
@@ -40,6 +47,9 @@ module.exports = {
       })
       .then(() => {
         queryInterface.removeColumn("Answers", "idQuestion");
+      })
+      .then(() => {
+        queryInterface.removeColumn("Answers", "idTest");
       });
     /**
      * Add reverting commands here.
