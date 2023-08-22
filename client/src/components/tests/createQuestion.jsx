@@ -52,19 +52,17 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
     // console.log("target", target);
   };
-  const handleChangeAnswer = (target) => {
+  const handleChangeAnswer = (target, id) => {
     const updatedAnswers = answersData.map((item) => {
-      if (item.id === target.id) {
+      console.log("item.id", item.id);
+      console.log("target.id", target);
+      console.log("id", id);
+      if (item.id === id) {
+        console.log("target.name", target.name);
         return { ...item, [target.name]: target.value };
       } else return item;
     });
-    // addAnswer[idx][target.name] = target.value;
 
-    // console.log(idx);
-    // console.log("data", data.answers[idx]);
-    // console.log(target.value);
-
-    // console.log(addAnswer);
     setAnswersData(updatedAnswers);
     console.log("updatedAnswers", updatedAnswers);
   };
@@ -110,7 +108,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
         <CheckBoxField
           value={answer.isTrue}
           //{data.isRandomQuestions}
-          onChange={(target) => handleChangeAnswer(target)}
+          onChange={(target) => handleChangeAnswer(target, answer.id)}
           name="isTrue"
           // error={errors.isRandomQuestions}
         />
@@ -118,10 +116,11 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
         <div className="w-100">
           <TextField
             // label="Ответ:"
+            id={answer.id}
             name="answer"
             value={answer.answer}
             // {data.testName}
-            onChange={(target) => handleChangeAnswer(target)}
+            onChange={(target) => handleChangeAnswer(target, answer.id)}
             // error={errors.testName}
             //   autoFocus
           />
@@ -130,10 +129,10 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     ));
   };
 
-  useEffect(() => {
-    // console.log("useEff", answers);
-    renderAnswers(answers);
-  }, [data]);
+  // useEffect(() => {
+  //   // console.log("useEff", answers);
+  //   renderAnswers(answers);
+  // }, [answersData]);
 
   console.log("show", show);
 

@@ -298,7 +298,7 @@ export const createAnswer = (payload) => async (dispatch) => {
 };
 
 export const getCurrentQuestionAnswers = (id) => (state) => {
-  console.log("getCurrentQuestionAnswers", state.tests.questions);
+  console.log("getCurrentQuestionAnswers", state.tests.answers);
   // const idx = state.tests.questions.findIndex((i) => i.id === Number(id));
 
   console.log("getCurrentQuestionAnswers idx", id);
