@@ -30,7 +30,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
 
   const [data, setData] = useState({
     ...question,
-    answers: answers,
+    answers: useSelector(getCurrentQuestionAnswers(question.id)),
   });
   const [answersData, setAnswersData] = useState(answers);
   const typeOfAnswers = useSelector(getTypeOfAnswers());

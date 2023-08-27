@@ -99,24 +99,7 @@ const testsSlice = createSlice({
     },
     answersRecived: (state, action) => {
       state.answers = action.payload;
-      // console.log("answers recived", action.payload);
-      // if (action.payload.length > 0) {
-      //   console.log(
-      //     "action.payload[0].idQuestion",
-      //     action.payload[0].idQuestion
-      //   );
-      //   const idx = state.questions.findIndex(
-      //     (i) => i.id === Number(action.payload[0].idQuestion)
-      //   );
-      //   console.log("idx", idx);
-      //   console.log("state.questions", state.questions[idx].answers);
-      //   console.log("action payload", action.payload);
-      //   state.questions[idx].answers = action.payload;
-      //   // action.payload.map((item) => {
-      //   //   state.questions[idx].answers.push(item);
-      //   // });
-      // }
-      //  state.questions = action.payload.map((q) => ({ ...q, save: true }));
+
       state.isLoading = false;
     },
     answersRequestFiled: (state, action) => {
@@ -199,7 +182,7 @@ const loadCurrentTestAnswers = (id) => async (dispatch) => {
   dispatch(answersRequested());
   try {
     const data = await AnswersService.getAnswersCurrentTest(id);
-    console.log("loadCurentQwestionanswers dispatch data", data);
+    console.log("!!!!!  loadCurentQwestion   answers dispatch data", data);
     dispatch(answersRecived(data));
   } catch (error) {
     dispatch(answersRequestFiled(error));
