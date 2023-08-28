@@ -170,6 +170,14 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
               label="Выберите тип ответов..."
             />
             <label className="text-muted mb-2">Ответы:</label>
+            <div className="text-muted d-flex justify-content-between">
+              <div>
+                Правильный
+                <br /> ответ
+              </div>
+              <div>Текст ответа</div>
+              <div>Операции</div>
+            </div>
             {answers &&
               answers.map((answer) => {
                 return <Answers answer={answer} />;

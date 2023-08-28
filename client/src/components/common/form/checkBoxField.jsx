@@ -1,6 +1,13 @@
 import React from "react";
 
-const CheckBoxField = ({ name, value, onChange, children, error }) => {
+const CheckBoxField = ({
+  name,
+  value,
+  onChange,
+  children,
+  error,
+  disabled = false,
+}) => {
   const handleChange = (params) => {
     onChange({ name: name, value: !value });
   };
@@ -10,6 +17,7 @@ const CheckBoxField = ({ name, value, onChange, children, error }) => {
   return (
     <div className="form-check mb-4">
       <input
+        disabled={disabled}
         className={getInputClasses()}
         type="checkbox"
         value=""
