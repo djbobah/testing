@@ -15,6 +15,7 @@ import {
   getCurrentQuestionAnswers,
   createAnswer,
 } from "../../store/tests";
+import Answers from "./answers";
 
 const CreateQuestion = ({ onSave, question, idx, show }) => {
   const dispatch = useDispatch();
@@ -22,17 +23,21 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
   //   // dispatch(loadCurrentQuestionAnswers(question.id));
   // }, []);
   console.log("question", question);
-  const answers = useSelector(getCurrentQuestionAnswers(question.id));
+  let answers = useSelector(getCurrentQuestionAnswers(question.id));
   // const answers = [];
-
+  const [answersData, setAnswersData] = useState(answers);
+  // useEffect(() => {
+  //   setAnswersData(answers);
+  // }, []);
   console.log("answers", answers);
   // console.log("qData2", qTest2);
 
   const [data, setData] = useState({
     ...question,
-    answers: useSelector(getCurrentQuestionAnswers(question.id)),
+    answers: [],
   });
-  const [answersData, setAnswersData] = useState(answers);
+  // setData((prevState) => ({ ...prevState, ["answers"]: answers }));
+
   const typeOfAnswers = useSelector(getTypeOfAnswers());
   const typeOfAnswersOptions = typeOfAnswers?.map((type) => {
     // console.log("data", data);
@@ -45,15 +50,16 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     // }
   });
 
-  console.log("data answers", data.answers);
-  console.log("data ", data);
+  console.log("!data answers", data.answers);
+  console.log("!!answersData", answersData);
+  console.log("!!!data ", data);
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
     // console.log("target", target);
   };
   const handleChangeAnswer = (target, id) => {
-    const updatedAnswers = answersData.map((item) => {
+    const updatedAnswers = answers.map((item) => {
       console.log("item.id", item.id);
       console.log("target.id", target);
       console.log("id", id);
@@ -63,7 +69,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
       } else return item;
     });
 
-    setAnswersData(updatedAnswers);
+    // setAnswersData(updatedAnswers);
     console.log("updatedAnswers", updatedAnswers);
   };
   const handleClickAddAnswer = (e) => {
@@ -164,7 +170,10 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
               label="Выберите тип ответов..."
             />
             <label className="text-muted mb-2">Ответы:</label>
-            {renderAnswers(answersData)}
+            {answers &&
+              answers.map((answer) => {
+                return <Answers answer={answer} />;
+              })}
             <div className="text-end">
               <button
                 className="btn btn-success me-2"

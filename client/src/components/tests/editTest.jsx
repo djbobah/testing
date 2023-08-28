@@ -55,7 +55,7 @@ const EditTest = () => {
     setDataTest((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
   const handleClickSave = (id, data) => {
-    console.log("handleClickSave data", data);
+    console.log("EDIT TEST handleClickSave data", data);
     // console.log("open", openQuestion);
     setShowQuestion(false);
     dispatch(updateQuestion(id, data));
