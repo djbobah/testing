@@ -121,6 +121,13 @@ const testsSlice = createSlice({
       // }
       // state.questions.push({ ...action.payload, save: false });
     },
+    deleteAnswerRequest: (state, action) => {
+      console.log("deleteAnswerRequest", action.payload);
+      console.log("state.answers", state.answers);
+      state.answers = state.answers.filter(
+        (answer) => answer.id !== action.payload
+      );
+    },
   },
 });
 
@@ -143,6 +150,7 @@ const {
   answersRecived,
   answersRequestFiled,
   createAnswerRequest,
+  deleteAnswerRequest,
 } = actions;
 
 const createTestRequested = createAction("tests/createTestRequested");
@@ -157,6 +165,8 @@ const deleteQuestionRequested = createAction("tests/deleteQuestionRequested");
 const deleteQuestionFailed = createAction("tests/deleteQuestionFailed");
 const createAnswerRequested = createAction("tests/createAnswerRequested");
 const createAnswerFailed = createAction("tests/createAnswerFailed");
+const deleteAnswerRequested = createAction("tests/deleteAnswerRequested");
+const deleteAnswerFailed = createAction("tests/deleteAnswerFailed");
 
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());
@@ -289,4 +299,17 @@ export const getCurrentQuestionAnswers = (id) => (state) => {
     return state.tests.answers.filter((ans) => ans.idQuestion === id);
   }
 };
+export const deleteAnswer = (id) => (dispatch) => {
+  dispatch(deleteAnswerRequested());
+  try {
+    AnswersService.delete(id);
+    dispatch(deleteAnswerRequest(id));
+    // QuestionsService.delete(id);
+    // dispatch(deleteQuestionRequest(id));
+    toast("Ответ на вопрос удален");
+  } catch (error) {
+    dispatch(deleteAnswerFailed(error.message));
+  }
+};
+
 export default testsReducer;

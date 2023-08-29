@@ -103,5 +103,13 @@ router.post("/create", [
     }
   },
 ]);
+router.delete("/:answerId", [
+  async (req, res) => {
+    const { answerId } = req.params;
+    try {
+      await Answers.destroy({ where: { id: answerId } });
+    } catch (error) {}
+  },
+]);
 
 module.exports = router;

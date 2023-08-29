@@ -178,10 +178,12 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
               <div>Текст ответа</div>
               <div>Операции</div>
             </div>
+            <hr />
             {answers &&
               answers.map((answer) => {
-                return <Answers answer={answer} />;
+                return <Answers answer={answer} key={answer.id} />;
               })}
+            <hr />
             <div className="text-end">
               <button
                 className="btn btn-success me-2"

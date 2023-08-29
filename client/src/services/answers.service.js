@@ -20,5 +20,8 @@ const AnswersService = {
 
     return data;
   },
+  delete: async (id) => {
+    await httpService.delete("/answers/" + id);
+  },
 };
 export default AnswersService;
