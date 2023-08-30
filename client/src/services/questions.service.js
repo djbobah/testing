@@ -22,7 +22,7 @@ const QuestionsService = {
   },
   update: async (id, payload) => {
     console.log("update question payload", payload);
-    const { data } = await httpService.path("/questions/" + id, payload);
+    const { data } = await httpService.patch("/questions/" + id, payload);
     console.log("update question data", data);
     console.log("update question payload.answers", payload.answers);
 

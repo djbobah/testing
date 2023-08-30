@@ -9,46 +9,16 @@ const Answers = model.Answers;
 //userValidator, UserController.create
 
 //router.patch("/:userId", auth, async (req, res) => {
-router.patch("/:answerId", async (req, res) => {
+router.patch("/", async (req, res) => {
   try {
-    const { answerId } = req.params;
-    console.log("answerId", answerId);
-    // console.log("req.user.id", req.user.id);
+    // const { answerId } = req.params;
+    console.log("answer", req.body);
 
-    // проверка что userId =id текущего пользователя
-    //   if (userId === req.user.id) {
-    // обновляемые поля берем из req.body
-    // if (req.body.password === "") {
-    //   const updatedUser = await Users.update(
-    //     {
-    //       //  password: hashedPassword,
-    //       email: req.body.email,
-    //       fio: req.body.fio,
-    //       id_department: req.body.department,
-    //     },
-    //     { where: { id: userId } }
-    //   );
-    //   res.send(updatedUser);
-    // } else {
-    //   const hashedPassword = await bcrypt.hash(req.body.password, 12);
-
-    //   const updatedUser = await Users.update(
-    //     {
-    //       password: hashedPassword,
-    //       email: req.body.email,
-    //       fio: req.body.fio,
-    //       id_department: req.body.department,
-    //     },
-    //     { where: { id: userId } }
-    //   );
-    //   res.send(updatedUser);
-    // }
-    // res.status(200).send()=res.send()
-    // console.log("updatedUser", updatedUser);
-
-    // } else {
-    //   res.status(401).json({ message: "Unauthorized" });
-    // }
+    const updatedAnswer = await Answers.update(
+      { answer: req.body.answer, isCorrect: req.body.isCorrect },
+      { where: { id: req.body.id } }
+    );
+    res.send(updatedAnswer);
   } catch (error) {
     res
       .status(500)

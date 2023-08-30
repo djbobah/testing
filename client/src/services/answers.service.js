@@ -20,6 +20,14 @@ const AnswersService = {
 
     return data;
   },
+  update: async (payload) => {
+    console.log("update answer payload", payload);
+    const { data } = await httpService.patch("/answers", payload);
+    console.log("update answer data", data);
+    // console.log("update question payload.answers", payload.answers);
+
+    return data;
+  },
   delete: async (id) => {
     await httpService.delete("/answers/" + id);
   },

@@ -5,14 +5,14 @@ import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { Popover } from "bootstrap/dist/js/bootstrap.bundle";
 import { useDispatch } from "react-redux";
-import { deleteAnswer } from "../../store/tests";
+import { deleteAnswer, updateAnswer } from "../../store/tests";
 
 const Answers = ({ answer, onSave }) => {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     id: answer.id,
     answer: answer.answer,
-    isTrue: answer.isCorrect,
+    isCorrect: answer.isCorrect,
   });
   const [isEdit, setIsEdit] = useState(false);
 
@@ -28,6 +28,7 @@ const Answers = ({ answer, onSave }) => {
   const handleClickSaveAnswer = (data) => {
     setIsEdit(false);
     console.log("!!!!! SAVE ANSWER data", data);
+    dispatch(updateAnswer(data));
   };
 
   const handleClickDeleteAnswer = (answerId) => {

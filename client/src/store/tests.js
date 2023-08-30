@@ -128,6 +128,16 @@ const testsSlice = createSlice({
         (answer) => answer.id !== action.payload
       );
     },
+    updateAnswerRequest: (state, action) => {
+      console.log("updateAnswerRequest", action.payload);
+      // const idx = state.questions.findIndex(
+      //   (i) => i.id === Number(action.payload.questionId)
+      // );
+      // state.questions[idx].question = action.payload.question;
+      // state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
+      // state.questions[idx].save = true;
+      // console.log("updateQuestionRequest", action.payload);
+    },
   },
 });
 
@@ -151,6 +161,7 @@ const {
   answersRequestFiled,
   createAnswerRequest,
   deleteAnswerRequest,
+  updateAnswerRequest,
 } = actions;
 
 const createTestRequested = createAction("tests/createTestRequested");
@@ -167,6 +178,8 @@ const createAnswerRequested = createAction("tests/createAnswerRequested");
 const createAnswerFailed = createAction("tests/createAnswerFailed");
 const deleteAnswerRequested = createAction("tests/deleteAnswerRequested");
 const deleteAnswerFailed = createAction("tests/deleteAnswerFailed");
+const updateAnswerRequested = createAction("tests/updateAnswerRequested");
+const updateAnswerFailed = createAction("tests/updateAnswerFailed");
 
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());
@@ -309,6 +322,17 @@ export const deleteAnswer = (id) => (dispatch) => {
     toast("Ответ на вопрос удален");
   } catch (error) {
     dispatch(deleteAnswerFailed(error.message));
+  }
+};
+export const updateAnswer = (payload) => async (dispatch) => {
+  dispatch(updateAnswerRequested());
+  try {
+    console.log("!!! dispatch updateAnswer", payload);
+    const data = await AnswersService.update(payload);
+    // dispatch(updateQuestionRequest(data));
+    toast("ответ обновлен");
+  } catch (error) {
+    dispatch(updateAnswerFailed(error.message));
   }
 };
 

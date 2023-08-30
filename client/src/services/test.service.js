@@ -19,7 +19,7 @@ const TestService = {
   },
   update: async (payload) => {
     console.log("update test payload", payload);
-    const { data } = await httpService.path("/tests/" + payload.id, payload);
+    const { data } = await httpService.patch("/tests/" + payload.id, payload);
     console.log("update test data", data);
     return data;
   },
