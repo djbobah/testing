@@ -73,9 +73,11 @@ const TestCard = ({ test }) => {
 
           <hr />
           <p className="card-text">{test.description}</p>
-          <a href="#" className="btn btn-primary">
-            Перейти к тестированию
-          </a>
+          <div className="d-flex justify-content-end">
+            <a href="#" className="btn btn-primary ">
+              Перейти к тестированию
+            </a>
+          </div>
         </div>
         <div className="card-footer">
           <div className="">

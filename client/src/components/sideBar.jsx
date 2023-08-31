@@ -9,7 +9,7 @@ const SideBar = () => {
   const { currentUser } = useAuth();
   return (
     <div
-      className="sidebar d-flex justify-content-between flex-column bg-primary  text-white p-3 ps-3 pe-5 vh-100"
+      className="sidebar d-flex justify-content-between flex-column bg-primary  text-white p-3 ps-3 pe-4 vh-100"
       // style={{ backgroundColor: "#121194" }}
     >
       <div>
@@ -35,12 +35,12 @@ const SideBar = () => {
             <>
               {" "}
               <Link
-                to="/main/createTest"
+                to="/main/home"
                 className="p-1 text-decoration-none text-white"
               >
                 <li
                   className={
-                    active === 2 ? `active nav-item p-1 m-1` : "nav-item p-1"
+                    active === 2 ? `active nav-item p-1 ` : "nav-item p-1"
                   }
                   onClick={() => setActive(2)}
                 >
@@ -54,7 +54,7 @@ const SideBar = () => {
               >
                 <li
                   className={
-                    active === 3 ? `active nav-item p-1 m-1` : "nav-item p-1"
+                    active === 3 ? `active nav-item p-1 ` : "nav-item p-1"
                   }
                   onClick={() => setActive(3)}
                 >
@@ -70,9 +70,7 @@ const SideBar = () => {
             className="p-1 text-decoration-none text-white"
           >
             <li
-              className={
-                active === 4 ? `active nav-item p-1 m-1` : "nav-item p-1"
-              }
+              className={active === 4 ? `active nav-item p-1 ` : "nav-item p-1"}
               onClick={() => setActive(4)}
             >
               <i className="bi bi-table me-3 fs-5"></i>
@@ -84,9 +82,7 @@ const SideBar = () => {
             className="p-1 text-decoration-none text-white"
           >
             <li
-              className={
-                active === 5 ? `active nav-item p-1 m-1` : "nav-item p-1"
-              }
+              className={active === 5 ? `active nav-item p-1 ` : "nav-item p-1"}
               onClick={() => setActive(5)}
             >
               <i className="bi bi-grid me-3 fs-5"></i>

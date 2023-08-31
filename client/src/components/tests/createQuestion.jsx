@@ -84,22 +84,9 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
         cost: 0,
       })
     );
-    // const ans = dispatch(loadCurrentQuestionAnswers(question.id));
-    // console.log("ans", ans);
-    // const addAnswer = { id: 3, answer: "lorem30", isTrue: false };
-    // const addAnswer = [...data.answers];
-    // addAnswer.push({ answer: "", isTrue: false });
-    // setData((prevState) => ({
-    //   ...prevState,
-    //   answers: addAnswer,
-    // }));
-    // setAnswers([...answers, { answer: "", isTrue: false }]);
-    // answers.push();
-    // console.log(answers);
   };
   const handleClickSaveQuestion = (e) => {
     e.preventDefault();
-    // dispatch
     onSave(data);
   };
   const handleClickDeleteQuestion = (questionId) => {
@@ -112,20 +99,18 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     return answers?.map((answer) => (
       <div className="d-flex fs-4 " key={answer.id}>
         <CheckBoxField
-          value={answer.isTrue}
-          //{data.isRandomQuestions}
+          value={answer.isCorrect}
           onChange={(target) => handleChangeAnswer(target, answer.id)}
-          name="isTrue"
+          name="isCorrect"
           // error={errors.isRandomQuestions}
         />
 
         <div className="w-100">
           <TextField
-            // label="Ответ:"
+            label="Ответ:"
             id={answer.id}
             name="answer"
             value={answer.answer}
-            // {data.testName}
             onChange={(target) => handleChangeAnswer(target, answer.id)}
             // error={errors.testName}
             //   autoFocus
@@ -145,7 +130,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
   return (
     <Collapse
       key={question.id}
-      title={`Вопрос №: ${idx + 1} ${question.question}`}
+      title={`Вопрос №: ${idx + 1}    ${question.question}`}
       open={!question.save}
       // open={openQuestion}
     >

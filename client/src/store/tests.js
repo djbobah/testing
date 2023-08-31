@@ -130,11 +130,13 @@ const testsSlice = createSlice({
     },
     updateAnswerRequest: (state, action) => {
       console.log("updateAnswerRequest", action.payload);
-      // const idx = state.questions.findIndex(
-      //   (i) => i.id === Number(action.payload.questionId)
-      // );
-      // state.questions[idx].question = action.payload.question;
-      // state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
+      const idx = state.answers.findIndex(
+        (i) => i.id === Number(action.payload.id)
+      );
+      console.log("updateAnswerRequest idx", idx);
+
+      state.answers[idx].answer = action.payload.answer;
+      state.answers[idx].isCorrect = action.payload.isCorrect;
       // state.questions[idx].save = true;
       // console.log("updateQuestionRequest", action.payload);
     },
@@ -329,7 +331,9 @@ export const updateAnswer = (payload) => async (dispatch) => {
   try {
     console.log("!!! dispatch updateAnswer", payload);
     const data = await AnswersService.update(payload);
-    // dispatch(updateQuestionRequest(data));
+    // console.log("!!! dispatch updateAnswer", payload);
+
+    dispatch(updateAnswerRequest(payload));
     toast("ответ обновлен");
   } catch (error) {
     dispatch(updateAnswerFailed(error.message));

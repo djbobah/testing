@@ -46,11 +46,11 @@ const Answers = ({ answer, onSave }) => {
     <div className="d-flex fs-4 " key={answer.id}>
       <CheckBoxField
         // disabled={isEdit}
-        value={data.isTrue}
+        value={data.isCorrect}
         //{data.isRandomQuestions}
         // onChange={(target) => handleChangeAnswer(target, answer.id)}
         onChange={handleChange}
-        name="isTrue"
+        name="isCorrect"
         // error={errors.isRandomQuestions}
       />
       <div className="w-100">

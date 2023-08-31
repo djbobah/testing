@@ -15,7 +15,7 @@ const CollapseWrapper = ({ children, title, name, open }) => {
   }, [display]);
 
   return (
-    <div className="card  my-2">
+    <div className="card  my-2 bg-light">
       <div className="card-body">
         <div className="d-flex justify-content-between">
           {title}
