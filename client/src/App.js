@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { loadDepartments } from "./store/departments";
 import { loadTypeOfAnswers } from "./store/typeOfAnswers";
 import { loadTests } from "./store/tests";
+import { loadUsers } from "./store/users";
 // const QContext = React.createContext();
 // const qqq = { name: "name", value: "12345" };
 
@@ -36,6 +37,7 @@ function App() {
     dispatch(loadDepartments());
     dispatch(loadTypeOfAnswers());
     dispatch(loadTests());
+    dispatch(loadUsers());
   }, []);
   return (
     <>
