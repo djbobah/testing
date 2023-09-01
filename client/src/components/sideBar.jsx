@@ -16,7 +16,7 @@ const SideBar = () => {
         {/* text-white */}
         <a href="#" className="p-3 text-decoration-none text-white">
           {/* <i className="bi bi-code-slash fs-4 me-4"></i> */}
-          <span className="fs-4">Каменск</span>
+          {/* <span className="fs-4">Каменск</span> */}
         </a>
         <hr className="text-white mt-2" />
         <ul className="nav nav-pills flex-column mt-2">
@@ -65,7 +65,7 @@ const SideBar = () => {
             </>
           )}
 
-          <Link
+          {/* <Link
             to="/main/tests"
             className="p-1 text-decoration-none text-white"
           >
@@ -76,7 +76,7 @@ const SideBar = () => {
               <i className="bi bi-table me-3 fs-5"></i>
               <span>Tests</span>
             </li>
-          </Link>
+          </Link> */}
           <Link
             to="/main/reports"
             className="p-1 text-decoration-none text-white"
