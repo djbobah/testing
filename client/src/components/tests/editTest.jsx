@@ -36,7 +36,7 @@ const EditTest = () => {
       testName: "",
       description: "",
       timeOfTest: 30,
-      numberOfQuestionsForTest: 0,
+      numberOfQuestionsForTest: 10,
       isRandomQuestions: false,
     }
   );

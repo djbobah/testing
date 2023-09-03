@@ -127,6 +127,14 @@ const CreateTest = ({ data, onChange }) => {
           {/* <div className="d-flex ">
                   <div className="w-50 mx-auto me-4"> */}
           <TextField
+            label="Количество вопросов для тестирования: "
+            name="numberOfQuestionsForTest"
+            type="number"
+            value={data.numberOfQuestionsForTest}
+            onChange={onChange}
+            error={errors.timeOfTest}
+          />
+          <TextField
             label="Время на прохождение теста (мин):"
             name="timeOfTest"
             type="number"
