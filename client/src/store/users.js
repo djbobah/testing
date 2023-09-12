@@ -2,6 +2,8 @@ import { createAction, createSlice } from "@reduxjs/toolkit";
 import UserService from "../services/user.service";
 import authService from "../services/auth.service";
 import localStorageService from "../services/localStorage.service";
+import { browserRouter } from "react-router";
+
 // import history from "../utils/history";
 import { redirect } from "react-router-dom";
 
@@ -13,13 +15,14 @@ const usersSlice = createSlice({
     isLoading: true,
     error: null,
     auth: null,
+    currentUser: null,
     isLoggedIn: false,
   },
   reducers: {
     usersRequested: (state) => {
       state.isLoading = true;
     },
-    usersRecived: (state, action) => {
+    usersRequestSucess: (state, action) => {
       state.entities = action.payload;
       state.isLoading = false;
     },
@@ -28,14 +31,20 @@ const usersSlice = createSlice({
       state.isLoading = false;
     },
     authRequestSuccess: (state, action) => {
-      state.auth = action.payload;
+      state.auth = action.payload.userId;
+      state.currentUser = action.payload;
       state.isLoggedIn = true;
     },
     authRequestFailed: (state, action) => {
       state.error = action.payload;
     },
     loginRequestSuccess: (state, action) => {
-      state.auth = action.payload;
+      state.auth = action.payload.userId;
+      state.currentUser = action.payload;
+      // state.currentUser = {
+      //   ...action.payload,
+      //   ...state.users.entities.find((u) => u.id === action.payload.userId),
+      // };
       state.isLoggedIn = true;
     },
     loginRequestFailed: (state, action) => {
@@ -47,7 +56,7 @@ const usersSlice = createSlice({
 const { reducer: usersReducer, actions } = usersSlice;
 const {
   usersRequested,
-  usersRecived,
+  usersRequestSucess,
   usersRequestFiled,
   authRequestSuccess,
   authRequestFailed,
@@ -60,19 +69,27 @@ export const loadUsers = () => async (dispatch) => {
   dispatch(usersRequested());
   try {
     const data = await UserService.get();
-    dispatch(usersRecived(data));
+    dispatch(usersRequestSucess(data));
   } catch (error) {
     dispatch(usersRequestFiled(error.message));
   }
 };
 
-export const logIn = (payload) => async (dispatch) => {
+export const getUserDataById = (userId) => (state) => {
+  if (state.users.entities) {
+    return state.users.entities.find((u) => u.id === userId);
+  }
+};
+export const logIn = (payload) => async (dispatch, state) => {
   const { email, password } = payload;
+  console.log("logIn payload", payload);
   dispatch(logInRequested());
   try {
     const data = await authService.login({ email, password });
-    dispatch(loginRequestSuccess({ userId: data.userId }));
-    localStorageService.setTokens(data);
+    // const cur = getUserDataById(data.userId);
+    console.log("logIn data", data);
+    dispatch(loginRequestSuccess(data));
+    localStorageService.setTokens({ ...data, userId: data.id });
     // redirect("/main/home");
     // navigate("/main/home");
   } catch (error) {
@@ -84,8 +101,12 @@ export const signUp = (newData) => async (dispatch) => {
   dispatch(authRequested());
   try {
     const data = await authService.register(newData);
+    console.log("signUp data", data);
+
     localStorageService.setTokens(data);
-    dispatch(authRequestSuccess({ userId: data.userId }));
+
+    // dispatch(authRequestSuccess({ userId: data.userId }));
+    dispatch(authRequestSuccess({ ...data, ...newData }));
     // redirect("/main/home");
     // history.push("/main/home");
     // navigate("/main/home");
@@ -97,11 +118,11 @@ export const signUp = (newData) => async (dispatch) => {
 
 export const getUsersList = () => (state) => state.users.entities;
 
-export const getUserDataById = (userId) => (state) => {
-  if (state.users.entities) {
-    return state.users.entities.find((u) => u.id === userId);
-  }
+export const getIsLoggedIn = () => (state) => {
+  console.log("getIsLoggedIn", state.users.isLoggedIn);
+  return state.users.isLoggedIn;
 };
-export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
+
+export const getCurrentUser = () => (state) => state.users.currentUser;
 
 export default usersReducer;

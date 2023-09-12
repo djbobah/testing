@@ -9,15 +9,19 @@ import { Route, Routes } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 import CreateTest from "./tests/createTest";
 import EditTest from "./tests/editTest";
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "../store/users";
 
 const Main = () => {
-  const { currentUser } = useAuth();
+  // const { currentUser } = useAuth();
+  const currentUser = useSelector(getCurrentUser());
   const [active, setActive] = useState(1);
   const [toggle, setToggle] = useState(false);
   const toggleHandler = () => {
     setToggle(!toggle);
   };
 
+  console.log("currentUser", currentUser);
   useEffect(() => {
     const handleSize = () => {
       if (window.innerWidth < 768) {

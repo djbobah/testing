@@ -106,14 +106,14 @@ const RegisterForm = ({ departments }) => {
       )[0].value,
       roles: "user",
     };
-    try {
-      dispatch(signUp(newData));
-      // await signUp(newData);
-      navigate("/main/home");
-      // console.log(userService.get());
-    } catch (error) {
-      setErrors(error);
-    }
+    // try {
+    dispatch(signUp(newData));
+    // await signUp(newData);
+    navigate("/main/home");
+    // console.log(userService.get());
+    // } catch (error) {
+    //   setErrors(error);
+    // }
   };
   return (
     <form onSubmit={handleSubmit}>

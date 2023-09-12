@@ -55,7 +55,7 @@ const AuthProvider = ({ children }) => {
     // const url = config.apiEndpoint;
     try {
       let { data } = await httpAuth.post("/auth/signUp", newData);
-      // console.log(data);
+      //  console.log(data);
       setTokens(data);
       data = { ...data, ...newData };
       setCurrentUser(data);

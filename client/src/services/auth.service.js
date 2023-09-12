@@ -13,6 +13,7 @@ const authService = {
       email,
       password,
     });
+
     return data;
   },
 };
