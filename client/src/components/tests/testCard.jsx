@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import userService from "../../services/user.service";
-import { useUsers } from "../hooks/useUsers";
 
 import { shortFio } from "../../utils/fioUtils";
 import { useAuth } from "../hooks/useAuth";
@@ -8,12 +7,12 @@ import TestService from "../../services/test.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentTest, setCurrentTest } from "../../store/tests";
+import { getUserDataById } from "../../store/users";
 
 const TestCard = ({ test }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate;
-  const [author, setAuthor] = useState({});
-  const { getUserData } = useUsers();
+  // const [author, setAuthor] = useState({});
   const { currentUser } = useAuth();
   const [enterError, setEnterError] = useState(null);
   const [error, setError] = useState(null);
@@ -29,12 +28,14 @@ const TestCard = ({ test }) => {
   // const author = userService.getUserDataById(test.authorId);
   // console.log("author", author);
   // console.log("currentUser", currentUser);
+  const author = useSelector(getUserDataById(test.authorId));
 
-  useEffect(() => {
-    getUserData(test.authorId).then((author) => {
-      setAuthor(author);
-    });
-  }, []);
+  // console.log("author", author);
+  // useEffect(() => {
+  //   getUserData(test.authorId).then((author) => {
+  //     setAuthor(author);
+  //   });
+  // }, []);
   // getUserData(test.authorId).then((author) => {
   //   setAuthor(author);
   // });

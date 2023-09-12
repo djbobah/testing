@@ -12,8 +12,6 @@ import Main from "./components/main";
 import NavBar from "./components/navBar";
 import MainPage from "./components/mainPage";
 import UserPage from "./components/page/userPage";
-import UsersProvider from "./components/hooks/useUsers";
-import AnswersProvider from "./components/hooks/useAnswers";
 import { useDispatch } from "react-redux";
 import { loadDepartments } from "./store/departments";
 import { loadTypeOfAnswers } from "./store/typeOfAnswers";
@@ -42,25 +40,21 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <UsersProvider>
-          <AnswersProvider>
-            <NavBar />
-            <Routes>
-              <Route path="/">
-                <Route path="/" element={<MainPage />} />
+        <NavBar />
+        <Routes>
+          <Route path="/">
+            <Route path="/" element={<MainPage />} />
 
-                <Route path=":type?" element={<Login />} />
-              </Route>
-              <Route element={<ProtectedRoute />}>
-                <Route exact path="/main/*" element={<Main />} />
-                <Route exact path="/users/">
-                  <Route path=":idUser?" element={<UserPage />} />
-                </Route>
-              </Route>
-              <Route path="/main/logout" element={<LogOut />} />
-            </Routes>
-          </AnswersProvider>
-        </UsersProvider>
+            <Route path=":type?" element={<Login />} />
+          </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route exact path="/main/*" element={<Main />} />
+            <Route exact path="/users/">
+              <Route path=":idUser?" element={<UserPage />} />
+            </Route>
+          </Route>
+          <Route path="/main/logout" element={<LogOut />} />
+        </Routes>
       </AuthProvider>
       <ToastContainer />
     </>
