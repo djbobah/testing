@@ -5,6 +5,8 @@ import httpService from "../../services/http.service";
 import { setTokens } from "../../services/localStorage.service";
 import { unstable_HistoryRouter, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { logIn } from "../../store/users";
 // import { useQContext } from "../../App";
 // import { QContext } from "../../App";
 // import CheckBoxField from "../common/form/checkBoxField";
@@ -14,7 +16,9 @@ const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [enterError, setEnterError] = useState(null);
-  const { logIn } = useAuth();
+  // const { logIn } = useAuth();
+  const dispatch = useDispatch();
+
   // const qqq = useQContext();
   // console.log("data from app", qqq);
 
@@ -59,18 +63,20 @@ const LoginForm = () => {
 
   const isValid = Object.keys(errors).length === 0;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
     console.log(data);
-    try {
-      await logIn(data);
+    // try {
 
-      navigate("/main/home");
-    } catch (error) {
-      setEnterError(error.message);
-    }
+    dispatch(logIn(data));
+    // await logIn(data);
+    console.log("login success");
+    navigate("/main/home");
+    // } catch (error) {
+    //   setEnterError(error.message);
+    // }
   };
   return (
     <form onSubmit={handleSubmit}>

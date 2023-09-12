@@ -109,7 +109,7 @@ const RegisterForm = ({ departments }) => {
     try {
       dispatch(signUp(newData));
       // await signUp(newData);
-      // navigate("/main/home");
+      navigate("/main/home");
       // console.log(userService.get());
     } catch (error) {
       setErrors(error);

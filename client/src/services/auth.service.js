@@ -8,6 +8,13 @@ const authService = {
     const { data } = await httpAuth.post("/auth/signUp", newData);
     return data;
   },
+  login: async ({ email, password }) => {
+    const { data } = await httpAuth.post("/auth/signInWithPassword", {
+      email,
+      password,
+    });
+    return data;
+  },
 };
 
 export default authService;
