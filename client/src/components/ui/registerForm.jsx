@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 // import CheckBoxField from "../common/form/checkBoxField";
 import { useAuth } from "./../hooks/useAuth";
 import userService from "../../services/user.service";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../store/users";
 
 const RegisterForm = ({ departments }) => {
   const [data, setData] = useState({
@@ -22,7 +24,9 @@ const RegisterForm = ({ departments }) => {
     // license: false,
   });
   const [errors, setErrors] = useState({});
-  const { signUp } = useAuth();
+  // const { signUp } = useAuth();
+
+  const dispatch = useDispatch();
 
   const departmentOptions = departments.map((dep) => ({
     name: dep.name,
@@ -88,7 +92,7 @@ const RegisterForm = ({ departments }) => {
   };
 
   const isValid = Object.keys(errors).length === 0;
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
@@ -103,8 +107,9 @@ const RegisterForm = ({ departments }) => {
       roles: "user",
     };
     try {
-      await signUp(newData);
-      navigate("/main/home");
+      dispatch(signUp(newData));
+      // await signUp(newData);
+      // navigate("/main/home");
       // console.log(userService.get());
     } catch (error) {
       setErrors(error);
