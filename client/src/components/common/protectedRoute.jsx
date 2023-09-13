@@ -7,7 +7,7 @@ const ProtectedRoute = ({ component: Component, children, ...rest }) => {
   // const { currentUser } = useAuth();
   // console.log("children", children);
   const isLoggedIn = useSelector(getCurrentUser());
-  console.log("isLoggedIn", isLoggedIn);
+  console.log("protected route currentUser", isLoggedIn);
   if (!isLoggedIn) {
     // return <Navigate to="/login" />;
     return <Navigate to={{ pathname: "/login" }} />;

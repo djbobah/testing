@@ -21,7 +21,7 @@ const Main = () => {
     setToggle(!toggle);
   };
 
-  console.log("currentUser", currentUser);
+  console.log("main currentUser", currentUser);
   useEffect(() => {
     const handleSize = () => {
       if (window.innerWidth < 768) {
