@@ -126,6 +126,8 @@ export const getIsLoggedIn = () => (state) => {
 };
 
 export const getCurrentUser = () => (state) => {
+  console.log("getCurrentUser store", localStorageService.getUserId());
+
   return state.users.entities.find(
     (u) => u.id === localStorageService.getUserId()
   );
