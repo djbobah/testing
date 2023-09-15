@@ -6,9 +6,9 @@ import { getCurrentUser, getIsLoggedIn } from "../../store/users";
 const ProtectedRoute = ({ component: Component, children, ...rest }) => {
   // const { currentUser } = useAuth();
   // console.log("children", children);
-  const isLoggedIn = useSelector(getCurrentUser());
-  console.log("protected route currentUser", isLoggedIn);
-  if (!isLoggedIn) {
+  const currentUser = useSelector(getCurrentUser());
+  console.log("protected route currentUser", currentUser);
+  if (!currentUser) {
     // return <Navigate to="/login" />;
     return <Navigate to={{ pathname: "/login" }} />;
     //,state:{props.location}

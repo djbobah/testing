@@ -122,15 +122,15 @@ router.post("/token", async (req, res) => {
   if (isTokenInvalid(data, dbToken)) {
     res.status(401).json({ message: "Unauthtorized" });
 
-    const tokens = await tokenService.generate({ id: dbToken.userId });
-    await tokenService.save(data.id, tokens.refreshToken);
-    res.status(200).send({ ...tokens, userId: data.id });
+    // const tokens = await tokenService.generate({ id: dbToken.userId });
+    // await tokenService.save(data.id, tokens.refreshToken);
+    // res.status(200).send({ ...tokens, userId: data.id });
   }
 
   // console.log(data);
-  //  const tokens = await tokenService.generate({ id: dbToken.userId });
-  //  await tokenService.save(data.id, tokens.refreshToken);
-  //  res.status(200).send({ ...tokens, userId: data.id });
+  const tokens = await tokenService.generate({ id: dbToken.userId });
+  await tokenService.save(data.id, tokens.refreshToken);
+  res.status(200).send({ ...tokens, userId: data.id });
 
   try {
   } catch (error) {

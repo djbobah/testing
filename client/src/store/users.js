@@ -5,9 +5,8 @@ import localStorageService from "../services/localStorage.service";
 import { browserRouter } from "react-router";
 
 // import history from "../utils/history";
-import { redirect } from "react-router-dom";
+// import { redirect, useNavigate } from "react-router-dom";
 
-// const navigate = useNavigate();
 const usersSlice = createSlice({
   name: "users",
   initialState: {
@@ -82,7 +81,7 @@ export const getUserDataById = (userId) => (state) => {
     return state.users.entities.find((u) => u.id === userId);
   }
 };
-export const logIn = (payload) => async (dispatch, state) => {
+export const logIn = (payload, redirect) => async (dispatch, state) => {
   const { email, password } = payload;
   console.log("logIn payload", payload);
   dispatch(logInRequested());
@@ -90,10 +89,15 @@ export const logIn = (payload) => async (dispatch, state) => {
     const data = await authService.login({ email, password });
     // const cur = getUserDataById(data.userId);
     console.log("logIn data", data);
+    // if (!data) {
     dispatch(loginRequestSuccess(data));
     localStorageService.setTokens({ ...data, userId: data.id });
+    // }
+
     // redirect("/main/home");
-    // navigate("/main/home");
+    // const navigate = useNavigate();
+
+    redirect("/main/home");
   } catch (error) {
     dispatch(loginRequestFailed(error.message));
   }
@@ -126,10 +130,11 @@ export const getIsLoggedIn = () => (state) => {
 };
 
 export const getCurrentUser = () => (state) => {
-  console.log("getCurrentUser store", localStorageService.getUserId());
+  // console.log("getCurrentUser store", localStorageService.getUserId());
+  console.log("getCurrentUser store", state.users.entities);
 
   return state.users.entities.find(
-    (u) => u.id === localStorageService.getUserId()
+    (u) => u.id === Number(localStorageService.getUserId())
   );
 };
 export const getDataStatus = () => (state) => state.users.isDataLoaded;

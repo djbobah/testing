@@ -70,10 +70,10 @@ const LoginForm = () => {
     console.log(data);
     // try {
 
-    dispatch(logIn(data));
+    dispatch(logIn(data, navigate));
     // await logIn(data);
     console.log("login success");
-    navigate("/main/home");
+    // navigate("/main/home");
     // } catch (error) {
     //   setEnterError(error.message);
     // }
