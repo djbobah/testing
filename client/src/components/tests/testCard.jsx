@@ -7,13 +7,14 @@ import TestService from "../../services/test.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentTest, setCurrentTest } from "../../store/tests";
-import { getUserDataById } from "../../store/users";
+import { getCurrentUser, getUserDataById } from "../../store/users";
 
 const TestCard = ({ test }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate;
   // const [author, setAuthor] = useState({});
-  const { currentUser } = useAuth();
+  // const { currentUser } = useAuth();
+  const currentUser = useSelector(getCurrentUser());
   const [enterError, setEnterError] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);

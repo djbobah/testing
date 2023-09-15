@@ -4,10 +4,10 @@ import ContainerWrapper from "../common/container";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTests, loadTests, setCurrentTest } from "../../store/tests";
-import { useAuth } from "../hooks/useAuth";
+import { getCurrentUser } from "../../store/users";
 const TestsList = () => {
   // const [editTest, setEditTest] = useState(false);
-  const { currentUser } = useAuth();
+  const currentUser = useSelector(getCurrentUser());
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadTests());

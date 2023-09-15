@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.json";
 import "../style.css";
 import { Link } from "react-router-dom";
-import { useAuth } from "./hooks/useAuth";
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "../store/users";
 
 const SideBar = () => {
   const [active, setActive] = useState(1);
-  const { currentUser } = useAuth();
+  const currentUser = useSelector(getCurrentUser());
   return (
     <div
       className="sidebar d-flex justify-content-between flex-column bg-primary  text-white p-3 ps-3 pe-4 vh-100"

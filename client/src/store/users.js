@@ -51,6 +51,18 @@ const usersSlice = createSlice({
     loginRequestFailed: (state, action) => {
       state.error = action.payload;
     },
+    currentUsersRequested: (state) => {
+      state.isLoading = true;
+    },
+    currentUsersRequestSucess: (state, action) => {
+      state.currentUser = action.payload;
+      // state.isDataLoaded = true;
+      state.isLoading = false;
+    },
+    currentUsersRequestFiled: (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
   },
 });
 
@@ -63,9 +75,13 @@ const {
   authRequestFailed,
   loginRequestSuccess,
   loginRequestFailed,
+  currentUsersRequested,
+  currentUsersRequestSucess,
+  currentUsersRequestFiled,
 } = actions;
 const authRequested = createAction("users/authRequested");
 const logInRequested = createAction("users/logInRequested");
+
 export const loadUsers = () => async (dispatch) => {
   dispatch(usersRequested());
   try {
@@ -73,6 +89,16 @@ export const loadUsers = () => async (dispatch) => {
     dispatch(usersRequestSucess(data));
   } catch (error) {
     dispatch(usersRequestFiled(error.message));
+  }
+};
+
+export const loadCurrentUser = () => async (dispatch) => {
+  dispatch(currentUsersRequested());
+  try {
+    const data = await UserService.getCurrentUser();
+    dispatch(currentUsersRequestSucess(data));
+  } catch (error) {
+    dispatch(currentUsersRequestFiled(error.message));
   }
 };
 

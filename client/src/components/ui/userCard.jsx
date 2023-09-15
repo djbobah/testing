@@ -1,8 +1,9 @@
 import React from "react";
-import { useAuth } from "../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "../../store/users";
 
 const UserCard = () => {
-  const { currentUser } = useAuth();
+  const currentUser = useSelector(getCurrentUser());
   // console.log("user", currentUser.roles);
   return (
     <div className="card mb-3">

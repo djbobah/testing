@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { getDepartmments } from "../../store/departments";
+import { getCurrentUser } from "../../store/users";
 
 const UserProfileDetails = () => {
-  const { currentUser, updateUser } = useAuth();
+  const { updateUser } = useAuth();
+  const currentUser = useSelector(getCurrentUser());
   const departments = useSelector(getDepartmments());
   const [disabledTextField, setDisabledTextField] = useState(true);
   // console.log("currentDepartment", currentDepartment);

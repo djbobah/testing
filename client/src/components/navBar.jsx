@@ -1,14 +1,12 @@
 import React from "react";
 import "bootstrap/dist/js/bootstrap.bundle";
-import { useAuth } from "./hooks/useAuth";
 import NavProfile from "./ui/navProfile";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getCurrentUser } from "../store/users";
 
 const NavBar = ({ onToggle }) => {
-  const { currentUser } = useAuth();
-  // const currentUser = useSelector(getCurrentUser());
+  const currentUser = useSelector(getCurrentUser());
   return (
     // <div className="container">
     // <nav

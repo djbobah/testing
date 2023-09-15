@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "../../store/users";
 // import avatarImg from "../../assets/img/img_504714.png";
 
 const NavProfile = () => {
-  const { currentUser } = useAuth();
+  const currentUser = useSelector(getCurrentUser());
   const [isOpen, setOpen] = useState(false);
   const toggleMenu = () => {
     setOpen((prevState) => !prevState);

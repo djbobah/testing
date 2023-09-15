@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 // import SelectField from "../common/form/selectField";
-import { useAuth } from "./../hooks/useAuth";
 import TextAreaField from "../common/form/textAreaField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { toast } from "react-toastify";
@@ -14,6 +13,7 @@ import {
   setCurrentTest,
 } from "../../store/tests";
 import { Link } from "react-router-dom";
+import { getCurrentUser } from "../../store/users";
 
 const CreateTest = ({ data, onChange }) => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const CreateTest = ({ data, onChange }) => {
   //   }
   // );
   const [errors, setErrors] = useState({});
-  const { currentUser } = useAuth();
+  const currentUser = useSelector(getCurrentUser());
 
   // const handleChange = (target) => {
   //   setData((prevState) => ({ ...prevState, [target.name]: target.value }));
