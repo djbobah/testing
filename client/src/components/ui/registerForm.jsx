@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 // import RadioField from "../common/form/radioField";
 // import MultiSelectField from "../common/form/multiSelectField";
 // import CheckBoxField from "../common/form/checkBoxField";
-import { useAuth } from "./../hooks/useAuth";
 import userService from "../../services/user.service";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../store/users";
@@ -24,7 +23,6 @@ const RegisterForm = ({ departments }) => {
     // license: false,
   });
   const [errors, setErrors] = useState({});
-  // const { signUp } = useAuth();
 
   const dispatch = useDispatch();
 
@@ -107,9 +105,9 @@ const RegisterForm = ({ departments }) => {
       roles: "user",
     };
     // try {
-    dispatch(signUp(newData));
+    dispatch(signUp(newData, navigate));
     // await signUp(newData);
-    navigate("/main/home");
+    // navigate("/main/home");
     // console.log(userService.get());
     // } catch (error) {
     //   setErrors(error);

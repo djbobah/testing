@@ -63,6 +63,12 @@ const usersSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
+    userLoggedOut: (state) => {
+      state.entities = null;
+      state.isLoggedIn = false;
+      state.auth = null;
+      state.isDataLoaded = false;
+    },
   },
 });
 
@@ -78,6 +84,7 @@ const {
   currentUsersRequested,
   currentUsersRequestSucess,
   currentUsersRequestFiled,
+  userLoggedOut,
 } = actions;
 const authRequested = createAction("users/authRequested");
 const logInRequested = createAction("users/logInRequested");
@@ -129,7 +136,13 @@ export const logIn = (payload, redirect) => async (dispatch, state) => {
   }
 };
 
-export const signUp = (newData) => async (dispatch) => {
+export const logOut = (redirect) => (dispatch) => {
+  localStorageService.removeAuthData();
+  dispatch(userLoggedOut());
+  redirect("/");
+};
+
+export const signUp = (newData, redirect) => async (dispatch) => {
   dispatch(authRequested());
   try {
     const data = await authService.register(newData);
@@ -139,7 +152,7 @@ export const signUp = (newData) => async (dispatch) => {
 
     // dispatch(authRequestSuccess({ userId: data.userId }));
     dispatch(authRequestSuccess({ ...data, ...newData }));
-    // redirect("/main/home");
+    redirect("/main/home");
     // history.push("/main/home");
     // navigate("/main/home");
     // <Navigate to="/main/home" replace={true} />;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import userService from "../../services/user.service";
 
 import { shortFio } from "../../utils/fioUtils";
-import { useAuth } from "../hooks/useAuth";
 import TestService from "../../services/test.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +12,6 @@ const TestCard = ({ test }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate;
   // const [author, setAuthor] = useState({});
-  // const { currentUser } = useAuth();
   const currentUser = useSelector(getCurrentUser());
   const [enterError, setEnterError] = useState(null);
   const [error, setError] = useState(null);
