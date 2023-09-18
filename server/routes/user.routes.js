@@ -28,7 +28,13 @@ router.patch("/:userId", async (req, res) => {
         },
         { where: { id: userId } }
       );
-      res.send(updatedUser);
+      res.send({
+        id: userId,
+        // password: hashedPassword,
+        email: req.body.email,
+        fio: req.body.fio,
+        id_department: req.body.department,
+      });
     } else {
       const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
@@ -41,7 +47,13 @@ router.patch("/:userId", async (req, res) => {
         },
         { where: { id: userId } }
       );
-      res.send(updatedUser);
+      res.send({
+        id: userId,
+        password: hashedPassword,
+        email: req.body.email,
+        fio: req.body.fio,
+        id_department: req.body.department,
+      });
     }
     // res.status(200).send()=res.send()
     // console.log("updatedUser", updatedUser);

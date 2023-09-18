@@ -6,12 +6,19 @@ import { useAuth } from "../hooks/useAuth";
 import { validator } from "../../utils/validator";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDepartmments } from "../../store/departments";
-import { getCurrentUser } from "../../store/users";
+import {
+  getCurrentUser,
+  loadCurrentUser,
+  loadUsers,
+  updateUser,
+} from "../../store/users";
 
 const UserProfileDetails = () => {
-  const { updateUser } = useAuth();
+  // const { updateUser } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const currentUser = useSelector(getCurrentUser());
   const departments = useSelector(getDepartmments());
   const [disabledTextField, setDisabledTextField] = useState(true);
@@ -33,7 +40,7 @@ const UserProfileDetails = () => {
   // console.log(data.department, departmentOptions);
 
   // console.log(currentUser);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // console.log("departmentOptions", departmentOptions);
   // useEffect(() => {
   //   api.department.fetchAll().then((data) => setDepartments(data));
@@ -118,16 +125,19 @@ const UserProfileDetails = () => {
       // roles: "user",
     };
 
-    try {
-      await updateUser(newData);
-      //   navigate("/main/home");
-      //   // console.log(userService.get());
-    } catch (error) {
-      setErrors(error);
-    } finally {
-      toast("Профиль обновлен");
-      navigate("/main/home");
-    }
+    dispatch(updateUser(newData, navigate));
+    dispatch(loadUsers());
+    dispatch(loadCurrentUser());
+    // // try {
+    //   await updateUser(newData);
+    //   //   navigate("/main/home");
+    //   //   // console.log(userService.get());
+    // } catch (error) {
+    //   setErrors(error);
+    // } finally {
+    //   toast("Профиль обновлен");
+    //   navigate("/main/home");
+    // }
   };
   return (
     <>

@@ -25,6 +25,8 @@ const UserService = {
       userEndpoint + localStorageService.getUserId(),
       payload
     );
+    console.log("update user payload  ", payload);
+    console.log("update user data", data);
     return data;
   },
 };

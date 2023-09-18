@@ -3,6 +3,7 @@ import UserService from "../services/user.service";
 import authService from "../services/auth.service";
 import localStorageService from "../services/localStorage.service";
 import { browserRouter } from "react-router";
+import { toast } from "react-toastify";
 
 // import history from "../utils/history";
 // import { redirect, useNavigate } from "react-router-dom";
@@ -78,6 +79,27 @@ const usersSlice = createSlice({
       state.isDataLoaded = false;
       state.currentUser = null;
     },
+    userUpdateRequested: (state) => {
+      state.isLoading = true;
+    },
+    userUpdateRequestSuccess: (state, action) => {
+      const idx = state.entities.findIndex(
+        (i) => i.id === Number(action.payload.id)
+      );
+      // console.log("idx", idx);
+      if (action.payload.password) {
+        state.entities[idx].password = action.payload.password;
+      }
+      state.entities[idx].fio = action.payload.fio;
+      state.entities[idx].email = action.payload.email;
+      state.entities[idx].id_department = action.payload.id_department;
+
+      // console.log("action.payload;", action.payload);
+      // state.currentUser = action.payload;
+    },
+    userUpdateRequestFailed: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
@@ -94,6 +116,9 @@ const {
   currentUsersRequestSucess,
   currentUsersRequestFiled,
   userLoggedOut,
+  userUpdateRequested,
+  userUpdateRequestSuccess,
+  userUpdateRequestFailed,
 } = actions;
 const authRequested = createAction("users/authRequested");
 const logInRequested = createAction("users/logInRequested");
@@ -172,6 +197,27 @@ export const signUp = (newData, redirect) => async (dispatch) => {
   } catch (error) {
     dispatch(authRequestFailed(error.message));
   }
+};
+
+export const updateUser = (payload, navigate) => async (dispatch) => {
+  dispatch(userUpdateRequested());
+  try {
+    // console.log("updateQuestion", payload);
+    const data = await UserService.update(payload);
+    // QuestionsService.update(id, payload);
+
+    dispatch(userUpdateRequestSuccess(data));
+    toast("Профиль пользователя обновлен");
+    // loadUsers();
+    // loadCurrentUser();
+    navigate("/main/home");
+  } catch (error) {
+    dispatch(userUpdateRequestFailed(error.message));
+  }
+  // finally {
+  //   loadUsers();
+  //   loadCurrentUser();
+  // }
 };
 
 export const getUsersList = () => (state) => state.users.entities;
