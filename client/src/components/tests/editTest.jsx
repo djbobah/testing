@@ -38,6 +38,7 @@ const EditTest = () => {
       timeOfTest: 30,
       numberOfQuestionsForTest: 10,
       isRandomQuestions: false,
+      isPublished: false,
     }
   );
   // const [openQuestion, setOpenQuestion] = useState(true);

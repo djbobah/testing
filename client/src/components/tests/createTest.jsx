@@ -19,21 +19,9 @@ const CreateTest = ({ data, onChange }) => {
   const dispatch = useDispatch();
   // const currentTest = useSelector(getCurrentTest());
 
+  console.log("data", data);
   const edit = useSelector(getIsEditTest());
-  // const currentTest = useSelector(getCurrentTest());
 
-  // console.log("create test currentTest", currentTest);
-  // console.log("create test edit", edit);
-
-  // const [data, setData] = useState(
-  //   currentTest || {
-  //     testName: "",
-  //     description: "",
-  //     timeOfTest: 30,
-  //     numberOfQuestionsForTest: 0,
-  //     isRandomQuestions: false,
-  //   }
-  // );
   const [errors, setErrors] = useState({});
   const currentUser = useSelector(getCurrentUser());
 
@@ -161,6 +149,14 @@ const CreateTest = ({ data, onChange }) => {
             error={errors.isRandomQuestions}
           >
             Вопросы для теста брать из базы случайным образом
+          </CheckBoxField>
+          <CheckBoxField
+            value={data.isPublished}
+            onChange={onChange}
+            name="isPublished"
+            error={errors.isPublished}
+          >
+            Опубликовать
           </CheckBoxField>
           {!edit && (
             <div className="d-flex">
