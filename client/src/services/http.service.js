@@ -1,11 +1,13 @@
 import axios from "axios";
+import config from "../config.json";
 // import { toast } from "react-toastify";
 import configFile from "../config.json";
 import localStorageService from "./localStorage.service";
-import { httpAuth } from "../components/hooks/useAuth";
+// import { httpAuth } from "../components/hooks/useAuth";
 
 const http = axios.create({ baseURL: configFile.apiEndpoint });
 // axios.defaults.baseURL = config.apiEndpoint;
+export const httpAuth = axios.create({ baseURL: config.apiEndpoint });
 
 http.interceptors.request.use(
   async function (config) {

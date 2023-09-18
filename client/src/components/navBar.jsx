@@ -10,12 +10,10 @@ import {
   loadUsers,
 } from "../store/users";
 import UsersLoader from "./ui/hoc/usersLoader";
-import { useAuth } from "./hooks/useAuth";
 
 const NavBar = ({ onToggle }) => {
   // const dataStatus = useSelector(getDataStatus());
-  const { currentUser } = useAuth();
-  // const currentUser = useSelector(getCurrentUser());
+  const currentUser = useSelector(getCurrentUser());
 
   return (
     // <div className="container">

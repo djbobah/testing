@@ -4,7 +4,7 @@ import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
 import Collapse from "../common/collapse";
 import SelectField from "../common/form/selectField";
-import { useAnswers } from "../hooks/useAnswers";
+// import { useAnswers } from "../hooks/useAnswers.jsx.bak";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypeOfAnswers } from "../../store/typeOfAnswers";
 import {

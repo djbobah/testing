@@ -35,6 +35,14 @@ const usersSlice = createSlice({
       state.auth = action.payload.userId;
       state.currentUser = action.payload;
       state.isLoggedIn = true;
+      state.entities.push({
+        id: action.payload.userId,
+        password: action.payload.password,
+        email: action.payload.email,
+        roles: action.payload.roles,
+        id_department: action.payload.id_department,
+        fio: action.payload.fio,
+      });
     },
     authRequestFailed: (state, action) => {
       state.error = action.payload;
@@ -68,6 +76,7 @@ const usersSlice = createSlice({
       state.isLoggedIn = false;
       state.auth = null;
       state.isDataLoaded = false;
+      state.currentUser = null;
     },
   },
 });
@@ -151,7 +160,11 @@ export const signUp = (newData, redirect) => async (dispatch) => {
     localStorageService.setTokens(data);
 
     // dispatch(authRequestSuccess({ userId: data.userId }));
+    console.log("sign auth success");
     dispatch(authRequestSuccess({ ...data, ...newData }));
+
+    console.log("sign up load users");
+    // loadUsers();
     redirect("/main/home");
     // history.push("/main/home");
     // navigate("/main/home");
@@ -171,10 +184,11 @@ export const getIsLoggedIn = () => (state) => {
 export const getCurrentUser = () => (state) => {
   // console.log("getCurrentUser store", localStorageService.getUserId());
   console.log("getCurrentUser store", state.users.entities);
-
-  return state.users.entities.find(
-    (u) => u.id === Number(localStorageService.getUserId())
-  );
+  if (state.users.entities) {
+    return state.users.entities.find(
+      (u) => u.id === Number(localStorageService.getUserId())
+    );
+  }
 };
 export const getDataStatus = () => (state) => state.users.isDataLoaded;
 
