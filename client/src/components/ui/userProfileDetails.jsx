@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import TextField from "../common/form/textField";
 import SelectField from "../common/form/selectField";
-import { useAuth } from "../hooks/useAuth";
 import { validator } from "../../utils/validator";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -16,7 +15,6 @@ import {
 } from "../../store/users";
 
 const UserProfileDetails = () => {
-  // const { updateUser } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(getCurrentUser());

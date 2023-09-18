@@ -3,7 +3,6 @@ import config from "../config.json";
 // import { toast } from "react-toastify";
 import configFile from "../config.json";
 import localStorageService from "./localStorage.service";
-// import { httpAuth } from "../components/hooks/useAuth";
 
 const http = axios.create({ baseURL: configFile.apiEndpoint });
 // axios.defaults.baseURL = config.apiEndpoint;

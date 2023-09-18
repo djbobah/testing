@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AuthProvider from "./components/hooks/useAuth";
 // import SideBar from "./components/sideBar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,23 +28,21 @@ function App() {
   }, []);
   return (
     <>
-      <AuthProvider>
-        <NavBar />
-        <Routes>
-          <Route path="/">
-            <Route path="/" element={<MainPage />} />
+      <NavBar />
+      <Routes>
+        <Route path="/">
+          <Route path="/" element={<MainPage />} />
 
-            <Route path=":type?" element={<Login />} />
+          <Route path=":type?" element={<Login />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route exact path="/main/*" element={<Main />} />
+          <Route exact path="/users/">
+            <Route path=":idUser?" element={<UserPage />} />
           </Route>
-          <Route element={<ProtectedRoute />}>
-            <Route exact path="/main/*" element={<Main />} />
-            <Route exact path="/users/">
-              <Route path=":idUser?" element={<UserPage />} />
-            </Route>
-          </Route>
-          <Route path="/main/logout" element={<LogOut />} />
-        </Routes>
-      </AuthProvider>
+        </Route>
+        <Route path="/main/logout" element={<LogOut />} />
+      </Routes>
       <ToastContainer />
     </>
     // </BrowserRouter>
