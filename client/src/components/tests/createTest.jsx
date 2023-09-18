@@ -63,7 +63,7 @@ const CreateTest = ({ data, onChange }) => {
 
     // const isValid = validate();
     // if (!isValid) return;
-    console.log("currentUser", currentUser);
+    // console.log("currentUser", currentUser);
     if (currentUser) {
       const newData = {
         ...data,

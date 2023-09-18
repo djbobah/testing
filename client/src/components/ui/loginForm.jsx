@@ -65,12 +65,12 @@ const LoginForm = () => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    console.log(data);
+    // console.log(data);
     // try {
 
     dispatch(logIn(data, navigate));
     // await logIn(data);
-    console.log("login success");
+    // console.log("login success");
     // navigate("/main/home");
     // } catch (error) {
     //   setEnterError(error.message);

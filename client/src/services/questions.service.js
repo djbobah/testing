@@ -14,17 +14,17 @@ const QuestionsService = {
     return data;
   },
   create: async (payload) => {
-    console.log("create question payload", payload);
+    // console.log("create question payload", payload);
     const { data } = await httpService.post("/questions/create", payload);
-    console.log("create question data", data);
+    // console.log("create question data", data);
 
     return data;
   },
   update: async (id, payload) => {
-    console.log("update question payload", payload);
+    // console.log("update question payload", payload);
     const { data } = await httpService.patch("/questions/" + id, payload);
-    console.log("update question data", data);
-    console.log("update question payload.answers", payload.answers);
+    // console.log("update question data", data);
+    // console.log("update question payload.answers", payload.answers);
 
     return data;
   },

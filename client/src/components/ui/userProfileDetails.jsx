@@ -109,7 +109,7 @@ const UserProfileDetails = () => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    console.log("user profile", data);
+    // console.log("user profile", data);
     const newData = {
       ...data,
       // id_department: departmentOptions.filter(

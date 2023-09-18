@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     const data = tokenService.validateAccess(token);
     //модифицируем req добавляем параметр user
     req.user = data;
-    console.log("Decoded", data);
+    // console.log("Decoded", data);
     next();
   } catch (error) {
     res.status(401).json({ message: "Unauthorized" });

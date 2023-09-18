@@ -125,12 +125,12 @@ export const getUserDataById = (userId) => (state) => {
 };
 export const logIn = (payload, redirect) => async (dispatch, state) => {
   const { email, password } = payload;
-  console.log("logIn payload", payload);
+  // console.log("logIn payload", payload);
   dispatch(logInRequested());
   try {
     const data = await authService.login({ email, password });
     // const cur = getUserDataById(data.userId);
-    console.log("logIn data", data);
+    // console.log("logIn data", data);
     // if (!data) {
     dispatch(loginRequestSuccess(data));
     localStorageService.setTokens({ ...data, userId: data.id });
@@ -155,15 +155,15 @@ export const signUp = (newData, redirect) => async (dispatch) => {
   dispatch(authRequested());
   try {
     const data = await authService.register(newData);
-    console.log("signUp data", data);
+    // console.log("signUp data", data);
 
     localStorageService.setTokens(data);
 
     // dispatch(authRequestSuccess({ userId: data.userId }));
-    console.log("sign auth success");
+    // console.log("sign auth success");
     dispatch(authRequestSuccess({ ...data, ...newData }));
 
-    console.log("sign up load users");
+    // console.log("sign up load users");
     // loadUsers();
     redirect("/main/home");
     // history.push("/main/home");
@@ -177,13 +177,11 @@ export const signUp = (newData, redirect) => async (dispatch) => {
 export const getUsersList = () => (state) => state.users.entities;
 
 export const getIsLoggedIn = () => (state) => {
-  console.log("getIsLoggedIn", state.users.isLoggedIn);
+  // console.log("getIsLoggedIn", state.users.isLoggedIn);
   return state.users.isLoggedIn;
 };
 
 export const getCurrentUser = () => (state) => {
-  // console.log("getCurrentUser store", localStorageService.getUserId());
-  console.log("getCurrentUser store", state.users.entities);
   if (state.users.entities) {
     return state.users.entities.find(
       (u) => u.id === Number(localStorageService.getUserId())

@@ -41,7 +41,7 @@ const TestCard = ({ test }) => {
   // console.log("test date", test);
 
   const handleClickEditTest = (id) => {
-    console.log("test id", id);
+    // console.log("test id", id);
     // const currentTest = useSelector(setCurrentTest(id));
     dispatch(setCurrentTest(id));
     // console.log("current test ", currentTest);

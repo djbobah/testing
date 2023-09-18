@@ -19,7 +19,6 @@ const Main = () => {
     setToggle(!toggle);
   };
 
-  console.log("main currentUser", currentUser);
   useEffect(() => {
     const handleSize = () => {
       if (window.innerWidth < 768) {
@@ -51,7 +50,6 @@ const Main = () => {
   //     </div>
   //   </div>
   // );
-  // console.log("currentUser main", currentUser);
   if (currentUser) {
     return (
       // <div className="d-flex w-auto">

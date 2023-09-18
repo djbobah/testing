@@ -17,17 +17,6 @@ import { loadDepartments } from "./store/departments";
 import { loadTypeOfAnswers } from "./store/typeOfAnswers";
 import { loadTests } from "./store/tests";
 import { loadCurrentUser, loadUsers } from "./store/users";
-// const QContext = React.createContext();
-// const qqq = { name: "name", value: "12345" };
-
-// export const useQContext = () => {
-//   return useContext(QContext);
-// };
-// const QContextProvider = ({ children }) => {
-//   return (
-//     <QContext.Provider value={qqq}>{console.log(children)}</QContext.Provider>
-//   );
-// };
 
 function App() {
   const dispatch = useDispatch();

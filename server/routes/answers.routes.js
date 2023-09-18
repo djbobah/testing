@@ -12,7 +12,7 @@ const Answers = model.Answers;
 router.patch("/", async (req, res) => {
   try {
     // const { answerId } = req.params;
-    console.log("answer", req.body);
+    // console.log("answer", req.body);
 
     const updatedAnswer = await Answers.update(
       { answer: req.body.answer, isCorrect: req.body.isCorrect },
@@ -58,12 +58,12 @@ router.post("/create", [
   // check("email", "Некорректный email").isEmail(),
   // check("password", "Минимальная длина пароля 6 символов").isLength({ min: 6 }),
   async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
       const newAnswer = await Answers.create({
         ...req.body,
       });
-      console.log("newAnswer ", newAnswer);
+      // console.log("newAnswer ", newAnswer);
 
       res.status(201).send(newAnswer);
     } catch (error) {

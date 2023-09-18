@@ -62,7 +62,7 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       errorCatcher(error);
       const { code, message } = error.response.data.error;
-      console.log(code, message);
+      // console.log(code, message);
       if (code === 400) {
         if (message === "EMAIL_EXISTS") {
           const errorObject = {
@@ -82,7 +82,7 @@ const AuthProvider = ({ children }) => {
       // console.log("auth update user", data);
       //setTokens(data);
       // data = { ...data, ...newData };
-      console.log("newData", newData);
+      // console.log("newData", newData);
       // console.log("currentUser before", currentUser);
       await getUserData();
       // console.log("currentUser", currentUser);
@@ -91,7 +91,7 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       errorCatcher(error);
       const { code, message } = error.response.data.error;
-      console.log(code, message);
+      // console.log(code, message);
       if (code === 400) {
         if (message === "EMAIL_EXISTS") {
           const errorObject = {
@@ -113,8 +113,8 @@ const AuthProvider = ({ children }) => {
   async function getUserData() {
     try {
       const { data } = await UserService.getCurrentUser();
-      console.log("content", data);
-      console.log("currentUser", currentUser);
+      // console.log("content", data);
+      // console.log("currentUser", currentUser);
       setCurrentUser(data);
     } catch (error) {
       errorCatcher(error);

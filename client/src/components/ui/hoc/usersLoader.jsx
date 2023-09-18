@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const UsersLoader = ({ children }) => {
   const dataStatus = useSelector(getDataStatus());
-  console.log("UsersLoader dataStatus", dataStatus);
+  // console.log("UsersLoader dataStatus", dataStatus);
   const dispatch = useDispatch();
   useEffect(() => {
     if (!dataStatus) {

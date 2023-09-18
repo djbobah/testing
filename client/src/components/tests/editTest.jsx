@@ -55,17 +55,17 @@ const EditTest = () => {
     setDataTest((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
   const handleClickSave = (id, data) => {
-    console.log("EDIT TEST handleClickSave data", data);
+    // console.log("EDIT TEST handleClickSave data", data);
     // console.log("open", openQuestion);
     setShowQuestion(false);
     dispatch(updateQuestion(id, data));
     // setOpenQuestion((prevState) => !prevState);
   };
 
-  console.log("dataTest", dataTest);
+  // console.log("dataTest", dataTest);
 
   function RenderTest(currentTest) {
-    console.log("renderTest");
+    // console.log("renderTest");
     return (
       <>
         <Collapse
@@ -102,7 +102,7 @@ const EditTest = () => {
   }
   useEffect(() => {
     RenderTest(currentTest);
-    console.log("rerender");
+    // console.log("rerender");
   }, [questions, showQuestion]);
 
   const handleClickAddQuestion = (e) => {
@@ -117,10 +117,10 @@ const EditTest = () => {
     );
   };
   const handleClickSaveTest = () => {
-    console.log("edit test currentTest ", dataTest);
+    // console.log("edit test currentTest ", dataTest);
     setShowTest(false);
     dispatch(updateTest(dataTest));
-    console.log("showTest", showTest);
+    // console.log("showTest", showTest);
   };
 
   // if (currentTest) {

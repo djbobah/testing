@@ -15,7 +15,7 @@ const TestsList = () => {
 
   // console.log("tests", tests);
   const tests = useSelector(getTests());
-  console.log("tests", tests);
+  // console.log("tests", tests);
 
   const handleClickAddTest = (e) => {
     // e.preventDefault();

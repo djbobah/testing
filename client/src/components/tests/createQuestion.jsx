@@ -22,14 +22,14 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
   // useEffect(() => {
   //   // dispatch(loadCurrentQuestionAnswers(question.id));
   // }, []);
-  console.log("question", question);
+  // console.log("question", question);
   let answers = useSelector(getCurrentQuestionAnswers(question.id));
   // const answers = [];
   const [answersData, setAnswersData] = useState(answers);
   // useEffect(() => {
   //   setAnswersData(answers);
   // }, []);
-  console.log("answers", answers);
+  // console.log("answers", answers);
   // console.log("qData2", qTest2);
 
   const [data, setData] = useState({
@@ -50,9 +50,9 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     // }
   });
 
-  console.log("!data answers", data.answers);
-  console.log("!!answersData", answersData);
-  console.log("!!!data ", data);
+  // console.log("!data answers", data.answers);
+  // console.log("!!answersData", answersData);
+  // console.log("!!!data ", data);
 
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
@@ -60,17 +60,17 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
   };
   const handleChangeAnswer = (target, id) => {
     const updatedAnswers = answers.map((item) => {
-      console.log("item.id", item.id);
-      console.log("target.id", target);
-      console.log("id", id);
+      // console.log("item.id", item.id);
+      // console.log("target.id", target);
+      // console.log("id", id);
       if (item.id === id) {
-        console.log("target.name", target.name);
+        // console.log("target.name", target.name);
         return { ...item, [target.name]: target.value };
       } else return item;
     });
 
     // setAnswersData(updatedAnswers);
-    console.log("updatedAnswers", updatedAnswers);
+    // console.log("updatedAnswers", updatedAnswers);
   };
   const handleClickAddAnswer = (e) => {
     e.preventDefault();
@@ -90,12 +90,12 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
     onSave(data);
   };
   const handleClickDeleteQuestion = (questionId) => {
-    console.log(questionId);
+    // console.log(questionId);
     dispatch(deleteQuestion(questionId));
   };
 
   const renderAnswers = (answers) => {
-    console.log("ans", answers);
+    // console.log("ans", answers);
     return answers?.map((answer) => (
       <div className="d-flex fs-4 " key={answer.id}>
         <CheckBoxField
@@ -125,7 +125,7 @@ const CreateQuestion = ({ onSave, question, idx, show }) => {
   //   renderAnswers(answers);
   // }, [answersData]);
 
-  console.log("show", show);
+  // console.log("show", show);
 
   return (
     <Collapse

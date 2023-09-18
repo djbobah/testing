@@ -3,7 +3,6 @@ import userService from "../services/user.service";
 
 const UsersList = () => {
   // const users = await  userService.get()
-  // console.log(users);
   return (
     // <div className="d-flex">
     <div className="p-3 bg-light">

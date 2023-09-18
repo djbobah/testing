@@ -16,23 +16,23 @@ const Answers = ({ answer, onSave }) => {
   });
   const [isEdit, setIsEdit] = useState(false);
 
-  console.log("answer", answer);
+  // console.log("answer", answer);
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
     setIsEdit(true);
-    console.log("target", target);
+    // console.log("target", target);
   };
   // const handleClickToggleEdit = () => {
   //   setIsEdit((prevState) => !prevState);
   // };
   const handleClickSaveAnswer = (data) => {
     setIsEdit(false);
-    console.log("!!!!! SAVE ANSWER data", data);
+    // console.log("!!!!! SAVE ANSWER data", data);
     dispatch(updateAnswer(data));
   };
 
   const handleClickDeleteAnswer = (answerId) => {
-    console.log("answer id", answerId);
+    // console.log("answer id", answerId);
     dispatch(deleteAnswer(answerId));
   };
 

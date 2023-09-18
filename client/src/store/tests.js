@@ -64,32 +64,32 @@ const testsSlice = createSlice({
       state.questions.push({ ...action.payload, save: false });
     },
     changeQuestionSave: (state, action) => {
-      console.log("changeQuestionSave", action.payload);
+      // console.log("changeQuestionSave", action.payload);
       const idx = state.questions.findIndex((i) => i.id === action.payload);
       state.questions[idx].save = !state.questions[idx].save;
     },
     updateQuestionRequest: (state, action) => {
-      console.log("updateQuestionRequest", action.payload);
+      // console.log("updateQuestionRequest", action.payload);
       const idx = state.questions.findIndex(
         (i) => i.id === Number(action.payload.questionId)
       );
       state.questions[idx].question = action.payload.question;
       state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
       state.questions[idx].save = true;
-      console.log("updateQuestionRequest", action.payload);
+      // console.log("updateQuestionRequest", action.payload);
     },
     updateTestRequest: (state, action) => {
-      console.log("updateTestRequest");
+      // console.log("updateTestRequest");
       const idx = state.entities.findIndex(
         (i) => i.id === Number(action.payload.id)
       );
-      console.log("idx", idx);
+      // console.log("idx", idx);
       state.entities[idx] = action.payload;
       // state.questions[idx].typeOfAnswers = Number(action.payload.typeOfAnswers);
     },
     deleteQuestionRequest: (state, action) => {
-      console.log("deleteTestRequest", action.payload);
-      console.log("state.questions", state.questions);
+      // console.log("deleteTestRequest", action.payload);
+      // console.log("state.questions", state.questions);
       state.questions = state.questions.filter(
         (question) => question.id !== action.payload
       );
@@ -107,7 +107,7 @@ const testsSlice = createSlice({
       state.isLoading = false;
     },
     createAnswerRequest: (state, action) => {
-      console.log("createAnswerRequest", action.payload);
+      // console.log("createAnswerRequest", action.payload);
       // const idx = state.questions.findIndex(
       //   (i) => i.id === Number(action.payload.idQuestion)
       // );
@@ -122,18 +122,18 @@ const testsSlice = createSlice({
       // state.questions.push({ ...action.payload, save: false });
     },
     deleteAnswerRequest: (state, action) => {
-      console.log("deleteAnswerRequest", action.payload);
-      console.log("state.answers", state.answers);
+      // console.log("deleteAnswerRequest", action.payload);
+      // console.log("state.answers", state.answers);
       state.answers = state.answers.filter(
         (answer) => answer.id !== action.payload
       );
     },
     updateAnswerRequest: (state, action) => {
-      console.log("updateAnswerRequest", action.payload);
+      // console.log("updateAnswerRequest", action.payload);
       const idx = state.answers.findIndex(
         (i) => i.id === Number(action.payload.id)
       );
-      console.log("updateAnswerRequest idx", idx);
+      // console.log("updateAnswerRequest idx", idx);
 
       state.answers[idx].answer = action.payload.answer;
       state.answers[idx].isCorrect = action.payload.isCorrect;
@@ -207,7 +207,7 @@ const loadCurrentTestAnswers = (id) => async (dispatch) => {
   dispatch(answersRequested());
   try {
     const data = await AnswersService.getAnswersCurrentTest(id);
-    console.log("!!!!!  loadCurentQwestion   answers dispatch data", data);
+    // console.log("!!!!!  loadCurentQwestion   answers dispatch data", data);
     dispatch(answersRecived(data));
   } catch (error) {
     dispatch(answersRequestFiled(error));
@@ -274,7 +274,7 @@ export const updateTest = (payload) => async (dispatch) => {
 export const updateQuestion = (id, payload) => async (dispatch) => {
   dispatch(updateQuestionRequested());
   try {
-    console.log("updateQuestion", payload);
+    // console.log("updateQuestion", payload);
     const data = await QuestionsService.update(id, payload);
     dispatch(updateQuestionRequest(data));
     toast("Вопрос сохранен");
@@ -298,7 +298,7 @@ export const createAnswer = (payload) => async (dispatch) => {
   try {
     const data = await AnswersService.create(payload);
     // dispatch(createQuestionRequest(data));
-    console.log("answer created", data);
+    // console.log("answer created", data);
     dispatch(createAnswerRequest(data));
   } catch (error) {
     dispatch(createAnswerFailed(error.message));
@@ -306,10 +306,10 @@ export const createAnswer = (payload) => async (dispatch) => {
 };
 
 export const getCurrentQuestionAnswers = (id) => (state) => {
-  console.log("getCurrentQuestionAnswers", state.tests.answers);
+  // console.log("getCurrentQuestionAnswers", state.tests.answers);
   // const idx = state.tests.questions.findIndex((i) => i.id === Number(id));
 
-  console.log("getCurrentQuestionAnswers idx", id);
+  // console.log("getCurrentQuestionAnswers idx", id);
   if (state.tests.answers) {
     return state.tests.answers.filter((ans) => ans.idQuestion === id);
   }
@@ -329,7 +329,7 @@ export const deleteAnswer = (id) => (dispatch) => {
 export const updateAnswer = (payload) => async (dispatch) => {
   dispatch(updateAnswerRequested());
   try {
-    console.log("!!! dispatch updateAnswer", payload);
+    // console.log("!!! dispatch updateAnswer", payload);
     const data = await AnswersService.update(payload);
     // console.log("!!! dispatch updateAnswer", payload);
 
