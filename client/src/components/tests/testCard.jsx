@@ -24,28 +24,10 @@ const TestCard = ({ test }) => {
     setError(message);
   }
 
-  // const author = userService.getUserDataById(test.authorId);
-  // console.log("author", author);
-  // console.log("currentUser", currentUser);
   const author = useSelector(getUserDataById(test.authorId));
 
-  // console.log("author", author);
-  // useEffect(() => {
-  //   getUserData(test.authorId).then((author) => {
-  //     setAuthor(author);
-  //   });
-  // }, []);
-  // getUserData(test.authorId).then((author) => {
-  //   setAuthor(author);
-  // });
-  // console.log("test date", test);
-
   const handleClickEditTest = (id) => {
-    // console.log("test id", id);
-    // const currentTest = useSelector(setCurrentTest(id));
     dispatch(setCurrentTest(id));
-    // console.log("current test ", currentTest);
-    // dispatch(getCurrentTest(id));
   };
 
   return (
@@ -58,14 +40,36 @@ const TestCard = ({ test }) => {
               <h5 className="card-title">{test.testName}</h5>
             </div>
             {author.id === currentUser.id ? (
-              <Link
-                to="/main/createTest"
-                className="text-muted btn"
-                onClick={() => handleClickEditTest(test.id)}
-                id={test.id}
-              >
-                <i className="bi bi-pencil-fill"></i>
-              </Link>
+              <div className="d-flex">
+                {test.isPublished ? (
+                  <div
+                    className="btn btn-light "
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Снять с публикации"
+                  >
+                    <i className="bi bi-cloud-arrow-down fs-5"></i>
+                  </div>
+                ) : (
+                  <div
+                    className="btn btn-warning "
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Опубликовать"
+                  >
+                    <i className="bi bi-cloud-arrow-up fs-5"></i>
+                  </div>
+                )}
+
+                <Link
+                  to="/main/createTest"
+                  className="text-muted btn"
+                  onClick={() => handleClickEditTest(test.id)}
+                  id={test.id}
+                >
+                  <i className="bi bi-pencil-fill"></i>
+                </Link>
+              </div>
             ) : (
               ""
             )}
