@@ -34,7 +34,7 @@ const SideBar = () => {
           </Link>
           {currentUser.roles !== "user" && (
             <>
-              {" "}
+              {/* {" "}
               <Link
                 to="/main/home"
                 className="p-1 text-decoration-none text-white"
@@ -48,7 +48,7 @@ const SideBar = () => {
                   <i className="bi bi-pencil-square me-3 fs-5"></i>
                   <span>Менеджер тестов</span>
                 </li>
-              </Link>
+              </Link> */}
               <Link
                 to="/main/users"
                 className="p-1 text-decoration-none text-white"
@@ -60,7 +60,7 @@ const SideBar = () => {
                   onClick={() => setActive(3)}
                 >
                   <i className="bi bi-people me-3 fs-5"></i>
-                  <span>Users</span>
+                  <span>Пользователи</span>
                 </li>
               </Link>
             </>
@@ -87,7 +87,7 @@ const SideBar = () => {
               onClick={() => setActive(5)}
             >
               <i className="bi bi-grid me-3 fs-5"></i>
-              <span>Reports</span>
+              <span>Отчеты</span>
             </li>{" "}
           </Link>
         </ul>

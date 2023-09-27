@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTests, loadTests, setCurrentTest } from "../../store/tests";
 import { getCurrentUser } from "../../store/users";
+import ModalBeforeTest from "./modalBeforeTest";
 const TestsList = () => {
   // const [editTest, setEditTest] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const currentUser = useSelector(getCurrentUser());
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,6 +23,10 @@ const TestsList = () => {
     // e.preventDefault();
     // dispatch(setCurrentTest(null));
     // setCurrentTest(undefined);
+  };
+  const handleClickStartTest = () => {
+    console.log("start test");
+    setShowModal(true);
   };
 
   return (
@@ -49,9 +55,21 @@ const TestsList = () => {
           {tests.map((test) => {
             console.log(test, currentUser);
             if (test.isPublished) {
-              return <TestCard key={test.id} test={test} />;
+              return (
+                <TestCard
+                  key={test.id}
+                  test={test}
+                  onTest={handleClickStartTest}
+                />
+              );
             } else if (test.authorId === currentUser.id) {
-              return <TestCard key={test.id} test={test} />;
+              return (
+                <TestCard
+                  key={test.id}
+                  test={test}
+                  onTest={handleClickStartTest}
+                />
+              );
             } else <h2>Пока доступных для прохождения тестов нет</h2>;
           })}
         </div>
@@ -59,6 +77,7 @@ const TestsList = () => {
         <h2>Пока доступных для прохождения тестов нет</h2>
       )}
       {/* </div> */}
+      <ModalBeforeTest show={showModal} />
     </ContainerWrapper>
   );
 };

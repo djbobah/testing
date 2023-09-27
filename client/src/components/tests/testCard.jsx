@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentTest, setCurrentTest, updateTest } from "../../store/tests";
 import { getCurrentUser, getUserDataById } from "../../store/users";
 
-const TestCard = ({ test }) => {
+const TestCard = ({ test, onTest }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate;
   // const [author, setAuthor] = useState({});
@@ -87,9 +87,9 @@ const TestCard = ({ test }) => {
           <hr />
           <p className="card-text">{test.description}</p>
           <div className="d-flex justify-content-end">
-            <a href="#" className="btn btn-primary ">
+            <button className="btn btn-primary " onClick={onTest}>
               Перейти к тестированию
-            </a>
+            </button>
           </div>
         </div>
         <div className="card-footer">

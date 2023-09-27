@@ -266,7 +266,7 @@ export const updateTest = (payload) => async (dispatch) => {
   try {
     const data = await TestService.update(payload);
     dispatch(updateTestRequest(data));
-    toast("Тест сохранен");
+    // toast("Тест сохранен");
   } catch (error) {
     dispatch(updateTestFailed(error.message));
   }
