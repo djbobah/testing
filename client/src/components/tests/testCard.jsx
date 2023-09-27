@@ -5,7 +5,7 @@ import { shortFio } from "../../utils/fioUtils";
 import TestService from "../../services/test.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentTest, setCurrentTest } from "../../store/tests";
+import { getCurrentTest, setCurrentTest, updateTest } from "../../store/tests";
 import { getCurrentUser, getUserDataById } from "../../store/users";
 
 const TestCard = ({ test }) => {
@@ -29,6 +29,13 @@ const TestCard = ({ test }) => {
   const handleClickEditTest = (id) => {
     dispatch(setCurrentTest(id));
   };
+  const handleClickTogglePublish = () => {
+    if (!test.isPublished) {
+      dispatch(updateTest({ ...test, isPublished: true }));
+    } else {
+      dispatch(updateTest({ ...test, isPublished: false }));
+    }
+  };
 
   return (
     <div className="col">
@@ -47,6 +54,7 @@ const TestCard = ({ test }) => {
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Снять с публикации"
+                    onClick={handleClickTogglePublish}
                   >
                     <i className="bi bi-cloud-arrow-down fs-5"></i>
                   </div>
@@ -56,6 +64,7 @@ const TestCard = ({ test }) => {
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Опубликовать"
+                    onClick={handleClickTogglePublish}
                   >
                     <i className="bi bi-cloud-arrow-up fs-5"></i>
                   </div>

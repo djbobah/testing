@@ -46,9 +46,14 @@ const TestsList = () => {
       </div>
       {tests ? (
         <div className="row row-cols-1 row-cols-md-3 g-4">
-          {tests.map((test) => (
-            <TestCard key={test.id} test={test} />
-          ))}
+          {tests.map((test) => {
+            console.log(test, currentUser);
+            if (test.isPublished) {
+              return <TestCard key={test.id} test={test} />;
+            } else if (test.authorId === currentUser.id) {
+              return <TestCard key={test.id} test={test} />;
+            } else <h2>Пока доступных для прохождения тестов нет</h2>;
+          })}
         </div>
       ) : (
         <h2>Пока доступных для прохождения тестов нет</h2>
