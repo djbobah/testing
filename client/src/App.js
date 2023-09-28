@@ -11,6 +11,7 @@ import Main from "./components/main";
 import NavBar from "./components/navBar";
 import MainPage from "./components/mainPage";
 import UserPage from "./components/page/userPage";
+import Testing from "./components/testing";
 import { useDispatch } from "react-redux";
 import { loadDepartments } from "./store/departments";
 import { loadTypeOfAnswers } from "./store/typeOfAnswers";
@@ -40,6 +41,7 @@ function App() {
           <Route exact path="/users/">
             <Route path=":idUser?" element={<UserPage />} />
           </Route>
+          <Route exact path="/test" element={<Testing />} />
         </Route>
         <Route path="/main/logout" element={<LogOut />} />
       </Routes>

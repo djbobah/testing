@@ -87,7 +87,10 @@ const TestCard = ({ test, onTest }) => {
           <hr />
           <p className="card-text">{test.description}</p>
           <div className="d-flex justify-content-end">
-            <button className="btn btn-primary " onClick={onTest}>
+            <button
+              className="btn btn-primary "
+              onClick={() => onTest(test.id)}
+            >
               Перейти к тестированию
             </button>
           </div>
