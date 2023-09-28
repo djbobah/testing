@@ -1,4 +1,17 @@
+import { useDispatch } from "react-redux";
+import { getCurrentTest } from "../store/tests";
+import { useEffect, useState } from "react";
+
 const Testing = () => {
+  const dispatch = useDispatch();
+  // const [currentTest, setCurrentTest] = useState(null);
+  const currentTest = dispatch(getCurrentTest());
+
+  // useEffect(() => {
+  //   setCurrentTest(dispatch(getCurrentTest()));
+  // }, []);
+  console.log("currentTest", currentTest);
+
   const progress = 80;
   return (
     <>
@@ -35,20 +48,20 @@ const Testing = () => {
               Officiis, libero tempora! Iure corrupti modi quam nihil labore
               saepe accusamus, iusto non. Soluta, ea.
             </p> */}
-            <div class="d-grid gap-2">
-              <button class="btn btn-light" type="button">
+            <div className="d-grid gap-2">
+              <button className="btn btn-light" type="button">
                 Кнопка
               </button>
-              <button class="btn btn-primary" type="button">
+              <button className="btn btn-primary" type="button">
                 Кнопка
               </button>
-              <button class="btn btn-light" type="button">
+              <button className="btn btn-light" type="button">
                 Кнопка
               </button>
-              <button class="btn btn-light" type="button">
+              <button className="btn btn-light" type="button">
                 Кнопка
               </button>
-              <button class="btn btn-light" type="button">
+              <button className="btn btn-light" type="button">
                 Кнопка
               </button>
             </div>
