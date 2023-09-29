@@ -182,6 +182,7 @@ const deleteAnswerRequested = createAction("tests/deleteAnswerRequested");
 const deleteAnswerFailed = createAction("tests/deleteAnswerFailed");
 const updateAnswerRequested = createAction("tests/updateAnswerRequested");
 const updateAnswerFailed = createAction("tests/updateAnswerFailed");
+const startTestingRequested = createAction("tests/startTestingRequested");
 
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());
@@ -228,7 +229,7 @@ export const getCurrentTest = () => (state) => {
     return state.tests.entities.find(
       (test) => test.id === state.tests.currentTest
     );
-  }
+  } else console.log("cant get CURRENT TEST");
 };
 export const getCurrentTestQuestions = () => (state) => {
   if (state.tests.currentTest) {
@@ -339,5 +340,18 @@ export const updateAnswer = (payload) => async (dispatch) => {
     dispatch(updateAnswerFailed(error.message));
   }
 };
+
+// export const startTesting = (redirect) => (dispatch) => {
+//   // console.log("--------------startTesting------------", );
+//   // try {
+//   dispatch(startTestingRequested());
+
+//   // dispatch(setCurrentTest(payload));
+//   // dispatch(getCurrentTest());
+//   // console.log("try--------------startTesting-------------");
+
+//   redirect("/test");
+//   // } catch (error) {}
+// };
 
 export default testsReducer;

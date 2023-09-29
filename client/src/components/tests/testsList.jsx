@@ -9,7 +9,7 @@ import ModalBeforeTest from "./modalBeforeTest";
 const TestsList = () => {
   // const [editTest, setEditTest] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [currentTest, setCurrentTest] = useState(null);
+  const [currentTest, setCurrentTestState] = useState(null);
   const currentUser = useSelector(getCurrentUser());
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,8 +29,10 @@ const TestsList = () => {
     // console.log("start test id", id);
     // const test = tests.filter((item) => item.id === id);
     // console.log(test);
-    setCurrentTest(tests.filter((item) => item.id === id));
+    setCurrentTestState(tests.filter((item) => item.id === id));
+    // dispatch(setCurrentTest(id));
     setShowModal(true);
+    dispatch(setCurrentTest(id));
   };
   const handleClickCloseModal = () => {
     console.log("start test");

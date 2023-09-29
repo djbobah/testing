@@ -1,16 +1,35 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCurrentTest } from "../store/tests";
 import { useEffect, useState } from "react";
+import { shuffle } from "../utils/math";
 
 const Testing = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const [currentTest, setCurrentTest] = useState(null);
-  const currentTest = dispatch(getCurrentTest());
+  const currentTest = useSelector(getCurrentTest());
 
   // useEffect(() => {
   //   setCurrentTest(dispatch(getCurrentTest()));
   // }, []);
-  console.log("currentTest", currentTest);
+  console.log("currentTest testing", currentTest);
+
+  ////////////////////////////////
+  ////////////////////////////////
+  ////////////////////////////////
+  // нужно сделать
+
+  // таблицу в БД со статистикой прохождения теста (продумать)
+  // состояние в redux со статистикой прохождения теста (продумать)
+  // написать функцию для выбора случайного элемента массива ?
+  // написать функцию для "перемешивания" массива                     +
+  ////////////////////////////////
+  ////////////////////////////////
+  ////////////////////////////////
+
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+  const shuffleArr = shuffle(arr);
+  console.log(arr, shuffleArr);
 
   const progress = 80;
   return (
@@ -18,7 +37,7 @@ const Testing = () => {
       <br />
       <div className="container mt-5">
         <div className="card ">
-          <h3 className="card-header text-center">Название теста</h3>
+          <h3 className="card-header text-center">{currentTest.testName}</h3>
           <div className="progress">
             <div
               className="progress-bar progress-bar-striped progress-bar-animated bg-success"
@@ -28,17 +47,11 @@ const Testing = () => {
               // aria-valuemin="0"
               // aria-valuemax="100"
             >
-              {"6 из 10"}
+              {`6 из ${currentTest.numberOfQuestionsForTest}`}
             </div>
           </div>
           <div className="card-body">
-            <h5 className="card-title mt-5 mb-3">
-              {" "}
-              Тест вопроса Lorem ipsum dolor sit, amet consectetur adipisicing
-              elit. Maiores saepe tenetur voluptate repudiandae quidem minima.
-              Officiis, libero tempora! Iure corrupti modi quam nihil labore
-              saepe accusamus, iusto non. Soluta, ea.
-            </h5>
+            <h5 className="card-title mt-5 mb-3">{currentTest.description}</h5>
             <p className="text-center bg-info mb-5 rounded">
               можно выбрать один или несколько вариантов
             </p>
