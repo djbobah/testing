@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { logOut } from "../store/users";
 const LogOut = () => {
   const dispatch = useDispatch();
@@ -9,6 +9,7 @@ const LogOut = () => {
     dispatch(logOut(navigate));
     // logOut();
   }, []);
+  // navigate("/");
   return <h2>Loading...</h2>;
 };
 
