@@ -88,7 +88,11 @@ const Testing = () => {
           {/* {} */}
 
           <div className="card-body">
-            <h4 className="card-title mt-3 mb-3">{currentQuestion.question}</h4>
+            <div className="border rounded mb-1">
+              <h4 className="card-title mt-3 mb-3">
+                {currentQuestion.question}
+              </h4>
+            </div>
             <p className="text-center bg-info mb-5 rounded fs-5">
               можно выбрать один или несколько вариантов
             </p>
@@ -100,7 +104,11 @@ const Testing = () => {
             </p> */}
             <div className="d-grid gap-2">
               {shuffleAnswers.map((answer) => (
-                <button className="btn btn-light fs-4" type="button">
+                <button
+                  className="btn btn-light fs-4"
+                  type="button"
+                  key={answer.id + answer.answer}
+                >
                   {answer.answer}
                 </button>
               ))}
