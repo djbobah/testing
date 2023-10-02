@@ -4,15 +4,13 @@ import {
   getCurrentTest,
   getCurrentTestQuestions,
 } from "../store/tests";
+import { getCurrentUser } from "../store/users";
 import { useEffect, useState } from "react";
 import { shuffle } from "../utils/math";
 
 const Testing = () => {
   // const dispatch = useDispatch();
 
-  const currentTest = useSelector(getCurrentTest());
-
-  const currentTestQuestions = useSelector(getCurrentTestQuestions());
   // useEffect(() => {
   //   setCurrentTest(dispatch(getCurrentTest()));
   // }, []);
@@ -37,28 +35,37 @@ const Testing = () => {
   // 5 получаем берем данные из store и обновляем их (в БД тоже) по кнопкам вперед и назад
   ////////////////////////////////
   ////////////////////////////////
+
+  // useEffect(()=>{},[])
+
+  const currentUser = useSelector(getCurrentUser());
+
+  // 1 начинается тестирование
+  const currentTest = useSelector(getCurrentTest());
+  // 2 получаем вопросы для теста и перемешиваем их
+  const currentTestQuestions = useSelector(getCurrentTestQuestions());
   const shuffleQuestions = shuffle(currentTestQuestions);
 
+  // получаем количество вопросов теста
   const lengthTest = shuffleQuestions.length;
-  const [currentQuestion, setCurrentQuestion] = useState(shuffleQuestions[0]);
+  const [currentQuestion, setCurrentQuestion] = useState(shuffleQuestions[0]); // нужно ли?
+
+  // 3 получаем ответы на вопросы и перемешиваем их
   const currentQuestionsAnswers = useSelector(
     getCurrentQuestionAnswers(currentQuestion.id)
   );
-
-  console.log("lengthTest", lengthTest);
-  console.log("currentQuestion", currentQuestion);
-
   const shuffleAnswers = shuffle(currentQuestionsAnswers);
-  console.log("currentQuestionAnswers", shuffleAnswers);
-  //
-  // const Questions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-
+  const strJSON = JSON.stringify(shuffleQuestions);
+  // console.log("current user", currentUser);
+  // console.log("JSON", strJSON);
+  // console.log("from JSON", JSON.parse(strJSON));
   // console.log("shuffleQuestions", shuffleQuestions);
 
-  // const shuffleQuestions2 = shuffle(currentTestQuestions);
+  // console.log("lengthTest", lengthTest);
+  // console.log("currentQuestion", currentQuestion);
+  // console.log("currentQuestionAnswers", shuffleAnswers);
 
-  // console.log("shuffleQuestions2", shuffleQuestions2);
-
+  // константа для отображения прогресс бара (для примера)
   const progress = 80;
   return (
     <>
@@ -66,7 +73,7 @@ const Testing = () => {
       <div className="container mt-5">
         <div className="card ">
           <h3 className="card-header text-center">{currentTest.testName}</h3>
-          <div className="progress">
+          <div className="progress m-1">
             <div
               className="progress-bar progress-bar-striped progress-bar-animated bg-success"
               role="progressbar"
@@ -81,8 +88,8 @@ const Testing = () => {
           {/* {} */}
 
           <div className="card-body">
-            <h5 className="card-title mt-5 mb-3">{currentQuestion.question}</h5>
-            <p className="text-center bg-info mb-5 rounded">
+            <h4 className="card-title mt-3 mb-3">{currentQuestion.question}</h4>
+            <p className="text-center bg-info mb-5 rounded fs-5">
               можно выбрать один или несколько вариантов
             </p>
             {/* <p className="card-text">
@@ -93,25 +100,10 @@ const Testing = () => {
             </p> */}
             <div className="d-grid gap-2">
               {shuffleAnswers.map((answer) => (
-                <button className="btn btn-light" type="button">
+                <button className="btn btn-light fs-4" type="button">
                   {answer.answer}
                 </button>
               ))}
-              {/* <button className="btn btn-light" type="button">
-                Кнопка
-              </button>
-              <button className="btn btn-primary" type="button">
-                Кнопка
-              </button>
-              <button className="btn btn-light" type="button">
-                Кнопка
-              </button>
-              <button className="btn btn-light" type="button">
-                Кнопка
-              </button>
-              <button className="btn btn-light" type="button">
-                Кнопка
-              </button> */}
             </div>
           </div>
           <div className="card-footer text-muted d-flex justify-content-between ">
