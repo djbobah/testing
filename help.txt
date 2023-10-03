@@ -22,3 +22,10 @@ npx sequelize-cli db:seed:undo:all
 
 //прикольная штука Context
 видео Модуль2/15/17.Context
+
+
+npx sequelize-cli model:generate --name TestRsults --attributes "idUser:integer,idTest:integer,questionsForTest:string,answersForTest:string,userAnswers:string"
+
+
+
+после миграции таблицы для результатов (testResults) поменял тип поля с varchar(255) на LONGTEXT

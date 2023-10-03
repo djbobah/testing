@@ -57,8 +57,8 @@ const Testing = () => {
   const shuffleAnswers = shuffle(currentQuestionsAnswers);
   const strJSON = JSON.stringify(shuffleQuestions);
   // console.log("current user", currentUser);
-  // console.log("JSON", strJSON);
-  // console.log("from JSON", JSON.parse(strJSON));
+  console.log("JSON", strJSON);
+  console.log("from JSON", JSON.parse(strJSON));
   // console.log("shuffleQuestions", shuffleQuestions);
 
   // console.log("lengthTest", lengthTest);
