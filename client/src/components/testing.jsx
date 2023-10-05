@@ -7,13 +7,14 @@ import {
 import { getCurrentUser } from "../store/users";
 import { useEffect, useState } from "react";
 import { shuffle } from "../utils/math";
+import { clearData, loadData } from "../store/userAnswers";
 
 const Testing = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   setCurrentTest(dispatch(getCurrentTest()));
-  // }, []);
+  useEffect(() => {
+    dispatch(clearData());
+  }, []);
   // console.log("currentTest testing", currentTest);
 
   ////////////////////////////////
@@ -51,14 +52,21 @@ const Testing = () => {
   const [currentQuestion, setCurrentQuestion] = useState(shuffleQuestions[0]); // нужно ли?
 
   // 3 получаем ответы на вопросы и перемешиваем их
-  const currentQuestionsAnswers = useSelector(
-    getCurrentQuestionAnswers(currentQuestion.id)
-  );
-  const shuffleAnswers = shuffle(currentQuestionsAnswers);
-  const strJSON = JSON.stringify(shuffleQuestions);
+  // let answers = shuffleQuestions.map((question) => {
+  //   shuffle(useSelector(getCurrentQuestionAnswers(question.id)));
+  // });
+  // const currentQuestionsAnswers = useSelector(
+  //   getCurrentQuestionAnswers(currentQuestion.id)
+  // );
+  // const shuffleAnswers = shuffle(currentQuestionsAnswers);
+  // const strJSON = JSON.stringify(shuffleQuestions);
+  // useEffect(() => {
+  //   dispatch(loadData(currentUser.id, currentTest.id, shuffleQuestions));
+  // }, []);
+
   // console.log("current user", currentUser);
-  console.log("JSON", strJSON);
-  console.log("from JSON", JSON.parse(strJSON));
+  // console.log("JSON", strJSON);
+  // console.log("from JSON", JSON.parse(strJSON));
   // console.log("shuffleQuestions", shuffleQuestions);
 
   // console.log("lengthTest", lengthTest);
@@ -103,7 +111,7 @@ const Testing = () => {
               saepe accusamus, iusto non. Soluta, ea.
             </p> */}
             <div className="d-grid gap-2">
-              {shuffleAnswers.map((answer) => (
+              {/* {shuffleAnswers.map((answer) => (
                 <button
                   className="btn btn-light fs-4"
                   type="button"
@@ -111,7 +119,7 @@ const Testing = () => {
                 >
                   {answer.answer}
                 </button>
-              ))}
+              ))} */}
             </div>
           </div>
           <div className="card-footer text-muted d-flex justify-content-between ">
