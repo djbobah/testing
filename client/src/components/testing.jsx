@@ -60,9 +60,9 @@ const Testing = () => {
   // );
   // const shuffleAnswers = shuffle(currentQuestionsAnswers);
   // const strJSON = JSON.stringify(shuffleQuestions);
-  // useEffect(() => {
-  //   dispatch(loadData(currentUser.id, currentTest.id, shuffleQuestions));
-  // }, []);
+  useEffect(() => {
+    dispatch(loadData(currentUser.id, currentTest.id, shuffleQuestions));
+  }, []);
 
   // console.log("current user", currentUser);
   // console.log("JSON", strJSON);
