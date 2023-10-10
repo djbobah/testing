@@ -236,7 +236,7 @@ export const getCurrentTestQuestions = () => (state) => {
     return state.tests.questions;
   }
 };
-
+export const getCurrentTestAnswers = () => (state) => state.tests.answers;
 export const getIsEditTest = () => (state) => state.tests.isEdit;
 
 export const createTest = (payload) => async (dispatch) => {

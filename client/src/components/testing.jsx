@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getCurrentQuestionAnswers,
   getCurrentTest,
+  getCurrentTestAnswers,
   getCurrentTestQuestions,
 } from "../store/tests";
 import { getCurrentUser } from "../store/users";
@@ -52,6 +53,23 @@ const Testing = () => {
   const [currentQuestion, setCurrentQuestion] = useState(shuffleQuestions[0]); // нужно ли?
 
   // 3 получаем ответы на вопросы и перемешиваем их
+
+  const answers = useSelector(getCurrentTestAnswers());
+  console.log("shuffleQuestions", shuffleQuestions);
+  console.log("current test answers", answers);
+
+  let sortedAnswers = [];
+  shuffleQuestions.forEach((question) => {
+    sortedAnswers.push(
+      shuffle(
+        answers.filter((answer) => {
+          return question.id === answer.idQuestion;
+        })
+      )
+    );
+  });
+
+  console.log("current sorted answers", sortedAnswers);
   // let answers = shuffleQuestions.map((question) => {
   //   shuffle(useSelector(getCurrentQuestionAnswers(question.id)));
   // });
@@ -111,7 +129,7 @@ const Testing = () => {
               saepe accusamus, iusto non. Soluta, ea.
             </p> */}
             <div className="d-grid gap-2">
-              {/* {shuffleAnswers.map((answer) => (
+              {sortedAnswers[0].map((answer) => (
                 <button
                   className="btn btn-light fs-4"
                   type="button"
@@ -119,7 +137,7 @@ const Testing = () => {
                 >
                   {answer.answer}
                 </button>
-              ))} */}
+              ))}
             </div>
           </div>
           <div className="card-footer text-muted d-flex justify-content-between ">
