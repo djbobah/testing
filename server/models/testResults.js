@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       // login: DataTypes.STRING,
       idUser: DataTypes.INTEGER,
       idTest: DataTypes.INTEGER,
-      questionsForTest: DataTypes.TEXT,
-      answersForTest: DataTypes.TEXT,
-      userAnswers: DataTypes.TEXT,
+      questionsForTest: DataTypes.TEXT("long"),
+      answersForTest: DataTypes.TEXT("long"),
+      userAnswers: DataTypes.TEXT("long"),
     },
     {
       sequelize,

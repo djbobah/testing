@@ -13,9 +13,9 @@ import { clearData, loadData } from "../store/userAnswers";
 const Testing = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(clearData());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(clearData());
+  // }, []);
   // console.log("currentTest testing", currentTest);
 
   ////////////////////////////////
@@ -55,8 +55,8 @@ const Testing = () => {
   // 3 получаем ответы на вопросы и перемешиваем их
 
   const answers = useSelector(getCurrentTestAnswers());
-  console.log("shuffleQuestions", shuffleQuestions);
-  console.log("current test answers", answers);
+  // console.log("shuffleQuestions", shuffleQuestions);
+  // console.log("current test answers", answers);
 
   let sortedAnswers = [];
   shuffleQuestions.forEach((question) => {
@@ -79,7 +79,9 @@ const Testing = () => {
   // const shuffleAnswers = shuffle(currentQuestionsAnswers);
   // const strJSON = JSON.stringify(shuffleQuestions);
   useEffect(() => {
-    dispatch(loadData(currentUser.id, currentTest.id, shuffleQuestions));
+    dispatch(
+      loadData(currentUser.id, currentTest.id, shuffleQuestions, sortedAnswers)
+    );
   }, []);
 
   // console.log("current user", currentUser);

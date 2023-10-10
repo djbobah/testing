@@ -8,5 +8,6 @@ router.use("/tests", require("./tests.routes"));
 router.use("/typeOfAnswers", require("./typeOfAnswers.routes"));
 router.use("/questions", require("./questions.routes"));
 router.use("/answers", require("./answers.routes"));
+router.use("/testResults", require("./testResults.routes"));
 
 module.exports = router;
