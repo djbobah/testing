@@ -182,7 +182,7 @@ const deleteAnswerRequested = createAction("tests/deleteAnswerRequested");
 const deleteAnswerFailed = createAction("tests/deleteAnswerFailed");
 const updateAnswerRequested = createAction("tests/updateAnswerRequested");
 const updateAnswerFailed = createAction("tests/updateAnswerFailed");
-const startTestingRequested = createAction("tests/startTestingRequested");
+// const startTestingRequested = createAction("tests/startTestingRequested");
 
 export const loadTests = () => async (dispatch) => {
   dispatch(testsRequested());

@@ -48,15 +48,10 @@ const Testing = () => {
   const currentTestQuestions = useSelector(getCurrentTestQuestions());
   const shuffleQuestions = shuffle(currentTestQuestions);
 
-  // получаем количество вопросов теста
   const lengthTest = shuffleQuestions.length;
-  const [currentQuestion, setCurrentQuestion] = useState(shuffleQuestions[0]); // нужно ли?
 
   // 3 получаем ответы на вопросы и перемешиваем их
-
   const answers = useSelector(getCurrentTestAnswers());
-  // console.log("shuffleQuestions", shuffleQuestions);
-  // console.log("current test answers", answers);
 
   let sortedAnswers = [];
   shuffleQuestions.forEach((question) => {
@@ -69,7 +64,7 @@ const Testing = () => {
     );
   });
 
-  console.log("current sorted answers", sortedAnswers);
+  // console.log("current sorted answers", sortedAnswers);
   // let answers = shuffleQuestions.map((question) => {
   //   shuffle(useSelector(getCurrentQuestionAnswers(question.id)));
   // });
@@ -79,6 +74,7 @@ const Testing = () => {
   // const shuffleAnswers = shuffle(currentQuestionsAnswers);
   // const strJSON = JSON.stringify(shuffleQuestions);
   useEffect(() => {
+    console.log("-----------------запись в бд----------------");
     dispatch(
       loadData(currentUser.id, currentTest.id, shuffleQuestions, sortedAnswers)
     );
@@ -118,7 +114,7 @@ const Testing = () => {
           <div className="card-body">
             <div className="border rounded mb-1">
               <h4 className="card-title mt-3 mb-3">
-                {currentQuestion.question}
+                {shuffleQuestions[0].question}
               </h4>
             </div>
             <p className="text-center bg-info mb-5 rounded fs-5">

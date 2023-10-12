@@ -63,7 +63,7 @@ const TestsList = () => {
       {tests ? (
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {tests.map((test) => {
-            console.log(test, currentUser);
+            // console.log(test, currentUser);
             if (test.isPublished) {
               return (
                 <TestCard

@@ -8,6 +8,7 @@ const ModalBeforeTest = ({ show, onClose, test }) => {
   // const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(setCurrentTest(test[0].id));
